@@ -3,10 +3,7 @@ import loginModel from '../models/LoginModel.js'
 
 
 async function SignupController(req, res){
-
-    
-
-    data = req.body
+    const data = req.body
     const login = {
         email:req.body.email,
         password: req.body.password
