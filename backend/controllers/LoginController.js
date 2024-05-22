@@ -2,7 +2,8 @@ import loginModel from '../models/LoginModel.js'
 
 async function LoginController(req, res){
     const {email, password} = req.body
-    const data = await LoginModel.findOne({email: email, password:password})
+    const data = await loginModel.findOne({email: email, password:password})
+    console.log(data)
     return checkUser(data)   
 }
 
