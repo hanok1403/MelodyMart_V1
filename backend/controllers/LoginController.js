@@ -1,4 +1,4 @@
-const LoginModel = require('../models/LoginModel')
+import loginModel from '../models/LoginModel.js'
 
 async function LoginController(req, res){
     const {email, password} = req.body
@@ -15,6 +15,4 @@ function checkUser(data){
     }
 }
 
-
-
-module.exports = LoginController;
+export default LoginController;

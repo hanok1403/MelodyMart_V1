@@ -1,6 +1,6 @@
-const mongoose = require('mongoose')
-const cartModel = require('./CartModel')
-const orderModel = require('./OrderModel')
+import mongoose from 'mongoose'
+import cartModel from './CartModel.js'
+import orderModel from './OrderModel.js'
 
 
 const userSchema = mongoose.Schema({
@@ -43,4 +43,4 @@ const userSchema = mongoose.Schema({
 
 const userModel = mongoose.model('Users', userSchema)
 
-module.exports = userModel
+export default userModel;

@@ -1,5 +1,5 @@
-const userModel = require('../models/UserModel')
-const loginModel = require('../models/LoginModel')
+import userModel from '../models/UserModel.js'
+import loginModel from '../models/LoginModel.js'
 
 
 async function SignupController(req, res){
@@ -26,4 +26,4 @@ function saveUser(user){
     return false;
 }
 
-module.exports = SignupController;
+export default SignupController;
