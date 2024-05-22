@@ -1,49 +1,54 @@
-import './App.css';
-import { useState, useEffect } from 'react';
-
-
-
-
+import React from "react";
+import { Link, Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import AddProduct from "./components/AddProduct";
+import Admin from "./components/Admin";
+import Cart from "./components/Cart";
+import DashBoard from "./components/DashBoard";
+import Home from "./components/Home";
+import Login from "./components/Login";
+import Orders from "./components/Orders";
+import Register from "./components/Register";
 function App() {
-  const [client, setClient] = useState([{}])
-
-  useEffect(() => {
-    fetch('/home').then(
-      response => response.json()
-    ).then(
-      data => {
-        setClient(data)
-      }
-    )
-  }, [])
-
   return (
     <div>
-      
-      {
-        (typeof client.users === 'undefined')?
-        <div className="loading">
-          <h1>Loading...</h1>
-        </div>
-          :
-          <div className="container">
-            <div className="row">
-              <div className="col-md-12">
-                <div className="card">
-                  <div className="card-header">
-                    <h4>Users</h4><br />
-                    {
-                      client.users.map((user, i)=>(
-                        <p key={i}>{user.id} {user.name} {user.age}</p>
-                      ))
-                    }
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-      }
-
+      <Router>
+        <ul>
+          <li>
+            <Link to="/">To Home</Link>
+          </li>
+          <li>
+            <Link to="/dashboard">To Profile</Link>
+          </li>
+          <li>
+            <Link to="/login"> Login </Link>
+          </li>
+          <li>
+            <Link to="/register">Register</Link>
+          </li>
+          <li>
+            <Link to="/cart">Cart</Link>
+          </li>
+          <li>
+            <Link to="/orders">Orders</Link>
+          </li>
+          <li>
+            <Link to="/admin">Admin</Link>
+          </li>
+          <li>
+            <Link to="/addProduct">AddProduct</Link>
+          </li>
+        </ul>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/dashboard" element={<DashBoard />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/orders" element={<Orders />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/addProduct" element={<AddProduct />} />
+        </Routes>
+      </Router>
     </div>
   );
 }
