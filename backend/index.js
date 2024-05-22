@@ -1,24 +1,18 @@
-const express = require('express')
-require('dotenv').config()
-const path = require('path')
-const mongoose = require('mongoose')
+import express from 'express'
+import dotenv from 'dotenv'
+import path from 'path'
+import mongoose from 'mongoose'
 
-//DB Client
+import LoginController from './controllers/LoginController.js'
+import SignupController from './controllers/SignupController.js'
+
+dotenv.config()
 mongoose.connect(process.env.DBClient).then(response => console.log("Connected to DB")).catch(error => console.log("Cannot cannot to DB..!"))
-
-//Todo: move to controllers
-
-const LoginController = require('./controllers/LoginController')
-const SignupController = require('./controllers/SignupController')
-
-
-//
-
 
 const PORT = process.env.PORT
 const app = express()
 
-app.use(express.static(path.join(__dirname, '../frontend/build')));
+
 app.use(express.urlencoded({extended:true}))
 
 app.post('/signup',async(req, res)=>{
@@ -30,7 +24,6 @@ app.post('/signup',async(req, res)=>{
     }
 })
 
-//testing
 app.post('/login',async (req, res)=>{
     if(await LoginController(req, res)){
         res.send("User found")
