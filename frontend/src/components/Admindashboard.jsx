@@ -1,10 +1,19 @@
 import React from 'react';
-import AddProduct from './AddProduct';
+import { Link } from "react-router-dom";
 const Admindashboard = () => {
   return (
     <div>
-      <h1>Admin Dashboard</h1>
-      <AddProduct />
+      <ul>
+          <li>
+            <Link to="/">To Home</Link>
+          </li>
+          <li>
+            <Link to="/orders">Orders</Link>
+          </li>
+          <li>
+            <Link to="/addproduct">Add Product</Link>
+          </li>
+        </ul>
     </div>
   )
 }

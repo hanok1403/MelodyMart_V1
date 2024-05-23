@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link, Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "../styles/NavStyle.css";
-import AddProduct from "./AddProduct";
 import Admin from "./Admin";
 import Admindashboard from './Admindashboard';
 import Cart from "./Cart";
@@ -10,6 +9,7 @@ import Home from "./Home";
 import Orders from "./Orders";
 import Profile from "./Profile";
 import Register from "./Register";
+import AddProduct from "./admincomponents/AddProduct";
 const NavBar = () => {
   return (
     <div>
@@ -49,6 +49,9 @@ const NavBar = () => {
         <Route path="/admin" element={<Admin />} />
         <Route path="/addProduct" element={<AddProduct />} />
         <Route path="/admin-dashboard" element={<Admindashboard />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/orders" element={<Orders />} />
+        <Route path="/addproduct" element={<AddProduct />} />
       </Routes>
     </Router>
     </div>
