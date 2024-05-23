@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import "../styles/login.css";
 import InputV from './InputV';
 const Login = (props) => {
 const [userType,setUserType]=useState('');
@@ -23,12 +24,16 @@ const [userType,setUserType]=useState('');
   }
 
   return (
-    <div>
-      <form action="post" onSubmit={handleClick}>
+    <div className="login-wrapper">
+    <div className="login-container">
+      <form action="post" onSubmit={handleClick} className="login-form">
+        <div className="input-container">
       <InputV type="text" name="email" id="email" value={"Enter your email"}/>
       <InputV type="password" name="password" id="password" value={"Enter your password"}/>
       <button  type="submit">Login</button>
+        </div>
       </form>
+      </div>
     </div>
   )
 }
