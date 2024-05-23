@@ -3,6 +3,7 @@ import { Link, Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "../styles/NavStyle.css";
 import AddProduct from "./AddProduct";
 import Admin from "./Admin";
+import Admindashboard from './Admindashboard';
 import Cart from "./Cart";
 import Customer from './Customer';
 import Home from "./Home";
@@ -22,7 +23,7 @@ const NavBar = () => {
             <Link to="/profile">To Profile</Link>
           </li>
           <li>
-            <Link to="/login">customer</Link>
+            <Link to="/customer">customer</Link>
           </li>
           <li>
             <Link to="/register">Register</Link>
@@ -36,20 +37,18 @@ const NavBar = () => {
           <li>
             <Link to="/admin">Admin</Link>
           </li>
-          <li>
-            <Link to="/addProduct">AddProduct</Link>
-          </li>
         </ul>
       </div>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/login" element={<Customer />} />
+        <Route path="/customer" element={<Customer />} />
         <Route path="/register" element={<Register />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/orders" element={<Orders />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/addProduct" element={<AddProduct />} />
+        <Route path="/admin-dashboard" element={<Admindashboard />} />
       </Routes>
     </Router>
     </div>

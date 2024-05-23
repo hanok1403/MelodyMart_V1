@@ -1,10 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import InputV from './InputV';
 const Login = (props) => {
-  const [userType,setUserType]=useState('');
-  setUserType(props.type);
+const [userType,setUserType]=useState('');
+
+  useEffect(() => {
+    if (props.type) {
+      setUserType(props.type);
+    }
+  }, [props.userType]);
+
+  console.log(userType);
   const navigate = useNavigate();
+
   const handleClick=(event)=>{
     event.preventDefault();
     //handle login authentication here
@@ -13,6 +21,7 @@ const Login = (props) => {
     else if(userType==='customer')
     navigate("/");
   }
+
   return (
     <div>
       <form action="post" onSubmit={handleClick}>
