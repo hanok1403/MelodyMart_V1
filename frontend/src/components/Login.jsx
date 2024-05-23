@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import InputV from './InputV';
-const Login = () => {
+const Login = (props) => {
+  const [userType,setUserType]=useState('');
+  setUserType(props.type);
   const navigate = useNavigate();
   const handleClick=(event)=>{
     event.preventDefault();
     //handle login authentication here
+    if(userType==='admin')
+    navigate("/admin-dashboard");
+    else if(userType==='customer')
     navigate("/");
   }
   return (
