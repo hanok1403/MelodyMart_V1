@@ -6,6 +6,8 @@ import mongoose from 'mongoose'
 import LoginController from './controllers/LoginController.js'
 import SignupController from './controllers/SignupController.js'
 import ProductController from './controllers/ProductController.js'
+import adminRouter from './router/adminRouter.js'
+
 
 dotenv.config()
 mongoose.connect(process.env.DBClient).then(response => console.log("Connected to DB")).catch(error => console.log("Cannot cannot to DB..!"))
@@ -13,7 +15,7 @@ mongoose.connect(process.env.DBClient).then(response => console.log("Connected t
 const PORT = process.env.PORT
 const app = express()
 
-
+app.use('/admin', adminRouter)
 app.use(express.urlencoded({extended:true}))
 
 app.post('/signup',async(req, res)=>{
