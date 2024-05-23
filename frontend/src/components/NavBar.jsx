@@ -4,10 +4,10 @@ import "../styles/NavStyle.css";
 import AddProduct from "./AddProduct";
 import Admin from "./Admin";
 import Cart from "./Cart";
-import DashBoard from "./DashBoard";
 import Home from "./Home";
 import Login from "./Login";
 import Orders from "./Orders";
+import Profile from "./Profile";
 import Register from "./Register";
 const NavBar = () => {
   return (
@@ -19,7 +19,7 @@ const NavBar = () => {
             <Link to="/">To Home</Link>
           </li>
           <li>
-            <Link to="/dashboard">To Profile</Link>
+            <Link to="/profile">To Profile</Link>
           </li>
           <li>
             <Link to="/login">Login</Link>
@@ -43,7 +43,7 @@ const NavBar = () => {
       </div>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/dashboard" element={<DashBoard />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/cart" element={<Cart />} />
