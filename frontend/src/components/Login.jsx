@@ -5,9 +5,9 @@ const Login = () => {
   return (
     <div>
       <form action="post">
-      <InputV type="text" name="email" id="email" value={"Enter your email"}/>
-      <InputV type="password" name="password" id="password" value={"Enter your password"}/>
-      <button type="submit">Login</button>
+        <InputV type="text" name="email" id="email" value={"Enter your email"}/>
+        <InputV type="password" name="password" id="password" value={"Enter your password"}/>
+        <button type="submit">Login</button>
       </form>
     </div>
   )
