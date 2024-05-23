@@ -31,7 +31,7 @@ const productSchema = mongoose.Schema({
 productSchema.pre('save', function(next) {
     if (!this.productId) {
         this.productId = this._id.toString();
-        console.log(`productId set to ${this.productId}`);
+        // console.log(`productId set to ${this.productId}`);
     }
     next();
 });

@@ -10,9 +10,10 @@ router.use(express.json());
 router.get('/',async (req, res)=>{
     try {
         const data = await productModel.find({});
+        // console.log(data)
         res.json(data);
     } catch (error) {
-        res.status(500).json({ message: "Error fetching products", error });
+        res.status(500).send({ message: "Error fetching products", error });
     }
 })
 
@@ -31,10 +32,10 @@ router.get('/delete/:id', async (req, res)=>{
         const { id } = req.params;
         const product = await productModel.findByIdAndDelete(id);
         if (product) {
-            res.status(200).send("Product deleted");
-        } else {
-            res.status(404).send("Product not found");
+            res.status(200).json("Product deleted");
         }
+        else
+            res.status(500).json({ message: "Error deleting product", error });
     } catch (error) {
         res.status(500).json({ message: "Error deleting product", error });
     }

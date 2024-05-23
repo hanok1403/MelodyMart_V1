@@ -1,5 +1,6 @@
 import express from 'express'
 import dotenv from 'dotenv'
+import cors from 'cors'
 import path from 'path'
 import mongoose from 'mongoose'
 
@@ -15,6 +16,7 @@ mongoose.connect(process.env.DBClient).then(response => console.log("Connected t
 const PORT = process.env.PORT
 const app = express()
 
+app.use(cors())
 app.use('/admin', adminRouter)
 app.use(express.urlencoded({extended:true}))
 

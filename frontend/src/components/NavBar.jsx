@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link, Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "../styles/NavStyle.css";
-import Admin from "./Admin";
-import Admindashboard from './Admindashboard';
+import Admindashboard from './admincomponents/Admindashboard';
 import Cart from "./Cart";
 import Customer from './Customer';
 import Home from "./Home";
@@ -46,9 +45,8 @@ const NavBar = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/orders" element={<Orders />} />
-        <Route path="/admin" element={<Admin />} />
         <Route path="/addProduct" element={<AddProduct />} />
-        <Route path="/admin-dashboard" element={<Admindashboard />} />
+        <Route path="/admin" element={<Admindashboard />} />
         <Route path="/" element={<Home />} />
         <Route path="/orders" element={<Orders />} />
         <Route path="/addproduct" element={<AddProduct />} />
