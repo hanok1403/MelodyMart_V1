@@ -3,11 +3,12 @@ import { Link, Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "../styles/NavStyle.css";
 import AddProduct from "./AddProduct";
 import Admin from "./Admin";
+import Admindashboard from './Admindashboard';
 import Cart from "./Cart";
-import DashBoard from "./DashBoard";
+import Customer from './Customer';
 import Home from "./Home";
-import Login from "./Login";
 import Orders from "./Orders";
+import Profile from "./Profile";
 import Register from "./Register";
 const NavBar = () => {
   return (
@@ -19,10 +20,10 @@ const NavBar = () => {
             <Link to="/">To Home</Link>
           </li>
           <li>
-            <Link to="/dashboard">To Profile</Link>
+            <Link to="/profile">To Profile</Link>
           </li>
           <li>
-            <Link to="/login">Login</Link>
+            <Link to="/customer">customer</Link>
           </li>
           <li>
             <Link to="/register">Register</Link>
@@ -36,20 +37,18 @@ const NavBar = () => {
           <li>
             <Link to="/admin">Admin</Link>
           </li>
-          <li>
-            <Link to="/addProduct">AddProduct</Link>
-          </li>
         </ul>
       </div>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/dashboard" element={<DashBoard />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/customer" element={<Customer />} />
         <Route path="/register" element={<Register />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/orders" element={<Orders />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/addProduct" element={<AddProduct />} />
+        <Route path="/admin-dashboard" element={<Admindashboard />} />
       </Routes>
     </Router>
     </div>

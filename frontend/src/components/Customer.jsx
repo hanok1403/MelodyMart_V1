@@ -1,11 +1,11 @@
 import React from 'react';
 import Login from './Login';
-const Admin = () => {
+const Customer = () => {
   return (
     <div>
-      <Login type='admin'/>
+      <Login type='customer'/>
     </div>
   )
 }
 
-export default Admin;
+export default Customer;
