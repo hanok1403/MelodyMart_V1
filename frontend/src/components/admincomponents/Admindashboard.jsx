@@ -1,15 +1,16 @@
-import React from 'react';
+import React, {Routes, useState} from 'react';
 import '../../styles/MusicItem.css';
 import '../../styles/home.css';
 import AdminNav from './AdminNav';
 import Products from './Products';
 const Admindashboard = () => {
+
+  const [currWind, setcurrWind] = useState('')
+
   return (
     <>
       <AdminNav/>
-      <div className="music-grid">  
       <Products/>
-      </div>
       {/* <h1>admin dashboard</h1> */}
     </>
       
