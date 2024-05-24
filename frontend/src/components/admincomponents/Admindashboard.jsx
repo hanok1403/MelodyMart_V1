@@ -10,7 +10,7 @@ const Admindashboard = () => {
   return (
     <>
       <AdminNav/>
-      
+      <Products/>
       {/* <h1>admin dashboard</h1> */}
     </>
       

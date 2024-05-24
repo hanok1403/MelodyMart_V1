@@ -1,11 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import "../../styles/login.css";
 import InputV from '../InputV';
+import axios from 'axios'
 const AddProduct = (props) => {
-  const handleSubmit = (event) => {
-    // event.preventDefault();
-    //hable backend for adding products
-    };
+  const [formData, setFormData] = useState({
+    productName: '',
+    imageUrl:'',
+    price: '',
+    description: '',
+    quantity:''
+  });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
+  const handleSubmit =async (event) => {
+    // console.log(event)
+    event.preventDefault();
+    console.log(formData);
+    //Handle backend for adding products
+    await axios.post('http://localhost:5000/admin/addProduct', formData)
+       .then(response => {
+         console.log('Product added:', response.data);
+        setFormData({
+          name: '',
+          imageUrl:'',
+          price: '',
+          description: '',
+          quantity:''
+         });
+       })
+       .catch(error => {
+         console.error('There was an error adding the product:', error);
+       });
+  };
   return (
     
     <div >
@@ -14,11 +45,13 @@ const AddProduct = (props) => {
         <div className="login-container">
           <form onSubmit={handleSubmit} className="login-form">
             <div className="input-container">
-              {/* <InputV type="text" name="id" id="id" value={"Enter product id"}/> */}
-              <InputV type="text" name="name" id="name" value={"Enter product name"}/>
-              <InputV type="text" name="price" id="price" value={"Enter product price"}/>
-              <InputV type="text" name="description" id="description" value={"Enter product description"}/>
-              <button type="submit">"ADD"</button>
+              {/* <InputV type="text" name="id" id="id" ph={"Enter product id"} onchange={handleChange} data={formData.id}/> */}
+              <InputV type="text" name="productName" id="productName" ph={"Enter product name"} onchange={handleChange} data={formData.productName}/>
+              <InputV type="text" name="description" id="description" ph={"Enter product description"} onchange={handleChange} data={formData.description}/>
+              <InputV type="text" name="price" id="price" ph={"Enter product price"} onchange={handleChange} data={formData.price}/>
+              <InputV type="text" name="imageUrl" id="imageUrl" ph={"Enter product image url"} onchange={handleChange} data={formData.imageUrl}/>
+              <InputV type="number" name="quantity" id="quantity" ph={"Enter product quantity"} onchange={handleChange} data={formData.quantity}/>
+              <button type="submit">ADD</button>
             </div>
           </form>
         </div>
