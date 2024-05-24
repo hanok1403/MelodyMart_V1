@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles/home.css';
-import MusicItem from './MusicItem';
+import MusicItem from './userComponents/MusicItem';
 const Home = () => {
   return (
     <div className="music-grid">
