@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/MusicItem.css';
+import '../../styles/MusicItem.css';
 const MusicItem = (props) => {
   const handleCart=()=>{
     //add the data into cart database;
