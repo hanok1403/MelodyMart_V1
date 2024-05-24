@@ -1,63 +1,48 @@
-/* login.css */
 .login-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 80vh; /* Full height of the viewport */
-  background-color: #f0f2f5; /* Optional: Add a background color */
+  height: 100vh; /* Adjusted height */
 }
 
 .login-container {
-  width: 100%;
-  max-width: 400px;
-  padding: 20px;
+  width: 400px; /* Increased width */
+  padding: 40px; /* Increased padding */
   border: 1px solid #ccc;
-  border-radius: 10px;
-  background-color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  background-color: #f9f9f9;
 }
 
 .login-form {
-  display: flex;
-  flex-direction: column;
+  margin-bottom: 20px;
 }
 
 .input-container {
-  display: flex;
-  flex-direction: column;
-  gap: 15px; /* Adds space between input fields */
-}
-
-.input-group {
-  margin-bottom: 15px;
-}
-
-.input-field {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-  box-sizing: border-box;
-}
-
-.input-field:focus {
-  border-color: #007bff;
-  outline: none;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  margin-bottom: 20px;
 }
 
 .login-button {
-  padding: 10px;
   background-color: #007bff;
-  color: white;
+  color: #fff;
   border: none;
+  padding: 10px 20px;
   border-radius: 5px;
-  font-size: 18px;
   cursor: pointer;
-  transition: background-color 0.3s;
 }
 
 .login-button:hover {
   background-color: #0056b3;
+}
+
+.signup-link {
+  text-align: center;
+}
+
+.signup-link a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.signup-link a:hover {
+  text-decoration: underline;
 }
