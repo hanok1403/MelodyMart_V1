@@ -10,8 +10,8 @@ const Login = (props) => {
         <h1>Login</h1>
         <form action="post" className="login-form">
           <div className="input-container">
-            <InputV type="text" name="email" id="email" value={"Enter your email"} ph="Email"/>
-            <InputV type="password" name="password" id="password" value={"Enter your password"} ph="Password" />
+            <InputV type="text" name="email" id="email" ph="Enter your email"/>
+            <InputV type="password" name="password" id="password" ph="Enter your password"/>
             <button type="submit" className="login-button">Login</button>
           </div>
         </form>

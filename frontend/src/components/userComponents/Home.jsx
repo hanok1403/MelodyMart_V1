@@ -1,10 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import '../../styles/home.css';
 import NavBar from './NavBar';
 const Home = (props) => {
-  const userId = props.userId;
-  const handleId = props.handleId;
-  const [role, setRole] = useState('user')
+  
 
   // useEffect(()=>{
   //   if(userId === ''){

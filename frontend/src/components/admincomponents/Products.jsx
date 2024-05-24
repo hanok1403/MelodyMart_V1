@@ -36,7 +36,6 @@ function Products() {
     <div className="container">
         {/* <div className="row"> */}
             {
-                // console.log(product) 
                 product.map((item, i)=>{
                     return (
                         <div key={i} className="col-sm-6 col-md-4 col-lg-3 mb-4">

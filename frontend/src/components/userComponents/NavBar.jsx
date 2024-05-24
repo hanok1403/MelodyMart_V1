@@ -4,9 +4,9 @@ import "../../styles/NavStyle.css";
 import Login from '../Login';
 import Profile from "../Profile";
 import Register from "../Register";
-import Cart from './Cart'
-import Orders from './Orders'
-import Admindashboard from '../admincomponents/Admindashboard';
+import Cart from "./Cart";
+import Orders from "./Orders";
+import Admin from "../Admin";
 
 const NavBar = () => {
   return (
@@ -43,7 +43,7 @@ const NavBar = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/orders" element={<Orders />} />
-        <Route path="/admin/*" element={<Admindashboard />} />
+        <Route path="/admin/*" element={<Admin />} />
         <Route path="/login" element={<Login />} />
       </Routes>
     </Router>
