@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
-
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Items from './Items';
 
 function Products() {
 
     const [product, setProduct] = useState([])
-
+    const navigate =useNavigate();
     useEffect(()=>{
         fetch('http://localhost:5000/admin/').then((response)=>{
             return response.json()
@@ -25,6 +25,10 @@ function Products() {
     
       const handleEdit = (id) => {
         // Implement the edit functionality
+        const values={
+            "id":{id}
+        }
+        navigate('/admin/editProduct', { state: values });
       };
 
 

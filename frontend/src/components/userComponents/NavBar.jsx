@@ -1,11 +1,10 @@
 import React from 'react';
 import { Link, Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "../../styles/NavStyle.css";
+import Admin from "../Admin";
 import Profile from "../Profile";
 import Register from "../Register";
-import Admindashboard from '../admincomponents/Admindashboard';
 import Cart from "./Cart";
-import Home1 from "./Home1";
 import Orders from "./Orders";
 const NavBar = () => {
   return (
@@ -34,12 +33,12 @@ const NavBar = () => {
         </ul>
       </div>
       <Routes>
-        <Route path="/" element={<Home1 />} />
+        {/* <Route path="/" element={<Home1 />} /> */}
         <Route path="/profile" element={<Profile />} />
         <Route path="/register" element={<Register />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/orders" element={<Orders />} />
-        <Route path="/admin/*" element={<Admindashboard />} />
+        <Route path="/admin/*" element={<Admin />} />
       </Routes>
     </Router>
     </div>
