@@ -1,14 +1,13 @@
 import React from 'react';
 import { Link, Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "../../styles/NavStyle.css";
-import '../../styles/NavStyle.css';
-import Admindashboard from '../admincomponents/Admindashboard';
-import Cart from "./Cart";
-import Home from "./Home";
-import Orders from "./Orders";
+import Login from '../Login';
 import Profile from "../Profile";
 import Register from "../Register";
-import Login from '../Login';
+import Cart from "./Cart";
+import Orders from "./Orders";
+import Admin from "../Admin";
+
 const NavBar = () => {
   return (
     <div>
@@ -39,12 +38,12 @@ const NavBar = () => {
         </ul>
       </div>
       <Routes>
-        <Route path="/" element={<Home />} />
+        {/* <Route path="/" element={<Home1 />} /> */}
         <Route path="/profile" element={<Profile />} />
         <Route path="/register" element={<Register />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/orders" element={<Orders />} />
-        <Route path="/admin/*" element={<Admindashboard />} />
+        <Route path="/admin/*" element={<Admin />} />
         <Route path="/login" element={<Login />} />
       </Routes>
     </Router>
