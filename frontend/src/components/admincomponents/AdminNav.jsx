@@ -6,6 +6,7 @@ import OrderList from './OrderList';
 
 function AdminNav() {
   return (
+    <div>
     <div className='navbar'>
       <nav>
         <ul>
@@ -20,11 +21,12 @@ function AdminNav() {
           </li>
         </ul>
       </nav>
+      </div>
       <Routes>
         <Route path="/admin" element={<Admindashboard />} />
-        <Route path="/admin/addProduct" element={<AddProduct />} />
+        <Route path="/addProduct" element={<AddProduct />} />
         {/* <Route path="/admin/productEdit/:productId" element={<ProductEdit />} /> */}
-        <Route path="/admin/orders" element={<OrderList />} />
+        <Route path="/orders" element={<OrderList />} />
       </Routes>
     </div>
   );
