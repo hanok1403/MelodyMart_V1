@@ -2,7 +2,6 @@ import React from 'react';
 import { Link, Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "../../styles/NavStyle.css";
 import Login from '../Login';
-import Login from '../Login';
 import Profile from "../Profile";
 import Register from "../Register";
 import Cart from "./Cart";
