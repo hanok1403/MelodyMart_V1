@@ -5,11 +5,14 @@ function App() {
 
   const [userId, setUserId] = useState('');
 
-  const handleId
+  const handleId = (id) => {
+    setUserId(id);
+  }
+
 
   return (
     <div>
-      <Home />
+      <Home userId={userId} handleId={handleId}/>
     </div>
   );
 }

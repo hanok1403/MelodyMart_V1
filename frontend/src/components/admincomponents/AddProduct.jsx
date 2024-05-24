@@ -3,7 +3,7 @@ import "../../styles/login.css";
 import InputV from '../InputV';
 const AddProduct = (props) => {
   const handleSubmit = (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     //hable backend for adding products
     };
   return (
@@ -14,11 +14,11 @@ const AddProduct = (props) => {
         <div className="login-container">
           <form onSubmit={handleSubmit} className="login-form">
             <div className="input-container">
-              <InputV type="text" name="id" id="id" value={"Enter product id"}/>
+              {/* <InputV type="text" name="id" id="id" value={"Enter product id"}/> */}
               <InputV type="text" name="name" id="name" value={"Enter product name"}/>
               <InputV type="text" name="price" id="price" value={"Enter product price"}/>
               <InputV type="text" name="description" id="description" value={"Enter product description"}/>
-              <button type="submit">{props.title}</button>
+              <button type="submit">"ADD"</button>
             </div>
           </form>
         </div>

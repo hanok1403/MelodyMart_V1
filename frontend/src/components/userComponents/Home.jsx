@@ -1,13 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import '../../styles/home.css';
 import NavBar from './NavBar';
-const Home = () => {
-
+const Home = (props) => {
+  const userId = props.userId;
+  const handleId = props.handleId;
   const [role, setRole] = useState('user')
 
-  useEffect(()=>{
-    fetch(`https://localhost:5000/`)
-  })
+  // useEffect(()=>{
+  //   if(userId === ''){
+  //     fetch(`https://localhost:5000/`)
+  //   }
+      
+  // })
 
 
   return (
