@@ -8,6 +8,7 @@ import Home from "./Home";
 import Orders from "./Orders";
 import Profile from "../Profile";
 import Register from "../Register";
+import Login from '../Login';
 const NavBar = () => {
   return (
     <div>
@@ -32,6 +33,9 @@ const NavBar = () => {
           <li>
             <Link to="/admin/*">Admin</Link>
           </li>
+          <li>
+            <Link to="/login">Login</Link>
+          </li>
         </ul>
       </div>
       <Routes>
@@ -41,6 +45,7 @@ const NavBar = () => {
         <Route path="/cart" element={<Cart />} />
         <Route path="/orders" element={<Orders />} />
         <Route path="/admin/*" element={<Admindashboard />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </Router>
     </div>
