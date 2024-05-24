@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import "../../styles/login.css";
 import InputV from '../InputV';
+import axios from 'axios'
+
 const AddProduct = (props) => {
   const [formData, setFormData] = useState({
     productName: '',
