@@ -1,9 +1,12 @@
 import React from 'react';
 import { Link, Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "../../styles/NavStyle.css";
+import Admin from "../Admin";
 import Login from '../Login';
 import Profile from "../Profile";
 import Register from "../Register";
+import Cart from "./Cart";
+import Orders from "./Orders";
 const NavBar = () => {
   return (
     <div>
@@ -39,7 +42,7 @@ const NavBar = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/orders" element={<Orders />} />
-        <Route path="/admin/*" element={<Admindashboard />} />
+        <Route path="/admin/*" element={<Admin />} />
         <Route path="/login" element={<Login />} />
       </Routes>
     </Router>
