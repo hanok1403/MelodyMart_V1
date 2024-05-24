@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link, Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "../../styles/NavStyle.css";
+import Admin from "../Admin";
 import Login from '../Login';
 import Profile from "../Profile";
 import Register from "../Register";
+import EditProduct from '../admincomponents/EditProduct';
 import Cart from "./Cart";
 import Orders from "./Orders";
-import Admin from "../Admin";
-
 const NavBar = () => {
   return (
     <div>
@@ -45,6 +45,7 @@ const NavBar = () => {
         <Route path="/orders" element={<Orders />} />
         <Route path="/admin/*" element={<Admin />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/admin/editProduct" element={<EditProduct />} />
       </Routes>
     </Router>
     </div>
