@@ -10,6 +10,7 @@ const InputV = (props) => {
       id={props.id} 
       placeholder={props.ph}
       value={props.data}
+      required
       />
     </div>
   )

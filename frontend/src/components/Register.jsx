@@ -9,7 +9,7 @@ const Register = () => {
   const handleSubmit=(event)=>{
     event.preventDefault();
     //handle registrations process here
-    navigate('/customer');
+    navigate('/login');
   }
   return (
     <div className="login-wrapper">
