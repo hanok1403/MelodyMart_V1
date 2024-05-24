@@ -1,7 +1,7 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import "../../styles/login.css";
 import InputV from '../InputV';
-import axios from 'axios'
 
 const AddProduct = (props) => {
   const [formData, setFormData] = useState({
@@ -11,6 +11,9 @@ const AddProduct = (props) => {
     description: '',
     quantity:''
   });
+  if(props.type==='edit'){
+    //get data from data base using props.id 
+  }
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
