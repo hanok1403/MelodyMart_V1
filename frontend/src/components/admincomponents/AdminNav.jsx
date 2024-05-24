@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link, Routes, Route } from 'react-router-dom';
+import { Link, Route, Routes } from 'react-router-dom';
 import AddProduct from './AddProduct';
-import OrderList from './OrderList';
 import Admindashboard from './Admindashboard';
+import OrderList from './OrderList';
 
 function AdminNav() {
   return (

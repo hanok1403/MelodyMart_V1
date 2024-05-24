@@ -18,7 +18,7 @@ const AddProduct = (props) => {
               <InputV type="text" name="name" id="name" value={"Enter product name"}/>
               <InputV type="text" name="price" id="price" value={"Enter product price"}/>
               <InputV type="text" name="description" id="description" value={"Enter product description"}/>
-              <button type="submit">{props.title}</button>
+              <button type="submit">"ADD"</button>
             </div>
           </form>
         </div>
