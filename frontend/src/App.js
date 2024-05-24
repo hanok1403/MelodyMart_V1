@@ -1,9 +1,18 @@
-import React from "react";
-import NavBar from "./components/NavBar";
+import React, { useState } from "react";
+import Home from './components/userComponents/Home'
+
 function App() {
+
+  const [userId, setUserId] = useState('');
+
+  const handleId = (id) => {
+    setUserId(id);
+  }
+
+
   return (
     <div>
-      <NavBar />
+      <Home userId={userId} handleId={handleId}/>
     </div>
   );
 }

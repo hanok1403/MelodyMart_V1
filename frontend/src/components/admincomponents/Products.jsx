@@ -41,7 +41,6 @@ function Products() {
                             }
                         </div>
                     )
-                    
                 })
             }
         {/* </div> */}

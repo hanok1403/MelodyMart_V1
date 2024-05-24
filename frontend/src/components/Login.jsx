@@ -28,9 +28,9 @@ const Login = (props) => {
       {/* <form action="post" onSubmit={handleClick}  className="login-form"> */}
       <form action="post" className="login-form">
         <div className="input-container">
-      <InputV type="text" name="email" id="email" value={"Enter your email"}/>
-      <InputV type="password" name="password" id="password" value={"Enter your password"}/>
-      <button  type="submit">Login</button>
+          <InputV type="text" name="email" id="email" value={"Enter your email"}/>
+          <InputV type="password" name="password" id="password" value={"Enter your password"}/>
+          <button  type="submit">Login</button>
         </div>
       </form>
       </div>

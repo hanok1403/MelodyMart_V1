@@ -2,6 +2,8 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import "../styles/login.css";
 import InputV from './InputV';
+
+
 const Register = () => {
   const navigate = useNavigate();
   const handleSubmit=(event)=>{
