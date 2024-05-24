@@ -35,7 +35,7 @@ const NavBar = () => {
         </ul>
       </div>
       <Routes>
-        <Route path="/" element={<Home />} />
+        {/* <Route path="/" element={<Home />} /> */}
         <Route path="/profile" element={<Profile />} />
         <Route path="/register" element={<Register />} />
         <Route path="/cart" element={<Cart />} />

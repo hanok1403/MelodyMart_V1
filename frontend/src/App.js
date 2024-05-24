@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Home from './components/userComponents/Home'
+import Footer from './Footer';
 
 function App() {
 
@@ -13,6 +14,7 @@ function App() {
   return (
     <div>
       <Home userId={userId} handleId={handleId}/>
+      <Footer/>
     </div>
   );
 }
