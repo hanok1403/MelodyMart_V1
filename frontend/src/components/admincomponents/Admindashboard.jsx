@@ -1,12 +1,10 @@
 import React from 'react';
 import '../../styles/MusicItem.css';
 import '../../styles/home.css';
-import AdminNav from './AdminNav';
 import Products from './Products';
 const Admindashboard = () => {
   return (
     <>
-      <AdminNav/>
       <div className="music-grid">  
       <Products/>
       </div>

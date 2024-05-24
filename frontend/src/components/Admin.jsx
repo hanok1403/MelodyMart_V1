@@ -1,9 +1,9 @@
 import React from 'react';
-import Login from './Login';
+import AdminNav from './admincomponents/AdminNav';
 const Admin = () => {
   return (
     <div>
-      <Login type='admin'/>
+      <AdminNav />
     </div>
   )
 }
