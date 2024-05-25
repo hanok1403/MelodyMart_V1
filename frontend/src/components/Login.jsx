@@ -3,7 +3,7 @@ import { useAuth } from '../Router/AuthProvider';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Login = () => {
-    const [credentials, setCredentials] = useState({ email: '', password: '' });
+    const [credentials, setCredentials] = useState({ email: '', username: '', mobileNumber:'' });
     const { loginAction } = useAuth();
     const [error, setError] = useState(null);
 

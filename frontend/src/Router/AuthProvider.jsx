@@ -1,6 +1,5 @@
-import React, { createContext, useState, useContext } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import React, { createContext, useState, useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext();
 
@@ -10,29 +9,34 @@ const AuthProvider = ({ children }) => {
     const [role, setRole] = useState('');
     const navigate = useNavigate();
 
-    const loginAction = async (credentials) => {
-    
-            const data = credentials
-            setUser(data.user);
-            setToken(data.token);
-            setRole(data.role);
-            localStorage.setItem('user', JSON.stringify(data.user));
-            localStorage.setItem('token', data.token);
-            localStorage.setItem('role', data.role);
+    useEffect(() => {
+        const storedUser = localStorage.getItem('user');
+        const storedToken = localStorage.getItem('token');
+        const storedRole = localStorage.getItem('role');
 
-            if (data.role === 'admin') {
-                console.log("logging as admin");
-                navigate('/admin');
-                
-            } else if(data.role === 'user'){
-                console.log("logging as user");
-                navigate('/');
-                
-            }
-            else{
-                console.log("cannot log");
-                logoutAction();
-            }
+        if (storedUser && storedToken && storedRole) {
+            setUser(JSON.parse(storedUser));
+            setToken(storedToken);
+            setRole(storedRole);
+        }
+    }, []);
+
+    const loginAction = async (credentials) => {
+        const data = credentials;
+        setUser(data.user);
+        setToken(data.token);
+        setRole(data.role);
+        localStorage.setItem('user', JSON.stringify(data.user));
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('role', data.role);
+
+        if (data.role === 'admin') {
+            navigate('/admin/dashboard');
+        } else if (data.role === 'user') {
+            navigate('/home');
+        } else {
+            logoutAction();
+        }
     };
 
     const logoutAction = () => {
@@ -42,7 +46,7 @@ const AuthProvider = ({ children }) => {
         localStorage.removeItem('user');
         localStorage.removeItem('token');
         localStorage.removeItem('role');
-        navigate('/login')
+        navigate('/login');
     };
 
     return (

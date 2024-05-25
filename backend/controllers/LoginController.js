@@ -27,7 +27,9 @@ async function LoginController(req, res) {
 
         return {
             user:{
-                username:data.username
+                username:data.username,
+                email:data.email,
+                mobileNumber:data.mobileNumber
             },
             token: token,
             role:data.role

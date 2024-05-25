@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import AuthProvider from './Router/AuthProvider';
+import AuthProvider, { useAuth } from './Router/AuthProvider';
 import Login from './components/Login';
 import AdminPrivateRouter from './Router/AdminPrivateRouter';
 import CustPrivateRouter from './Router/CustPrivateRouter';
@@ -13,8 +13,10 @@ import Admindashboard from './components/admincomponents/Admindashboard';
 import OrderList from './components/admincomponents/OrderList';
 import AddProduct from './components/admincomponents/AddProduct';
 import EditProduct from './components/admincomponents/EditProduct';
+import User from './components/userComponents/User';
 
 function App() {
+    // const auth = useAuth();
     return (
         <Router>
             <AuthProvider>
@@ -29,7 +31,8 @@ function App() {
                         </Route>
                     </Route>
                     <Route element={<CustPrivateRouter />}>
-                        <Route path="/" element={<Home />}>
+                        <Route path="/" element={<User />}>
+                            <Route path="home" element={<Home />} />
                             <Route path="profile" element={<Profile />} />
                             <Route path="cart" element={<Cart />} />
                             <Route path="orders" element={<Orders />} />
@@ -42,3 +45,4 @@ function App() {
 }
 
 export default App;
+    

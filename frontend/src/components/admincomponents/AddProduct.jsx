@@ -32,7 +32,7 @@ const AddProduct = (props) => {
       };
       fetchProductData();
     }
-  }, []);
+  }, [props.id, props.type]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

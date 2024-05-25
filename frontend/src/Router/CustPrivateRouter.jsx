@@ -1,5 +1,6 @@
-import { useAuth } from './AuthProvider';
+import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
+import { useAuth } from './AuthProvider';
 
 const CustPrivateRouter = () => {
     const { token, role } = useAuth();
@@ -9,8 +10,8 @@ const CustPrivateRouter = () => {
     }
 
     if (role !== 'user') {
+        alert("Invalid access");
         return <Navigate to="/login" />;
-    
     }
 
     return <Outlet />;

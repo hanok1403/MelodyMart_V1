@@ -1,10 +1,11 @@
 import React from 'react';
-import { Link, Route, Routes, useNavigate } from "react-router-dom";
-import "../../styles/NavStyle.css";
-import Profile from "../Profile";
-import Cart from "./Cart";
-import Orders from "./Orders";
+import { Link, Routes, Route, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../Router/AuthProvider';
+import Home from './Home';
+import Profile from '../Profile';
+import Cart from './Cart';
+import Orders from './Orders';
+import '../../styles/NavStyle.css'; // Assuming you have a common stylesheet
 
 const NavBar = () => {
   const auth = useAuth();
@@ -17,10 +18,10 @@ const NavBar = () => {
 
   return (
     <div>
-      <div className="navbar">
+      <nav className="navbar">
         <ul>
           <li>
-            <Link to="/profile">To Profile</Link>
+            <Link to="/home">Home</Link>
           </li>
           <li>
             <Link to="/cart">Cart</Link>
@@ -29,17 +30,21 @@ const NavBar = () => {
             <Link to="/orders">Orders</Link>
           </li>
           <li>
+            <Link to="/profile">Profile</Link>
+          </li>
+          <li>
             <button onClick={handleLogout}>Logout</button>
           </li>
         </ul>
-      </div>
+      </nav>
       <Routes>
+        <Route path="/home" element={<Home />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/orders" element={<Orders />} />
       </Routes>
     </div>
-  )
-}
+  );
+};
 
 export default NavBar;

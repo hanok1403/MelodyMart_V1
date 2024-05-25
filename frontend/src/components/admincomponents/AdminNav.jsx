@@ -1,16 +1,17 @@
 import React from 'react';
-import { Link, Route, Routes } from 'react-router-dom';
+import { Link, Routes, Route, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../Router/AuthProvider';
 import AddProduct from './AddProduct';
 import Admindashboard from './Admindashboard';
 import EditProduct from './EditProduct';
 import OrderList from './OrderList';
-import { useAuth } from '../../Router/AuthProvider';
-import { useNavigate } from 'react-router-dom';
+import '../../styles/NavStyle.css'; // Assuming you have a common stylesheet
 
 function AdminNav() {
-
   const auth = useAuth();
   const navigate = useNavigate();
+
+  
 
   const handleLogout = () => {
     auth.logoutAction();
@@ -19,8 +20,7 @@ function AdminNav() {
 
   return (
     <div>
-    <div className='navbar'>
-      <nav>
+      <nav className='navbar'>
         <ul>
           <li>
             <Link to="/admin/dashboard">DashBoard</Link>
@@ -36,14 +36,11 @@ function AdminNav() {
           </li>
         </ul>
       </nav>
-      </div>
       <Routes>
         <Route path="/dashboard" element={<Admindashboard />} />
         <Route path="/addProduct" element={<AddProduct />} />
-        {/* <Route path="/admin/productEdit/:productId" element={<ProductEdit />} /> */}
         <Route path="/orders" element={<OrderList />} />
-        <Route path="/admin/editProduct" element={<EditProduct />} />
-        
+        <Route path="/editProduct" element={<EditProduct />} />
       </Routes>
     </div>
   );
