@@ -1,5 +1,5 @@
 import React from 'react';
-import AdminNav from './admincomponents/AdminNav';
+import AdminNav from './AdminNav';
 const Admin = () => {
   return (
     <div>

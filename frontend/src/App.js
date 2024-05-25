@@ -1,12 +1,11 @@
 import React from "react";
+import { Route, BrowserRouter as Router, Routes, useNavigate } from "react-router-dom";
 import './App.css';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
-import AuthProvider from "./Router/AuthProvider";
-import { useAuth } from "./Router/AuthProvider";
-import Login from "./components/Login";
 import AdminPrivateRouter from './Router/AdminPrivateRouter';
+import AuthProvider, { useAuth } from "./Router/AuthProvider";
 import CustPrivateRouter from './Router/CustPrivateRouter';
-import Admin from "./components/Admin";
+import Login from "./components/Login";
+import Admin from "./components/admincomponents/Admin";
 import Home from "./components/userComponents/Home";
 
 const AppRoutes = () => {
