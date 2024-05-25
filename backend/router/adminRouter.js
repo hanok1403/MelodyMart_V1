@@ -44,8 +44,9 @@ router.get('/delete/:id', async (req, res)=>{
 router.get('/productEdit/:id', async (req, res) => {
     try {
         const { id } = req.params;
+        //console.log(id);
         const product = await productModel.findById(id);
-        console.log(product);
+        //console.log(product);
         if (product) {
             res.json(product);
         } else {
@@ -59,8 +60,10 @@ router.get('/productEdit/:id', async (req, res) => {
 
 router.post('/productEdit/:id', async (req, res) => {
     try {
-        const { id } = req.params;
+        const { id } = req.params.id;
+        console.log(id);
         const updates = req.body;
+        console.log(updates);
         const product = await productModel.findByIdAndUpdate(id, updates, { new: true });
         if (product) {
             res.status(200).send("Product updated");

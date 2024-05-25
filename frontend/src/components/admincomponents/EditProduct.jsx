@@ -5,10 +5,10 @@ import AddProduct from './AddProduct';
 const EditProduct = () => {
     const location = useLocation();
     const { id } = location.state || {};
-    console.log(id);
+    //console.log(id.id);
   return (
     <div>
-      <AddProduct type='edit' id={id}/>
+      <AddProduct type='edit' id={id.id}/>
     </div>
   )
 }
