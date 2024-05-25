@@ -9,10 +9,9 @@ async function SignupController(req, res){
         password: req.body.password
     }
 
-    
     const user = await userModel.create(data)
-    await loginModel.create(login)
-    console.log(user)
+    // await loginModel.create(login)
+    // console.log(user)
     return saveUser(user)
 }
 

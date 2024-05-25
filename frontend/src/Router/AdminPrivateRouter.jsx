@@ -1,12 +1,18 @@
 import React from 'react';
-import { useAuth } from "./AuthProvider";
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet } from 'react-router-dom';
+import { useAuth } from './AuthProvider';
 
 const AdminPrivateRouter = () => {
     const { token, role } = useAuth();
 
-    if (!token) return <Navigate to="/login" />;
-    if (role !== 'admin') return <h3>Invalid Access</h3>;
+    if (!token) {
+        return <Navigate to="/login" />;
+    }
+
+    if (role !== 'admin') {
+        alert("Invalid access");
+        return <Navigate to="/login" />;
+    }
 
     return <Outlet />;
 };

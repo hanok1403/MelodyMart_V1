@@ -21,7 +21,6 @@ const userSchema = mongoose.Schema({
     mobileNumber:{
         type:Number,
         required:true,
-        unique:true
     },
     active:{
         type:Boolean,

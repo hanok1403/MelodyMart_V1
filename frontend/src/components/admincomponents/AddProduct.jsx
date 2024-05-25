@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import "../../styles/login.css";
+import "../../styles/Login.css";
 import InputV from '../InputV';
 
 const AddProduct = (props) => {
@@ -32,7 +32,7 @@ const AddProduct = (props) => {
       };
       fetchProductData();
     }
-  }, []);
+  }, [props.id, props.type]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

@@ -1,14 +1,12 @@
 import React from 'react';
 import '../../styles/home.css';
-import NavBar from './NavBar';
 
 
 const Home = (props) => {
 
   return (
     <>
-      <NavBar />
-      
+     <h1> This is Home page </h1>
     </>
     
   )

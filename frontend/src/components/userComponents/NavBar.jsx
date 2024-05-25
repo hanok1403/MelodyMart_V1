@@ -1,27 +1,27 @@
 import React from 'react';
-import { Link, Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import "../../styles/NavStyle.css";
-import Login from '../Login';
-import Profile from "../Profile";
-import Register from "../Register";
-import Admin from "../admincomponents/Admin";
-import EditProduct from '../admincomponents/EditProduct';
-import Cart from "./Cart";
-import Orders from "./Orders";
+import { Link, Routes, Route, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../Router/AuthProvider';
+import Home from './Home';
+import Profile from '../Profile';
+import Cart from './Cart';
+import Orders from './Orders';
+import '../../styles/NavStyle.css'; // Assuming you have a common stylesheet
+
 const NavBar = () => {
+  const auth = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    auth.logoutAction();
+    navigate('/login');
+  };
+
   return (
     <div>
-      <Router>
-      <div className="navbar">
+      <nav className="navbar">
         <ul>
           <li>
-            <Link to="/">To Home</Link>
-          </li>
-          <li>
-            <Link to="/profile">To Profile</Link>
-          </li>
-          <li>
-            <Link to="/register">Register</Link>
+            <Link to="/home">Home</Link>
           </li>
           <li>
             <Link to="/cart">Cart</Link>
@@ -30,26 +30,21 @@ const NavBar = () => {
             <Link to="/orders">Orders</Link>
           </li>
           <li>
-            <Link to="/admin/*">Admin</Link>
+            <Link to="/profile">Profile</Link>
           </li>
           <li>
-            <Link to="/login">Login</Link>
+            <button onClick={handleLogout}>Logout</button>
           </li>
         </ul>
-      </div>
+      </nav>
       <Routes>
-        {/* <Route path="/" element={<Home1 />} /> */}
+        <Route path="/home" element={<Home />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/register" element={<Register />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/orders" element={<Orders />} />
-        <Route path="/admin/*" element={<Admin />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/admin/editProduct" element={<EditProduct />} />
       </Routes>
-    </Router>
     </div>
-  )
-}
+  );
+};
 
 export default NavBar;
