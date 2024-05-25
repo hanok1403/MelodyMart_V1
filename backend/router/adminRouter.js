@@ -1,6 +1,6 @@
-import express from 'express'
-import productModel from '../models/ProductModel.js'
+import express from 'express';
 import orderModel from '../models/OrderModel.js';
+import productModel from '../models/ProductModel.js';
 
 const router = express.Router()
 router.use(express.urlencoded({extended:true}))
@@ -45,6 +45,7 @@ router.get('/productEdit/:id', async (req, res) => {
     try {
         const { id } = req.params;
         const product = await productModel.findById(id);
+        console.log(product);
         if (product) {
             res.json(product);
         } else {
