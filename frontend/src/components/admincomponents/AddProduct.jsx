@@ -4,6 +4,10 @@ import React, { useEffect, useState } from 'react';
 import '../../styles/login.css';
 import InputV from '../InputV';
 const AddProduct = (props) => {
+  const [product,setProduct]=useState({
+    productHead:'ADD PRODUCT',
+    productButton:'ADD'
+  });
   const [formData, setFormData] = useState({
     productName: '',
     imageUrl: '',
@@ -26,6 +30,10 @@ const AddProduct = (props) => {
             description: data.description || '',
             quantity: data.quantity || ''
           });
+          setProduct({
+            productHead:'EDIT PRODUCT',
+            productButton:'Edit'
+          })
         } catch (error) {
           console.error("Error fetching product data:", error);
         }
@@ -68,7 +76,7 @@ const AddProduct = (props) => {
 
   return (
     <div>
-      <center><h1>Adding Product</h1></center>
+      <center><h1>{product.productHead}</h1></center>
       <div className="login-wrapper">
         <div className="login-container">
           <form onSubmit={handleSubmit} className="login-form">
@@ -78,7 +86,7 @@ const AddProduct = (props) => {
               <InputV type="text" name="price" id="price" ph="Enter product price" onchange={handleChange} data={formData.price} />
               <InputV type="text" name="imageUrl" id="imageUrl" ph="Enter product image url" onchange={handleChange} data={formData.imageUrl} />
               <InputV type="number" name="quantity" id="quantity" ph="Enter product quantity" onchange={handleChange} data={formData.quantity} />
-              <button type="submit">ADD</button>
+              <button type="submit">{product.productButton}</button>
             </div>
           </form>
         </div>

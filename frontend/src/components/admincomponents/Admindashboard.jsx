@@ -9,7 +9,6 @@ const Admindashboard = () => {
   return (
     <>
       <Products />
-      {/* <h1>admin dashboard</h1> */}
     </>
       
   )
