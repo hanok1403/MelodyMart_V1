@@ -15,7 +15,7 @@ const AddProduct = (props) => {
     //get data from data base using props.id
     const fetchProductData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/admin/productEdit/${props.id}`);
+        const response = await axios.get(`http://localhost:5001/admin/productEdit/${props.id}`);
         console.log(response);
       } catch (error) {
         console.error("Error fetching product data:", error);
@@ -35,7 +35,7 @@ const AddProduct = (props) => {
     event.preventDefault();
     console.log(formData);
     //Handle backend for adding products
-    await axios.post('http://localhost:5000/admin/addProduct', formData)
+    await axios.post('http://localhost:5001/admin/addProduct', formData)
        .then(response => {
          console.log('Product added:', response.data);
         setFormData({
