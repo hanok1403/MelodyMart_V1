@@ -7,6 +7,7 @@ import mongoose from 'mongoose'
 import LoginController from './controllers/LoginController.js'
 import SignupController from './controllers/SignupController.js'
 import ProductController from './controllers/ProductController.js'
+import CartController from './controllers/CartController.js'
 import adminRouter from './router/adminRouter.js'
 
 
@@ -36,6 +37,11 @@ app.post('/login',async (req, res)=>{
     else{
         res.send("User not found")
     }
+})
+
+app.get('/cart/:id',async (req, res)=>{
+    req.userId = req.params.id;
+    res.send(await CartController(req, res))
 })
 
 app.listen(PORT, ()=>{
