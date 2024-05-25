@@ -12,7 +12,16 @@ const AddProduct = (props) => {
     quantity:''
   });
   if(props.type==='edit'){
-    //get data from data base using props.id 
+    //get data from data base using props.id
+    const fetchProductData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/admin/productEdit/${props.id}`);
+        console.log(response);
+      } catch (error) {
+        console.error("Error fetching product data:", error);
+      }
+    };
+    fetchProductData();
   }
   const handleChange = (e) => {
     const { name, value } = e.target;
