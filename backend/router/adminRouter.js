@@ -43,6 +43,7 @@ router.get('/delete/:id', async (req, res)=>{
 
 router.get('/productEdit/:id', async (req, res) => {
     try {
+        console.log(req.body)   
         const { id } = req.params;
         //console.log(id);
         const product = await productModel.findById(id);
