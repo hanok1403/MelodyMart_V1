@@ -4,8 +4,8 @@ import { useAuth } from '../../Router/AuthProvider';
 import '../../styles/NavStyle.css'; // Assuming you have a common stylesheet
 import AddProduct from './AddProduct';
 import Admindashboard from './Admindashboard';
+import EditProduct from './EditProduct';
 import OrderList from './OrderList';
-
 function AdminNav() {
   const auth = useAuth();
   const navigate = useNavigate();
