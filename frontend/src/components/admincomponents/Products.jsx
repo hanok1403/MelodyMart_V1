@@ -25,6 +25,7 @@ function Products() {
     
       const handleEdit = (id) => {
         // Implement the edit functionality
+        //console.log(id);
         const values={
             "id":{id}
         }

@@ -5,6 +5,7 @@ import Admin from "../Admin";
 import Login from '../Login';
 import Profile from "../Profile";
 import Register from "../Register";
+import EditProduct from '../admincomponents/EditProduct';
 import Cart from "./Cart";
 import Orders from "./Orders";
 const NavBar = () => {
@@ -44,6 +45,7 @@ const NavBar = () => {
         <Route path="/orders" element={<Orders />} />
         <Route path="/admin/*" element={<Admin />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/admin/editProduct" element={<EditProduct />} />
       </Routes>
     </Router>
     </div>
