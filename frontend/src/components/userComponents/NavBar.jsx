@@ -1,27 +1,26 @@
 import React from 'react';
-import { Link, Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { Link, Route, Routes, useNavigate } from "react-router-dom";
 import "../../styles/NavStyle.css";
-import Admin from "../Admin";
-import Login from '../Login';
 import Profile from "../Profile";
-import Register from "../Register";
-import EditProduct from '../admincomponents/EditProduct';
 import Cart from "./Cart";
 import Orders from "./Orders";
+import { useAuth } from '../../Router/AuthProvider';
+
 const NavBar = () => {
+  const auth = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    auth.logoutAction();
+    navigate('/login');
+  };
+
   return (
     <div>
-      <Router>
       <div className="navbar">
         <ul>
           <li>
-            <Link to="/">To Home</Link>
-          </li>
-          <li>
             <Link to="/profile">To Profile</Link>
-          </li>
-          <li>
-            <Link to="/register">Register</Link>
           </li>
           <li>
             <Link to="/cart">Cart</Link>
@@ -30,24 +29,15 @@ const NavBar = () => {
             <Link to="/orders">Orders</Link>
           </li>
           <li>
-            <Link to="/admin/*">Admin</Link>
-          </li>
-          <li>
-            <Link to="/login">Login</Link>
+            <button onClick={handleLogout}>Logout</button>
           </li>
         </ul>
       </div>
       <Routes>
-        {/* <Route path="/" element={<Home1 />} /> */}
         <Route path="/profile" element={<Profile />} />
-        <Route path="/register" element={<Register />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/orders" element={<Orders />} />
-        <Route path="/admin/*" element={<Admin />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/admin/editProduct" element={<EditProduct />} />
       </Routes>
-    </Router>
     </div>
   )
 }

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import "../../styles/login.css";
+import "../../styles/Login.css";
 import InputV from '../InputV';
 
 const AddProduct = (props) => {

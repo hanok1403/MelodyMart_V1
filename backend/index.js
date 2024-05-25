@@ -20,10 +20,11 @@ const app = express()
 app.use(cors())
 app.use('/admin', adminRouter)
 app.use(express.urlencoded({extended:true}))
+app.use(express.json())
 
 app.post('/signup',async(req, res)=>{
     if(await SignupController(req, res)){
-        res.send("User Created..!")
+        res.redirect('/login')
     }
     else{
         res.send("User Creation failed. Please Try again..!")
@@ -31,12 +32,11 @@ app.post('/signup',async(req, res)=>{
 })
 
 app.post('/login',async (req, res)=>{
-    if(await LoginController(req, res)){
-        res.send("User found")
-    }
-    else{
-        res.send("User not found")
-    }
+    // console.log(req.body);
+    const data = await LoginController(req, res);
+    console.log(data)
+    res.status(200).json(data);
+    
 })
 
 app.get('/cart/:id',async (req, res)=>{

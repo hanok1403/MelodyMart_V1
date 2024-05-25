@@ -4,7 +4,19 @@ import AddProduct from './AddProduct';
 import Admindashboard from './Admindashboard';
 import EditProduct from './EditProduct';
 import OrderList from './OrderList';
+import { useAuth } from '../../Router/AuthProvider';
+import { useNavigate } from 'react-router-dom';
+
 function AdminNav() {
+
+  const auth = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    auth.logoutAction();
+    navigate('/login');
+  };
+
   return (
     <div>
     <div className='navbar'>
@@ -19,6 +31,9 @@ function AdminNav() {
           <li>
             <Link to="/admin/orders">Orders</Link>
           </li>
+          <li>
+            <button onClick={handleLogout}>Logout</button>
+          </li>
         </ul>
       </nav>
       </div>
@@ -28,6 +43,7 @@ function AdminNav() {
         {/* <Route path="/admin/productEdit/:productId" element={<ProductEdit />} /> */}
         <Route path="/orders" element={<OrderList />} />
         <Route path="/admin/editProduct" element={<EditProduct />} />
+        
       </Routes>
     </div>
   );
