@@ -1,3 +1,4 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../Router/AuthProvider';
@@ -14,9 +15,8 @@ const Login = () => {
             [name]: value
         });
     };
-
     const handleSubmit = async (e) => {
-        e.preventDefault(); // Reset error state before new submission
+        e.preventDefault();
 
         try {
             const response = await fetch('http://localhost:5000/login', {

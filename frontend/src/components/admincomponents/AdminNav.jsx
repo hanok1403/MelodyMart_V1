@@ -1,12 +1,11 @@
 import React from 'react';
-import { Link, Routes, Route, useNavigate } from 'react-router-dom';
+import { Link, Route, Routes, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../Router/AuthProvider';
+import '../../styles/NavStyle.css'; // Assuming you have a common stylesheet
 import AddProduct from './AddProduct';
 import Admindashboard from './Admindashboard';
 import EditProduct from './EditProduct';
 import OrderList from './OrderList';
-import '../../styles/NavStyle.css'; // Assuming you have a common stylesheet
-
 function AdminNav() {
   const auth = useAuth();
   const navigate = useNavigate();
