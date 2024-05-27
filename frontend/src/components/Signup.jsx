@@ -3,11 +3,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import "../styles/Login.css";
 import InputV from './InputV';
 
-const Register = () => {
+const Signup = () => {
   const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
     //handle registrations process here
+    
     navigate('/login');
   }
   return (
@@ -16,7 +17,7 @@ const Register = () => {
         <div className="col-md-6">
           <div className="card">
             <div className="card-body">
-              <h2 className="card-title text-center">Register</h2>
+              <h2 className="card-title text-center">Signup</h2>
               <form onSubmit={handleSubmit}>
                 <div className="form-group">
                   <InputV ph={"Enter your Name"} />
@@ -34,7 +35,7 @@ const Register = () => {
                   <InputV ph={"Mobile Number"} />
                 </div>
                 <div className="form-group">
-                  <button type="submit" className="btn btn-primary btn-block">Register</button>
+                  <button type="submit" className="btn btn-primary btn-block">Signup</button>
                 </div>
               </form>
               <div className="text-center">
@@ -48,4 +49,4 @@ const Register = () => {
   )
 }
 
-export default Register;
+export default Signup;

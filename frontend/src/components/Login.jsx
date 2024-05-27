@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../Router/AuthProvider';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Login = () => {
-    const [credentials, setCredentials] = useState({ email: '', username: '', mobileNumber:'' });
+    const [credentials, setCredentials] = useState({ email: '', password: '' });
     const { loginAction } = useAuth();
     const [error, setError] = useState(null);
 
@@ -37,6 +37,11 @@ const Login = () => {
             setError('Login failed. Please check your credentials and try again.');
             console.error(err);
         }
+    };
+
+    const handleSignupClick = () => {
+        // Redirect to signup page or change the component to signup
+        // You can implement this based on your routing strategy
     };
 
     return (
@@ -74,6 +79,9 @@ const Login = () => {
                                 </div>
                                 <button type="submit" className="btn btn-primary btn-block">Login</button>
                             </form>
+                            <div className="text-center mt-3">
+                                <p>Don't have an account? <Link to="/signup">Sign up</Link></p>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -14,6 +14,7 @@ import OrderList from './components/admincomponents/OrderList';
 import AddProduct from './components/admincomponents/AddProduct';
 import EditProduct from './components/admincomponents/EditProduct';
 import User from './components/userComponents/User';
+import Signup from './components/Signup';
 
 function App() {
     // const auth = useAuth();
@@ -21,6 +22,7 @@ function App() {
         <Router>
             <AuthProvider>
                 <Routes>
+                    <Route path="/signup" element={<Signup />} />
                     <Route path="/login" element={<Login />} />
                     <Route element={<AdminPrivateRouter />}>
                         <Route path="/admin" element={<Admin />}>
