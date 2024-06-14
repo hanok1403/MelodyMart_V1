@@ -1,7 +1,4 @@
 import mongoose from 'mongoose'
-import cartModel from './CartModel.js'
-import orderModel from './OrderModel.js'
-
 
 const userSchema = mongoose.Schema({
     email:{
@@ -29,15 +26,15 @@ const userSchema = mongoose.Schema({
     role:{
         type:String,
         default:'user'
+    },
+    cart:{
+        type:Array,
+        default:[]
+    },
+    ordersList:{
+        type:Array,
+        default:[]
     }
-    // cart:{
-    //     type:cartModel,
-    //     default:[]
-    // },
-    // ordersList:{
-    //     type:[orderModel],
-    //     default:[]
-    // }
 })
 
 const userModel = mongoose.model('Users', userSchema)

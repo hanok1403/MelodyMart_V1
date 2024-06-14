@@ -1,0 +1,19 @@
+/* src/components/ProductItem.css */
+.product-item {
+    margin: 15px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    max-width: 300px;
+}
+
+.product-item img {
+    max-width: 100%;
+    height: auto;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 15px;
+}
+
+.product-item .card-body {
+    padding: 15px;
+}

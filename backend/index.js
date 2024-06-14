@@ -9,6 +9,7 @@ import SignupController from './controllers/SignupController.js'
 import ProductController from './controllers/ProductController.js'
 import CartController from './controllers/CartController.js'
 import adminRouter from './router/adminRouter.js'
+import userRouter from './router/userRouter.js'
 
 
 dotenv.config()
@@ -19,6 +20,7 @@ const app = express()
 
 app.use(cors())
 app.use('/admin', adminRouter)
+app.use('/', userRouter)
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
 

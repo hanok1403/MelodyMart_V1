@@ -19,6 +19,13 @@ const AuthProvider = ({ children }) => {
             setToken(storedToken);
             setRole(storedRole);
         }
+        if (storedRole === 'admin') {
+            navigate('/admin/dashboard');
+        } else if (storedRole === 'user') {
+            navigate('/home');
+        } else {
+            logoutAction();
+        }
     }, []);
 
     const loginAction = async (credentials) => {

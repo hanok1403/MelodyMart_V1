@@ -15,6 +15,7 @@ const Login = () => {
             [name]: value
         });
     };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -32,7 +33,10 @@ const Login = () => {
             }
 
             const data = await response.json();
-            loginAction(data);  // Use the login action to store the JWT token
+            console.log("while submitting" + data)
+            loginAction(data); 
+            localStorage.setItem('user', JSON.stringify(data)); 
+            // history.push('/dashboard'); 
         } catch (err) {
             setError('Login failed. Please check your credentials and try again.');
             console.error(err);
