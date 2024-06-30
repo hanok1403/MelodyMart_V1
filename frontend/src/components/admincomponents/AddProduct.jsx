@@ -1,13 +1,17 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-
-// import '../../styles/Login.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../../styles/addProduct.css';
 import InputV from '../InputV';
+import { useNavigate } from 'react-router-dom';
+
 const AddProduct = (props) => {
-  const [product,setProduct]=useState({
-    productHead:'ADD PRODUCT',
-    productButton:'ADD'
+  const navigate = useNavigate();
+  const [product, setProduct] = useState({
+    productHead: 'ADD PRODUCT',
+    productButton: 'ADD'
   });
+
   const [formData, setFormData] = useState({
     productName: '',
     imageUrl: '',
@@ -18,10 +22,9 @@ const AddProduct = (props) => {
 
   useEffect(() => {
     if (props.type === 'edit') {
-      // Fetch data from the database using props.id
       const fetchProductData = async () => {
         try {
-          const response = await axios.get(`http://localhost:5000/admin/productEdit/${props.id}`);
+          const response = await axios.get(`http://localhost:5001/admin/productEdit/${props.id}`);
           const data = response.data;
           setFormData({
             productName: data.productName || '',
@@ -31,9 +34,9 @@ const AddProduct = (props) => {
             quantity: data.quantity || ''
           });
           setProduct({
-            productHead:'EDIT PRODUCT',
-            productButton:'Edit'
-          })
+            productHead: 'EDIT PRODUCT',
+            productButton: 'Edit'
+          });
         } catch (error) {
           console.error("Error fetching product data:", error);
         }
@@ -44,7 +47,6 @@ const AddProduct = (props) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    //console.log(e.target);
     setFormData({
       ...formData,
       [name]: value
@@ -53,15 +55,19 @@ const AddProduct = (props) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(formData);
     try {
-      var url='';
-      if(props.type==='edit')
-      url=`http://localhost:5000/admin/productEdit/${props.id}`;
-    else
-      url='http://localhost:5000/admin/addProduct';
-      const response = await axios.post(url, formData);
-      console.log('Product added:', response.data);
+      const url = props.type === 'edit'
+        ? `http://localhost:5001/admin/productEdit/${props.id}`
+        : 'http://localhost:5001/admin/addProduct';
+      const method = props.type === 'edit' ? 'put' : 'post';
+
+      const response = await axios({
+        method: method,
+        url: url,
+        data: formData
+      });
+      
+      console.log('Product added/edited:', response.data);
       setFormData({
         productName: '',
         imageUrl: '',
@@ -69,27 +75,35 @@ const AddProduct = (props) => {
         description: '',
         quantity: ''
       });
+      alert(props.type==='edit'?'Product details edited successfully':'Product added successfully');
+      navigate('/admin/dashboard');
     } catch (error) {
-      console.error('There was an error adding the product:', error);
+      console.error('There was an error adding/editing the product:', error);
     }
   };
 
   return (
-    <div>
-      <center><h1>{product.productHead}</h1></center>
-      <div className="login-wrapper">
-        <div className="login-container">
-          <form onSubmit={handleSubmit} className="login-form">
-            <div className="input-container">
-              <InputV type="text" name="productName" id="productName" ph="Enter product name" onchange={handleChange} data={formData.productName} />
-              <InputV type="text" name="description" id="description" ph="Enter product description" onchange={handleChange} data={formData.description} />
-              <InputV type="text" name="price" id="price" ph="Enter product price" onchange={handleChange} data={formData.price} />
-              <InputV type="text" name="imageUrl" id="imageUrl" ph="Enter product image url" onchange={handleChange} data={formData.imageUrl} />
-              <InputV type="number" name="quantity" id="quantity" ph="Enter product quantity" onchange={handleChange} data={formData.quantity} />
-              <button type="submit">{product.productButton}</button>
-            </div>
-          </form>
-        </div>
+    <div className="add-product-container">
+      <h1 className="text-center">{product.productHead}</h1>
+      <div className="add-product-form-wrapper">
+        <form onSubmit={handleSubmit} className="add-product-form">
+          <div className="form-group">
+            <InputV type="text" name="productName" id="productName" ph="Enter product name" onchange={handleChange} data={formData.productName} />
+          </div>
+          <div className="form-group">
+            <InputV type="text" name="description" id="description" ph="Enter product description" onchange={handleChange} data={formData.description} />
+          </div>
+          <div className="form-group">
+            <InputV type="text" name="price" id="price" ph="Enter product price" onchange={handleChange} data={formData.price} />
+          </div>
+          <div className="form-group">
+            <InputV type="text" name="imageUrl" id="imageUrl" ph="Enter product image url" onchange={handleChange} data={formData.imageUrl} />
+          </div>
+          <div className="form-group">
+            <InputV type="number" name="quantity" id="quantity" ph="Enter product quantity" onchange={handleChange} data={formData.quantity} />
+          </div>
+          <button type="submit" className="btn btn-primary w-100 mt-3">{product.productButton}</button>
+        </form>
       </div>
     </div>
   );

@@ -10,8 +10,6 @@ function AdminNav() {
   const auth = useAuth();
   const navigate = useNavigate();
 
-  
-
   const handleLogout = () => {
     auth.logoutAction();
     navigate('/login');

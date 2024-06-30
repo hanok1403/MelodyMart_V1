@@ -7,7 +7,7 @@ const Home = () => {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/home')
+    fetch('http://localhost:5001/home')
       .then((response) => response.json())
       .then((data) => setItems(data))
       .catch((error) => console.log(error));

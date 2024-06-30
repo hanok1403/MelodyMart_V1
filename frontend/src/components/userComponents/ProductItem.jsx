@@ -5,7 +5,7 @@ import '../../styles/productItem.css';
 const ProductItem = ({ product }) => {
     const handleAddToCart = (id) => {
         const token = localStorage.getItem('token');
-        fetch(`http://localhost:5000/home/${id}`, {
+        fetch(`http://localhost:5001/home/${id}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

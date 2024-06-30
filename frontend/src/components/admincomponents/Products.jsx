@@ -9,17 +9,18 @@ function Products() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch('http://localhost:5000/admin/')
+        fetch('http://localhost:5001/admin/')
             .then((response) => response.json())
             .then((data) => setProduct(data))
             .catch((error) => console.log(error));
     }, []);
 
     const handleRemove = (id) => {
-        fetch(`http://localhost:5000/admin/delete/${id}`, { method: 'get' })
+        fetch(`http://localhost:5001/admin/delete/${id}`, { method: 'get' })
             .then(response => response.json())
             .then(() => {
                 setProduct(product.filter(prod => prod.productId !== id));
+                alert('Product removed successfully');
             })
             .catch(error => console.log(error));
     };
