@@ -1,32 +1,29 @@
 // src/components/ProductItem.js
 import React from 'react';
-// import { useCart } from '../contexts/CartProvider';
 import '../../styles/productItem.css';
 
 const ProductItem = ({ product }) => {
-    // const { addToCart } = useCart();
-
     const handleAddToCart = (id) => {
-        const token = localStorage.getItem('token')
-        fetch(`http://localhost:5000/home/${id}`,{
+        const token = localStorage.getItem('token');
+        fetch(`http://localhost:5000/home/${id}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ token }) 
-        }).then((response)=>{
-            console.log(response)
-        })
+        }).then((response) => {
+            console.log(response);
+        });
     };
 
     return (
         <div className="product-item card">
-            <img src={product.imageUrl} className="card-img-top" alt={product.productName} />
+            <img src={product.imageUrl} className="card-img-top product-image" alt={product.productName} />
             <div className="card-body">
                 <h5 className="card-title">{product.productName}</h5>
                 <p className="card-text">{product.description}</p>
                 <p className="card-text"><strong>Price:</strong> ${product.price}</p>
-                <button className="btn btn-primary" onClick={()=>handleAddToCart(product.productId)}>Add to Cart</button>
+                <button className="btn btn-primary" onClick={() => handleAddToCart(product.productId)}>Add to Cart</button>
             </div>
         </div>
     );

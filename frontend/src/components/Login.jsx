@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState } from 'react';
 import { useAuth } from '../Router/AuthProvider';
 import { useNavigate } from 'react-router-dom';
-import '../styles/login.css';
+import '../styles/Login.css';
 
 const Login = () => {
     const [credentials, setCredentials] = useState({ email: '', password: '' });
@@ -50,7 +50,7 @@ const Login = () => {
     };
 
     return (
-        <div className="login-container">
+        <div className="login-container container">
             <div className="card login-card">
                 <div className="card-body">
                     <h2 className="text-center mb-4">Login</h2>
@@ -95,3 +95,6 @@ const Login = () => {
 };
 
 export default Login;
+
+
+

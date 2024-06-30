@@ -7,8 +7,9 @@ const SignupController = async (req, res) => {
     //Check if user already exists
     const existingUser = await userModel.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({ message: 'User already exists' });
+      return res.json({ message: 'User already exists', userExists: true });
     }
+
     //Create a new instance of userModel
     const newUser = new userModel({
       email,

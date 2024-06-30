@@ -1,58 +1,21 @@
-.container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-image: url('../assets/images/bg1.jpeg'); 
-    background-size: cover;
-    background-position: center;
+
+.signup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
+.container{
+  background-image: url('../assets/images/bg1.jpeg'); 
+  background-size: cover;
+  background-position: center;
+}
+
 .signup-card {
-    width: 100%;
-    max-width: 600px;
-    padding: 40px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background-color: #f8f9fa;
-  }
-  
-  .signup-card .card-body {
-    padding: 40px;
-    border-radius: 8px;
-  }
-  
-  .signup-card .form-control {
-    margin-bottom: 20px;
-  }
-  
-  .signup-card .btn {
-    width: 50%;
-    margin: 0 auto;
-    display: block;
-  }
-  
-  .signup-card .text-center {
-    text-align: center;
-  }
-  
-  .signup-card .d-flex {
-    display: flex;
-  }
-  
-  .signup-card .justify-content-center {
-    justify-content: center;
-  }
-  
-  .signup-card .align-items-center {
-    align-items: center;
-  }
-  
-  .signup-card .mt-3 {
-    margin-top: 1rem;
-  }
-  
-  .signup-card .mt-4 {
-    margin-top: 1.5rem;
-  }
-  
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.8); 
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

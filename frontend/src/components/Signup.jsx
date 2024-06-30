@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../styles/signup.css'
+import '../styles/signup.css';
 
-//Signup  Component
 const SignUp = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -21,14 +20,20 @@ const SignUp = () => {
         username,
         mobileNumber,
       });
-      alert('Signup Successful');
-      console.log(response.data);
+      if(response.data.userExists){
+        alert('User already exists!!! Navigating to login...');
+      }
+      else{
+        alert('Signup Successful');
+        console.log(response.data);
+      }
       navigate('/login');
     } catch (err) {
       if (err.response && err.response.data) {
-        alert(err.response.data.message);
+        alert(err.response.data.message); // Display the error message from the server
+        // navigate('/login');
       } else {
-        alert('Signup Failed');
+        alert('Signup Failed'); // Generic error message if server response does not indicate user exists
       }
       console.log('Error signing up:', err);
     }

@@ -1,6 +1,6 @@
 // src/components/Profile.js
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import '../styles/Profile.css';
 import { useAuth } from '../Router/AuthProvider';
 

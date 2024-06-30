@@ -24,14 +24,14 @@ app.use('/', userRouter)
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
 
-app.post('/signup',async(req, res)=>{
-    if(await SignupController(req, res)){
-        res.redirect('/login')
-    }
-    else{
-        res.send("User Creation failed. Please Try again..!")
-    }
-})
+// app.post('/signup',async(req, res)=>{
+//     if(await SignupController(req, res)){
+//         res.redirect('/login')
+//     }
+//     else{
+//         res.send("User Creation failed. Please Try again..!")
+//     }
+// })
 
 app.post('/login',async (req, res)=>{
     // console.log(req.body);
@@ -39,6 +39,11 @@ app.post('/login',async (req, res)=>{
     console.log(data)
     res.status(200).json(data);
     
+})
+app.post('/signup',async (req,res)=>{
+    const data = await SignupController(req, res);
+    console.log(data);
+    res.status(200).json(data);
 })
 
 app.get('/cart/:id',async (req, res)=>{

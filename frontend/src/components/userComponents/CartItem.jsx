@@ -1,6 +1,8 @@
 // import React from 'react';
 // import React from 'react';
 import '../../styles/CartItem.css';
+import React from 'react';
+import PropTypes from 'prop-types';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -35,9 +37,6 @@ import '../../styles/CartItem.css';
 // }
 
 // export default CartItem;
-
-import React from 'react';
-import PropTypes from 'prop-types';
 
 const CartItem = ({ item, onRemove }) => {
   const { productId, name, price, quantity, imageUrl } = item;
@@ -70,8 +69,7 @@ const CartItem = ({ item, onRemove }) => {
 
 // export default CartItem;
 
-import React from 'react';
-import PropTypes from 'prop-types';
+
 
 const CartItem = ({ item, onRemove }) => {
   const { productId, name, price, quantity, imageUrl } = item;

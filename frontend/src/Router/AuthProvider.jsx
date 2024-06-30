@@ -21,7 +21,7 @@ const AuthProvider = ({ children }) => {
         }
         if (storedRole === 'admin') {
             navigate('/admin/dashboard');
-        } else if (storedRole === 'user') {
+        } else if (storedRole === 'user') { 
             navigate('/home');
         } else {
             logoutAction();

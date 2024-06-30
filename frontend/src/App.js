@@ -16,6 +16,7 @@ import EditProduct from './components/admincomponents/EditProduct';
 import User from './components/userComponents/User';
 import Signup from './components/Signup';
 import Footer from './Footer'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
     // const auth = useAuth();
