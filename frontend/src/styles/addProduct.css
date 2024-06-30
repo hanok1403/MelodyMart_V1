@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: center;
   padding: 20px;
+  background-image: linear-gradient(#1e6d8f, rgb(65, 186, 100));
 }
 
 .add-product-form-wrapper {
