@@ -5,12 +5,13 @@ import '../../styles/productItem.css';
 const ProductItem = ({ product }) => {
     const handleAddToCart = (id) => {
         const token = localStorage.getItem('token');
+        const user = localStorage.getItem('user');
         fetch(`http://localhost:5000/home/${id}`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ token }) 
+            body: JSON.stringify({ token, user }) 
         }).then((response) => {
             console.log(response);
         });

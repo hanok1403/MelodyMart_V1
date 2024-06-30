@@ -1,6 +1,5 @@
-/* src/styles/home.css */
 .container {
-  margin-top: 2rem; /* Add some margin to avoid overlapping with the navbar */
+  margin-top: 2rem;
 }
 
 .product-item {

@@ -23,6 +23,11 @@ app.use('/admin', adminRouter)
 app.use('/', userRouter)
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'http://localhost:5173');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    next();
+  });
 
 // app.post('/signup',async(req, res)=>{
 //     if(await SignupController(req, res)){

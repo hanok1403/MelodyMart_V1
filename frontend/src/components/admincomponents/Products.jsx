@@ -34,7 +34,7 @@ function Products() {
         <>
             {/* <h1>Product Management</h1> */}
             <div className="container">
-                <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+                <div className="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-4 g-4">
                     {product.map((item, i) => (
                         <div key={i} className="col mb-4">
                             <Items product={item} onRemove={handleRemove} onEdit={handleEdit} />
