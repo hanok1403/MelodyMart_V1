@@ -16,6 +16,7 @@ import EditProduct from './components/admincomponents/EditProduct';
 import User from './components/userComponents/User';
 import Signup from './components/Signup';
 import Footer from './Footer'
+import Customers from './components/admincomponents/Customers';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
                                 <Route path="addProduct" element={<AddProduct />} />
                                 <Route path="orders" element={<OrderList />} />
                                 <Route path="editProduct" element={<EditProduct />} />
+                                <Route path="customers" element={<Customers />} />
                             </Route>
                         </Route>
                         <Route element={<CustPrivateRouter />}>
