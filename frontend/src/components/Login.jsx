@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState } from 'react';
 import { useAuth } from '../Router/AuthProvider';
 import { useNavigate } from 'react-router-dom';
-import '../styles/login.css';
+import '../styles/Login.css';
 
 const Login = () => {
     const [credentials, setCredentials] = useState({ email: '', password: '' });
@@ -38,7 +38,7 @@ const Login = () => {
             console.log("while submitting" + data)
             loginAction(data); 
             localStorage.setItem('user', JSON.stringify(data)); 
-            navigate('/dashboard'); 
+            // navigate('/dashboard'); 
         } catch (err) {
             setError('Login failed. Please check your credentials and try again.');
             console.error(err);
