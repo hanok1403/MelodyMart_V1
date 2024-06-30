@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState } from 'react';
 import { useAuth } from '../Router/AuthProvider';
 import { useNavigate } from 'react-router-dom';
-import '../styles/Login.css';
+import '../styles/login.css';
 
 const Login = () => {
     const [credentials, setCredentials] = useState({ email: '', password: '' });

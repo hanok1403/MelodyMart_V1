@@ -4,6 +4,7 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/signup.css'
 
+//Signup  Component
 const SignUp = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
