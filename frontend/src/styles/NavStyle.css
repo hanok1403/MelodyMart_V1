@@ -1,53 +1,43 @@
-/* Updated Navstyles.css */
-.navbar {
-  background-color: #2e84a1; /* Bootstrap info color */
-  overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  border-radius: 8px;
-  margin: 20px;
+/* NavStyle.css */
+
+.custom-navbar {
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.navbar ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+.custom-navbar-brand {
+  font-family: 'Arial', sans-serif;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ff6403;
 }
 
-.navbar li {
-  float: left;
+.custom-nav-link {
+  font-family: 'Arial', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #ffffff; /* Slightly darker color for links */
+  transition: color 0.3s ease;
 }
 
-.navbar li a, .navbar li .btn-link {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 20px;
-  text-decoration: none;
-  font-family: "Poetsen One", sans-serif;
-  font-size: 16px;
-  transition: background-color 0.3s, color 0.3s;
-  border-radius: 4px;
+.custom-nav-link:hover {
+  color: #007bff; /* Bootstrap primary color on hover */
 }
 
-.navbar li a:hover, .navbar li .btn-link:hover {
-  background-color: #138496; /* Bootstrap info hover color */
-  color: #ffffff;
+.custom-logout-button {
+  font-family: 'Arial', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #dc3545; /* Bootstrap danger color */
+  border: 1px solid #dc3545; /* Match the button border with text color */
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.navbar li a:active, .navbar li .btn-link:active {
-  background-color: #117a8b; /* Bootstrap info active color */
+.custom-logout-button:hover {
+  background-color: #dc3545; /* Bootstrap danger background on hover */
+  color: #ffffff; /* White text on hover */
 }
 
-@media (max-width: 768px) {
-  .navbar ul {
-      flex-direction: column;
-  }
-
-  .navbar li {
-      width: 100%;
-      text-align: center;
-  }
+.profile-link {
+  color: #007bff; /* Blue color for profile link */
 }
