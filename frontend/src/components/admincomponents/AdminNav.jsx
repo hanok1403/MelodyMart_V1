@@ -1,10 +1,8 @@
 import React from 'react';
-import { Link, Route, Routes, useNavigate } from 'react-router-dom';
+import { Link, Routes, Route, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../Router/AuthProvider';
-import { Navbar, Nav } from 'react-bootstrap';
-import '../../styles/NavStyle.css'; // Custom styles
-import AddProduct from './AddProduct';
 import Admindashboard from './Admindashboard';
+import AddProduct from './AddProduct';
 import OrderList from './OrderList';
 import EditProduct from './EditProduct';
 import Customers from './Customers';
@@ -20,21 +18,31 @@ const AdminNav = () => {
 
   return (
     <div>
-      <Navbar bg="dark" expand="lg" variant="dark" className="shadow-sm custom-navbar">
-        <Navbar.Brand as={Link} to="/admin/dashboard" className="custom-navbar-brand px-3">Admin Panel</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link as={Link} to="/admin/dashboard" className="custom-nav-link">Dashboard</Nav.Link>
-            <Nav.Link as={Link} to="/admin/addProduct" className="custom-nav-link">Add Products</Nav.Link>
-            <Nav.Link as={Link} to="/admin/orders" className="custom-nav-link">Orders</Nav.Link>
-            <Nav.Link as={Link} to="/admin/customers" className="custom-nav-link">Customers</Nav.Link>
-          </Nav>
-          <Nav>
-            <Nav.Link onClick={handleLogout} className="custom-logout-button ml-3 px-3 mr-3">Logout</Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
+      <nav className="bg-gray-800 shadow-sm">
+        <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+          <div className="relative flex items-center justify-between h-16">
+            <div className="flex items-center">
+              <Link to="/admin/dashboard" className="text-white text-3xl font-bold px-3">Admin Panel</Link>
+            </div>
+            <div className="hidden sm:block sm:ml-6">
+              <div className="flex space-x-4">
+                <Link to="/admin/dashboard" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-lg font-medium">Dashboard</Link>
+                <Link to="/admin/addProduct" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-lg font-medium">Add Products</Link>
+                <Link to="/admin/orders" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-lg font-medium">Orders</Link>
+                <Link to="/admin/customers" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-lg font-medium">Customers</Link>
+              </div>
+            </div>
+            <div className="ml-auto pr-4 flex items-center">
+              <button
+                onClick={handleLogout}
+                className="text-red-600 hover:text-white px-3 py-2 rounded-md text-lg font-medium"
+              >
+                Logout
+              </button>
+            </div>
+          </div>
+        </div>
+      </nav>
       <Routes>
         <Route path="/dashboard" element={<Admindashboard />} />
         <Route path="/addProduct" element={<AddProduct />} />
