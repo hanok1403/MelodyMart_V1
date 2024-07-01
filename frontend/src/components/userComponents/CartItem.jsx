@@ -1,78 +1,11 @@
-// import React from 'react';
-// import React from 'react';
-import '../../styles/CartItem.css';
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-// import 'bootstrap/dist/css/bootstrap.min.css';
-// import 'bootstrap/dist/css/bootstrap.min.css';
-
-// function CartItem(props) {
-//     const handleIncrement = (id) => {
-//         props.onIncrement(id);
-//     };
-// function CartItem(props) {
-//     const handleIncrement = (id) => {
-//         props.onIncrement(id);
-//     };
-
-//     const handleDecrement = (id) => {
-//         props.onDecrement(id);
-//     };
-
-//     return (
-//         <div className="card h-100" key={props.key}>
-//             <img src={props.product.imageUrl} alt={props.product.productName} className="card-img-top" height="100px" width="100px" />
-//             <div className="card-body d-flex flex-column">
-//                 <h5 className="card-title">{props.product.productName}</h5>
-//                 <p className="card-text">{props.product.description}</p>
-//                 <h6 className="card-price">${props.product.price}</h6>
-//                 <p className="card-text">Quantity: {props.product.quantity}</p>
-//                 <div className="mt-auto">
-//                     <button onClick={() => handleIncrement(props.product.productId)} className="btn btn-success mx-1">+</button>
-//                     <button onClick={() => handleDecrement(props.product.productId)} className="btn btn-warning mx-1">-</button>
-//                 </div>
-//             </div>
-//         </div>
-//     );
-// }
-
-// export default CartItem;
 
 const CartItem = ({ item, onRemove }) => {
   const { productId, name, price, quantity, imageUrl } = item;
 
-  const handleRemove = () => {
-    if (window.confirm('Are you sure you want to remove this item from the cart?')) {
-      onRemove(productId);
-    }
-  };
-//     const handleDecrement = (id) => {
-//         props.onDecrement(id);
-//     };
-
-//     return (
-//         <div className="card h-100" key={props.key}>
-//             <img src={props.product.imageUrl} alt={props.product.productName} className="card-img-top" height="100px" width="100px" />
-//             <div className="card-body d-flex flex-column">
-//                 <h5 className="card-title">{props.product.productName}</h5>
-//                 <p className="card-text">{props.product.description}</p>
-//                 <h6 className="card-price">${props.product.price}</h6>
-//                 <p className="card-text">Quantity: {props.product.quantity}</p>
-//                 <div className="mt-auto">
-//                     <button onClick={() => handleIncrement(props.product.productId)} className="btn btn-success mx-1">+</button>
-//                     <button onClick={() => handleDecrement(props.product.productId)} className="btn btn-warning mx-1">-</button>
-//                 </div>
-//             </div>
-//         </div>
-//     );
-// }
-
-// export default CartItem;
-
-
-
-const CartItem = ({ item, onRemove }) => {
-  const { productId, name, price, quantity, imageUrl } = item;
+  // State for quantity
+  const [itemQuantity, setItemQuantity] = useState(quantity);
 
   const handleRemove = () => {
     if (window.confirm('Are you sure you want to remove this item from the cart?')) {
@@ -80,40 +13,52 @@ const CartItem = ({ item, onRemove }) => {
     }
   };
 
-  return (
-    <div className="cart-item">
-      <img src={imageUrl} alt={name} className="cart-item-image" />
-      <div className="cart-item-details">
-        <h3>{name}</h3>
-        <p>Price: ${price.toFixed(2)}</p>
-        <p>Quantity: {quantity}</p>
-        <p className="cart-item-total">Total: ${(price * quantity).toFixed(2)}</p>
-      </div>
-      <button onClick={handleRemove} className="remove-button">&times;</button>
-    </div>
-  );
-};
+  const handleQuantityChange = (change) => {
+    // Ensure quantity is at least 1 before updating
+    const newQuantity = Math.max(1, itemQuantity + change);
+    setItemQuantity(newQuantity);
+    // Optionally, you can implement logic to update quantity in the cart here
+  };
 
-CartItem.propTypes = {
-  item: PropTypes.shape({
-    productId: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    quantity: PropTypes.number.isRequired,
-    imageUrl: PropTypes.string.isRequired,
-  }).isRequired,
-  onRemove: PropTypes.func.isRequired,
-};
   return (
-    <div className="cart-item">
-      <img src={imageUrl} alt={name} className="cart-item-image" />
-      <div className="cart-item-details">
-        <h3>{name}</h3>
-        <p>Price: ${price.toFixed(2)}</p>
-        <p>Quantity: {quantity}</p>
-        <p className="cart-item-total">Total: ${(price * quantity).toFixed(2)}</p>
+    <div className="flex items-center justify-between p-4 bg-white shadow-md rounded-lg mb-4">
+      {/* Left Section: Image, Name, Price, Total */}
+      <div className="flex items-center">
+        <img src={imageUrl} alt={name} className="w-24 h-24 object-cover rounded-md" />
+        <div className="ml-4">
+          <h3 className="text-lg font-semibold text-gray-900">{name}</h3>
+          <p className="text-gray-600">Price: ${price.toFixed(2)}</p>
+          <p className="text-gray-800 font-bold">Total: ${(price * itemQuantity).toFixed(2)}</p>
+        </div>
       </div>
-      <button onClick={handleRemove} className="remove-button">&times;</button>
+
+      {/* Right Section: Quantity Controls and Remove Button */}
+      <div className="flex items-center ml-4">
+        {/* Quantity Controls */}
+        <div className="flex items-center">
+          <button
+            onClick={() => handleQuantityChange(-1)}
+            className="text-gray-500 hover:text-gray-700 text-lg font-semibold px-2 py-1 border border-gray-300 rounded-l focus:outline-none"
+          >
+            -
+          </button>
+          <span className="px-4 py-1 text-gray-800 font-semibold">{itemQuantity}</span>
+          <button
+            onClick={() => handleQuantityChange(1)}
+            className="text-gray-500 hover:text-gray-700 text-lg font-semibold px-2 py-1 border border-gray-300 rounded-r focus:outline-none"
+          >
+            +
+          </button>
+        </div>
+
+        {/* Remove from Cart Button */}
+        <button
+          onClick={handleRemove}
+          className="ml-4 text-red-500 hover:text-red-700 text-lg font-bold focus:outline-none"
+        >
+          Remove from Cart
+        </button>
+      </div>
     </div>
   );
 };

@@ -14,14 +14,15 @@ const Home = () => {
 
   return (
     <>
-      {/* <h1>This is Home page</h1> */}
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {items.map((item, i) => (
-            <div key={i} className="mb-4">
-              <ProductItem product={item} />
-            </div>
-          ))}
+      <div className="bg-gradient-to-br from-purple-500 via-pink-500 to-red-500 min-h-screen">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 py-8">
+            {items.map((item, i) => (
+              <div key={i} className="mb-4">
+                <ProductItem product={item} />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </>
