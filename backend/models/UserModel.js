@@ -27,16 +27,12 @@ const userSchema = mongoose.Schema({
         type:String,
         default:'user'
     },
-    cart:{
-        type:Array,
-        default:[]
-    },
     ordersList:{
         type:Array,
         default:[]
     }
 })
 
-const userModel = mongoose.model('Users', userSchema)
+const userModel = mongoose.model('User', userSchema)
 
 export default userModel;

@@ -1,6 +1,9 @@
-/* src/styles/home.css */
 .container {
+<<<<<<< HEAD
+  margin-top: 2rem;
+=======
     margin-top: 2rem; /* Add some margin to avoid overlapping with the navbar */
+>>>>>>> 642c93b90bb56e4b1dbf4d34b6cca77e0b307dc5
 }
 
 .product-item {

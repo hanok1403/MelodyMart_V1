@@ -1,4 +1,3 @@
-/* src/components/Profile.css */
 .profile-container {
     max-width: 400px;
     margin: 0 auto;
@@ -50,8 +49,6 @@ button:hover {
     text-align: center;
     color: red;
 }
-
-/* src/styles/Profile.css */
 
 .profile-container {
     max-width: 400px;

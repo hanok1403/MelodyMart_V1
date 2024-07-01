@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CartItem from './CartItem';
 
 // function Cart() {
@@ -36,11 +36,19 @@ import CartItem from './CartItem';
 // export default Cart;
 
 const Cart = () => {
-    const [cart, setCart] = useState([
-      { productId: '1', name: 'Product 1', price: 19.99, quantity: 2, imageUrl: 'https://via.placeholder.com/60' },
-      { productId: '2', name: 'Product 2', price: 9.99, quantity: 1, imageUrl: 'https://via.placeholder.com/60' },
-      // Add more items as needed
-    ]);
+  const [cart, setCart] = useState([]);
+  const user = JSON.parse(localStorage.getItem('user'));
+
+  useEffect(() => {
+    // console.log(user.user.id)
+      if (user) {
+          fetch(`http://localhost:5000/cart/${user.user.id}`)
+              .then(response => response.json())
+              .then(data => setCart(data))
+              .catch(error => console.log(error));
+      }
+      // console.log(cart)
+  }, []);
   
     const handleRemoveItem = (productId) => {
       setCart(cart.filter(item => item.productId !== productId));
@@ -54,7 +62,7 @@ const Cart = () => {
         ))}
         <div className="cart-total">
           <h3>
-            Total: ${cart.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2)}
+            Total: ${cart.reduce((total, item) => total + item.price, 0).toFixed(2)}
           </h3>
         </div>
       </div>
