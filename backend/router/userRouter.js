@@ -71,21 +71,35 @@ router.get('/cart/:id', async (req, res)=>{
     }
 })
 
-router.delete('cart/:id', async (req, res)=>{
-    try{
-        const body = JSON.parse(req.body)
-        console.log(body)
-        const itemId = req.params.id;
-        const userId = body.userId;
-        
-        await cartModel.findOneAndDelete({userId:userId, productId:itemId})
-        const updatedCart = await cartModel.find({ userId });
-        console.log(updatedCart)
+router.delete('/cart/itemDelete/:id', async (req, res) => {
+    try {
+      const { id: itemId } = req.params;
+      const  userId  = req.body.userId;
+  
+    //   const userId = user
+      
+      console.log(`Item ID: ${itemId}, User ID: ${userId}`);
+  
+        const cartItem = await cartModel.findOneAndDelete({ userId: userId, productId: itemId });
 
-        res.status(200).json(updatedCart)
-    } catch (err) {
-        res.status(500).json({ message: 'Error while removing items from the cart', error });
+    //   console.log(cartItem)  
+
+    //   if (!cart) {
+    //     return res.status(404).json({ message: 'Cart not found' });
+    //   }
+  
+      // Remove the item from the cart
+    //   cart.items = cart.items.filter(item => item.productId !== itemId);
+    //   await cart.save();
+  
+      // Fetch the updated cart data for the user
+      const updatedCart = await cartModel.find({ userId: userId });
+    //   console.log(updatedCart)
+  
+      res.json(updatedCart);
+    } catch (error) {
+      res.status(500).json({ message: 'Error while removing items from the cart', error });
     }
-})
+  });
 
 export default router;

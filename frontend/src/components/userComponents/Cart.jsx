@@ -14,19 +14,24 @@ const Cart = () => {
   }, []);
 
   const handleRemoveItem = (productId) => {
-    console.log(data)
-    fetch(`http://localhost:5001/cart/${productId}`,{
-      method: 'DELETE',
+    // Ensure user ID is correctly retrieved
+  
+    fetch(`http://localhost:5001/cart/itemDelete/${productId}`, {
+      method: 'DELETE', // Use DELETE method
       headers: {
         'Content-Type': 'application/json',
-        },
+      },
       body: JSON.stringify({
         userId: data.user.id
       })
     })
-    .then((response) => response.json())
-    .then((data) => setCart(data))
-    .catch((error) => console.log(error));
+      .then((response) => response.json())
+      .then((data) => {
+        // Update the cart state with the new cart data\
+        console.log(data)
+        setCart(data);
+      })
+      .catch((error) => console.log(error));
   };
 
   return (
