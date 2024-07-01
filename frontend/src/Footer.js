@@ -1,4 +1,4 @@
-// src/components/Footer.js
+// src/components/Footer.js         Footer component
 import React from 'react';
 import './styles/Footer.css';
 

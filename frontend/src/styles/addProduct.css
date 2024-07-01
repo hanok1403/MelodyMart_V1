@@ -4,6 +4,8 @@
   align-items: center;
   padding: 20px;
   background-image: linear-gradient(#1e6d8f, rgb(65, 186, 100));
+  margin-bottom: 20px;
+  font-size: 2rem;
 }
 
 .add-product-form-wrapper {
@@ -19,6 +21,14 @@
   margin-bottom: 15px;
 }
 
+.add-product-form .form-group input {
+  padding: 8px 10px;
+  font-size: 1rem; 
+  height: auto; 
+  border: 1px solid #ccc; 
+  border-radius: 4px; 
+}
+
 .add-product-form .btn-primary {
   background-color: #007bff;
   border-color: #007bff;
@@ -27,9 +37,4 @@
 .add-product-form .btn-primary:hover {
   background-color: #0056b3;
   border-color: #0056b3;
-}
-
-.add-product-container h1 {
-  margin-bottom: 20px;
-  font-size: 2rem;
 }

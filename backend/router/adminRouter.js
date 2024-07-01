@@ -1,6 +1,7 @@
 import express from 'express';
 import orderModel from '../models/OrderModel.js';
 import productModel from '../models/ProductModel.js';
+import UserModel from "../models/UserModel.js";
 
 const router = express.Router()
 router.use(express.urlencoded({extended:true}))
@@ -77,4 +78,14 @@ router.get('/orders', async (req, res) => {
     }
 });
 
+router.get('/customers', async (req, res) => {
+    try {
+        const users = await UserModel.find({}); 
+        console.log(users);
+        res.json(users);
+    } catch (error) {
+        console.error("Error fetching customers:", error);
+        res.status(500).json({ message: "Error fetching customers", error });
+    }
+});
 export default router;

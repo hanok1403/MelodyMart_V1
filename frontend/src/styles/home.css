@@ -1,5 +1,6 @@
 .container {
     margin-top: 2rem; 
+    margin-top: 2rem; /* Add some margin to avoid overlapping with the navbar */
 }
 
 .product-item {
