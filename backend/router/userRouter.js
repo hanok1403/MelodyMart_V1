@@ -23,8 +23,9 @@ router.post('/home/:id', async (req, res)=>{
     try {
         const userData = JSON.parse(req.body.user);
         const itemId = req.params.id;
-        // console.log()
+        // console.log(req.body)
         const userId = userData.user.id;
+        const quantity = req.body.quantity;
 
         const productDetails = await productModel.findOne({ productId: itemId });
 
@@ -36,14 +37,15 @@ router.post('/home/:id', async (req, res)=>{
         // console.log("existing cart: " + existingCartItem)
         let cart;
         if (existingCartItem) {
-            existingCartItem.quantity += 1;
+            existingCartItem.quantity += quantity;
             existingCartItem.price = productDetails.price;
             cart = await existingCartItem.save();
         } else {
             cart = await cartModel.create({
                 userId:userId,
+                imageUrl:productDetails.imageUrl,
                 productId: itemId,
-                quantity: 1,
+                quantity: quantity,
                 price: productDetails.price
             });
         }
@@ -57,10 +59,10 @@ router.post('/home/:id', async (req, res)=>{
 router.get('/cart/:id', async (req, res)=>{
     try{
         const userId = req.params.id;
-        console.log("back " + userId)
+        // console.log("back " + userId)
 
         const cartData = await cartModel.find({ userId: userId });
-        console.log(cartData)
+        // console.log(cartData)
 
         res.json(cartData);
 
@@ -68,5 +70,36 @@ router.get('/cart/:id', async (req, res)=>{
         res.status(500).json({ message: 'Error getting items from the cart', error });
     }
 })
+
+router.delete('/cart/itemDelete/:id', async (req, res) => {
+    try {
+      const { id: itemId } = req.params;
+      const  userId  = req.body.userId;
+  
+    //   const userId = user
+      
+      console.log(`Item ID: ${itemId}, User ID: ${userId}`);
+  
+        const cartItem = await cartModel.findOneAndDelete({ userId: userId, productId: itemId });
+
+    //   console.log(cartItem)  
+
+    //   if (!cart) {
+    //     return res.status(404).json({ message: 'Cart not found' });
+    //   }
+  
+      // Remove the item from the cart
+    //   cart.items = cart.items.filter(item => item.productId !== itemId);
+    //   await cart.save();
+  
+      // Fetch the updated cart data for the user
+      const updatedCart = await cartModel.find({ userId: userId });
+    //   console.log(updatedCart)
+  
+      res.json(updatedCart);
+    } catch (error) {
+      res.status(500).json({ message: 'Error while removing items from the cart', error });
+    }
+  });
 
 export default router;

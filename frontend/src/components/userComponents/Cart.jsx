@@ -3,41 +3,48 @@ import CartItem from './CartItem';
 
 const Cart = () => {
   const [cart, setCart] = useState([]);
-  const user = JSON.parse(localStorage.getItem('user'));
+
+  const data = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
-    if (user) {
-      fetch(`http://localhost:5001/cart/${user.user.id}`)
-        .then(response => response.json())
-        .then(data => setCart(data))
-        .catch(error => console.log(error));
-    }
-  }, [user]); // Include user in dependency array to fetch cart when user changes
+    fetch(`http://localhost:5001/cart/${data.user.id}`)
+      .then((response) => response.json())
+      .then((data) => setCart(data))
+      .catch((error) => console.log(error));
+  }, []);
 
   const handleRemoveItem = (productId) => {
-    // Update cart state by filtering out the item to remove
-    setCart(cart.filter(item => item.productId !== productId));
-  };
-
-  const handleQuantityChange = (productId, change) => {
-    // Update cart state by mapping over items and adjusting quantity of the matching product
-    setCart(cart.map(item =>
-      item.productId === productId ? { ...item, quantity: Math.max(1, item.quantity + change) } : item
-    ));
+    // Ensure user ID is correctly retrieved
+  
+    fetch(`http://localhost:5001/cart/itemDelete/${productId}`, {
+      method: 'DELETE', // Use DELETE method
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userId: data.user.id
+      })
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Update the cart state with the new cart data\
+        console.log(data)
+        setCart(data);
+      })
+      .catch((error) => console.log(error));
   };
 
   return (
-    <div className="shopping-cart">
+    <div className="cart-container mx-auto p-4">
       <h2 className="text-2xl font-semibold mb-4">Shopping Cart</h2>
       {cart.map(item => (
         <CartItem
           key={item.productId}
           item={item}
           onRemove={handleRemoveItem}
-          onQuantityChange={handleQuantityChange}
         />
       ))}
-      <div className="cart-total mt-8">
+      <div className="text-right mt-4">
         <h3 className="text-xl font-semibold">
           Total: ${cart.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2)}
         </h3>
