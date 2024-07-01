@@ -61,7 +61,7 @@ router.get('/productEdit/:id', async (req, res) => {
 
 router.post('/productEdit/:id', async (req, res) => {
     try {
-        const { id } = req.params.id;
+        const { id } = req.params;
         console.log(id);
         const updates = req.body;
         console.log(updates);
