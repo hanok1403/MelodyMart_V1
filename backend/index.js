@@ -1,13 +1,11 @@
-import express from 'express'
-import dotenv from 'dotenv'
 import cors from 'cors'
-import path from 'path'
+import dotenv from 'dotenv'
+import express from 'express'
 import mongoose from 'mongoose'
 
+import CartController from './controllers/CartController.js'
 import LoginController from './controllers/LoginController.js'
 import SignupController from './controllers/SignupController.js'
-import ProductController from './controllers/ProductController.js'
-import CartController from './controllers/CartController.js'
 import adminRouter from './router/adminRouter.js'
 import userRouter from './router/userRouter.js'
 
@@ -23,11 +21,7 @@ app.use('/admin', adminRouter)
 app.use('/', userRouter)
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:5173');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    next();
-  });
+
 
 // app.post('/signup',async(req, res)=>{
 //     if(await SignupController(req, res)){
