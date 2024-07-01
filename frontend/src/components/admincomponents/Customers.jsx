@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { ListGroup, Button, Modal } from 'react-bootstrap';
 
 const Customers = () => {
     const [users, setUsers] = useState([]);
@@ -38,35 +37,54 @@ const Customers = () => {
     };
 
     return (
-        <div>
-            <h1>Registered Users</h1>
-            {error && <p>Error: {error}</p>}
-            <ListGroup>
-                {users.map((user, index) => (
-                    <ListGroup.Item key={user._id} className="d-flex justify-content-between align-items-center">
-                        <span>{index + 1}. {user.username}</span>
-                        <Button variant="info" onClick={() => handleShowModal(user)}>Details</Button>
-                    </ListGroup.Item>
-                ))}
-            </ListGroup>
+        <div className="p-6">
+            <h1 className="text-3xl font-semibold mb-4">Registered Users</h1>
+            {error && <p className="text-red-500 mb-4">Error: {error}</p>}
+            <div className="overflow-hidden border border-gray-200 shadow sm:rounded-lg mb-4">
+                <ul>
+                    {users.map((user, index) => (
+                        <li key={user._id} className="border-t border-gray-200 hover:bg-gray-50">
+                            <div className="px-4 py-4 sm:px-6 flex justify-between items-center">
+                                <div className="text-sm font-medium text-indigo-600 truncate">{index + 1}. {user.username}</div>
+                                <button
+                                    onClick={() => handleShowModal(user)}
+                                    className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                >
+                                    Details
+                                </button>
+                            </div>
+                        </li>
+                    ))}
+                </ul>
+            </div>
 
             {selectedUser && (
-                <Modal show={showModal} onHide={handleCloseModal}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>Customer Details</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <p><strong>Username:</strong> {selectedUser.username}</p>
-                        <p><strong>Email:</strong> {selectedUser.email}</p>
-                        <p><strong>Role:</strong> {selectedUser.role}</p>
-                        <p><strong>Orders:</strong> {selectedUser.orders}</p>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={handleCloseModal}>
-                            Close
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
+                <div className="fixed z-10 inset-0 overflow-y-auto">
+                    <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+                        <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                        <div className="inline-block align-middle bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                            <div className="bg-gradient-to-br from-gray-100 to-gray-200 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                                <h3 className="text-lg leading-6 font-medium text-gray-900" id="modal-title">Customer Details</h3>
+                                <div className="mt-4">
+                                    <p className="text-sm text-gray-500"><strong>Username:</strong> {selectedUser.username}</p>
+                                    <p className="text-sm text-gray-500"><strong>Email:</strong> {selectedUser.email}</p>
+                                    <p className="text-sm text-gray-500"><strong>Role:</strong> {selectedUser.role}</p>
+                                    <p className="text-sm text-gray-500"><strong>Orders:</strong> {selectedUser.orders}</p>
+                                </div>
+                            </div>
+                            <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                                <button
+                                    onClick={handleCloseModal}
+                                    type="button"
+                                    className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm"
+                                >
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             )}
         </div>
     );
