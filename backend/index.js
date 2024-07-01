@@ -16,12 +16,15 @@ mongoose.connect(process.env.DBClient).then(response => console.log("Connected t
 const PORT = process.env.PORT
 const app = express()
 
-app.use(cors())
+app.use(cors({
+    origin: 'http://localhost:3000', // Replace with the correct origin
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type']
+}));
 app.use('/admin', adminRouter)
 app.use('/', userRouter)
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
-
 
 // app.post('/signup',async(req, res)=>{
 //     if(await SignupController(req, res)){
