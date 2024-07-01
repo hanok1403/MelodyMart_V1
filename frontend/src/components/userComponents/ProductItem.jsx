@@ -6,7 +6,7 @@ const ProductItem = ({ product }) => {
     const handleAddToCart = (id) => {
         const token = localStorage.getItem('token');
         const user = localStorage.getItem('user');
-        fetch(`http://localhost:5001/home/${id}`, {
+        fetch(`http://localhost:5000/home/${id}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

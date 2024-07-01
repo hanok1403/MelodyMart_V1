@@ -10,7 +10,7 @@ const Customers = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await fetch("http://localhost:5001/admin/customers");
+                const response = await fetch("http://localhost:5000/admin/customers");
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }

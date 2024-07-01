@@ -42,7 +42,7 @@ const Cart = () => {
   useEffect(() => {
     // console.log(user.user.id)
       if (user) {
-          fetch(`http://localhost:5001/cart/${user.user.id}`)
+          fetch(`http://localhost:5000/cart/${user.user.id}`)
               .then(response => response.json())
               .then(data => setCart(data))
               .catch(error => console.log(error));
