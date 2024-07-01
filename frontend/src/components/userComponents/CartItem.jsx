@@ -11,17 +11,17 @@ const CartItem = ({ item, onRemove }) => {
   };
 
   return (
-    <div className="flex items-center justify-between p-4 bg-white shadow-md rounded-lg mb-4">
-      {/* Left Section: Image, Name, Price, Total */}
-      <div className="flex items-center">
-        <img src={imageUrl} alt={name} className="w-24 h-24 object-cover rounded-md" />
-        <div className="ml-4">
-          <h3 className="text-lg font-semibold text-gray-900">{name}</h3>
-          <p className="text-gray-600">Price: ${price.toFixed(2)}</p>
-          <p className="text-gray-800 font-bold">Total: ${(price * itemQuantity).toFixed(2)}</p>
-        </div>
+    <div className="cart-item">
+      <img src={imageUrl} alt={name} className="cart-item-image" />
+      <div className="cart-item-details">
+        <h3>{name}</h3>
+        <p>Price: ${price.toFixed(2)}</p>
+        <p>Quantity: {quantity}</p>
+        <p className="cart-item-total">Total: ${(price * quantity).toFixed(2)}</p>
       </div>
-      </div>
+      <button onClick={handleRemove} className="remove-button">&times;</button>
+    </div>
   );
+};
 
 export default CartItem;
