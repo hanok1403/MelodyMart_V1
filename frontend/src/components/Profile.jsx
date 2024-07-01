@@ -1,7 +1,4 @@
-// src/components/Profile.js
 import React, { useState, useEffect } from 'react';
-// import axios from 'axios';
-import '../styles/Profile.css';
 import { useAuth } from '../Router/AuthProvider';
 
 const Profile = () => {
@@ -17,43 +14,26 @@ const Profile = () => {
     const [newMobile, setNewMobile] = useState(auth.user.mobileNumber);
     const [message, setMessage] = useState('');
 
-    useEffect(() => {
-        // Fetch user data from backend
-        // This useEffect is executed only once on component mount
-        // You can uncomment this if you need to fetch user data from the server
-        // fetchUserData();
-    }, []);
+    useEffect(() => {}, []);
 
     const handleEdit = () => {
         setIsEditing(true);
     };
 
     const handleSave = () => {
-        // Perform validation if needed
-
-        // Update the user object
         setUser({
             username: newUsername,
             email: newEmail,
             mobile: newMobile
         });
-
-        // Save changes to the server using axios or any other method
-        
-        // For demo purposes, we'll just show a message
         setMessage('Changes saved successfully.');
-
-        // Disable editing mode
         setIsEditing(false);
     };
 
     const handleCancel = () => {
-        // Reset input fields to their original values
         setNewUsername(user.username);
         setNewEmail(user.email);
         setNewMobile(user.mobile);
-
-        // Disable editing mode
         setIsEditing(false);
     };
 
@@ -70,52 +50,75 @@ const Profile = () => {
     };
 
     return (
-        <div className="profile-container">
-            <h2>User Profile</h2>
-            <form>
-                <div className="form-group">
-                    <label htmlFor="username">Username</label>
-                    <input
-                        type="text"
-                        id="username"
-                        value={newUsername}
-                        onChange={handleUsernameChange}
-                        readOnly={!isEditing}
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="email">Email</label>
-                    <input
-                        type="email"
-                        id="email"
-                        value={newEmail}
-                        onChange={handleEmailChange}
-                        readOnly={!isEditing}
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="mobile">Mobile Number</label>
-                    <input
-                        type="text"
-                        id="mobile"
-                        value={newMobile}
-                        onChange={handleMobileChange}
-                        readOnly={!isEditing}
-                    />
-                </div>
-                <div className="btn-group">
-                    {!isEditing && (
-                        <button type="button" onClick={handleEdit}>Edit</button>
-                    )}
-                    {isEditing && (
-                        <React.Fragment>
-                            <button type="button" onClick={handleSave}>Save</button>
-                            <button type="button" onClick={handleCancel}>Cancel</button>
-                        </React.Fragment>
-                    )}
-                </div>
-                {message && <p className="message">{message}</p>}
-            </form>
+        <div className="flex justify-center items-center h-screen bg-gray-100">
+            <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+                <h2 className="text-2xl font-bold text-center mb-6">User Profile</h2>
+                <form>
+                    <div className="mb-4">
+                        <label htmlFor="username" className="block text-gray-700">Username</label>
+                        <input
+                            type="text"
+                            id="username"
+                            value={newUsername}
+                            onChange={handleUsernameChange}
+                            readOnly={!isEditing}
+                            className={`mt-1 p-2 border ${isEditing ? 'border-blue-500' : 'border-gray-300'} rounded w-full`}
+                        />
+                    </div>
+                    <div className="mb-4">
+                        <label htmlFor="email" className="block text-gray-700">Email</label>
+                        <input
+                            type="email"
+                            id="email"
+                            value={newEmail}
+                            onChange={handleEmailChange}
+                            readOnly={!isEditing}
+                            className={`mt-1 p-2 border ${isEditing ? 'border-blue-500' : 'border-gray-300'} rounded w-full`}
+                        />
+                    </div>
+                    <div className="mb-4">
+                        <label htmlFor="mobile" className="block text-gray-700">Mobile Number</label>
+                        <input
+                            type="text"
+                            id="mobile"
+                            value={newMobile}
+                            onChange={handleMobileChange}
+                            readOnly={!isEditing}
+                            className={`mt-1 p-2 border ${isEditing ? 'border-blue-500' : 'border-gray-300'} rounded w-full`}
+                        />
+                    </div>
+                    <div className="flex justify-between">
+                        {!isEditing && (
+                            <button
+                                type="button"
+                                onClick={handleEdit}
+                                className="bg-blue-500 text-white py-2 px-4 rounded"
+                            >
+                                Edit
+                            </button>
+                        )}
+                        {isEditing && (
+                            <>
+                                <button
+                                    type="button"
+                                    onClick={handleSave}
+                                    className="bg-green-500 text-white py-2 px-4 rounded"
+                                >
+                                    Save
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={handleCancel}
+                                    className="bg-red-500 text-white py-2 px-4 rounded"
+                                >
+                                    Cancel
+                                </button>
+                            </>
+                        )}
+                    </div>
+                    {message && <p className="text-green-500 mt-4 text-center">{message}</p>}
+                </form>
+            </div>
         </div>
     );
 };

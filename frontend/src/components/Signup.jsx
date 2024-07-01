@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../styles/signup.css';
+// import '../styles/signup.css';
 
 const SignUp = () => {
   const [username, setUsername] = useState('');
@@ -40,60 +39,56 @@ const SignUp = () => {
   };
 
   return (
-    <div className="container d-flex justify-content-center align-items-center" style={{ minHeight: '100vh' }}>
-      <div className="row w-100">
-        <div className="col-md-6 offset-md-3">
-          <div className="card signup-card">
-            <div className="card-body">
-              <h2 className="text-center mb-4">Sign Up</h2>
-              <form onSubmit={handleSubmit}>
-                <div className="form-group" id="username">
-                  <label>Username</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="form-group mt-3" id="email">
-                  <label>Email</label>
-                  <input
-                    type="email"
-                    className="form-control"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="form-group mt-3" id="password">
-                  <label>Password</label>
-                  <input
-                    type="password"
-                    className="form-control"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="form-group mt-3" id="mobile">
-                  <label>Mobile</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    value={mobileNumber}
-                    onChange={(e) => setMobileNumber(e.target.value)}
-                    required
-                  />
-                </div>
-                <button type="submit" className="btn btn-primary w-50 mt-4 mx-auto d-block">Sign Up</button>
-              </form>
-              <div className="w-100 text-center mt-3 d-flex justify-content-center align-items-center">
-                <span>Already a user? </span>
-                <button className="btn btn-link" onClick={() => navigate('/login')}>Login</button>
-              </div>
+    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <div className="w-full max-w-md">
+        <div className="bg-white shadow-md rounded-lg p-8">
+          <h2 className="text-2xl font-bold text-center mb-6">Sign Up</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="mb-4">
+              <label className="block text-gray-700">Username</label>
+              <input
+                type="text"
+                className="mt-1 p-2 border border-gray-300 rounded w-full"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+              />
             </div>
+            <div className="mb-4">
+              <label className="block text-gray-700">Email</label>
+              <input
+                type="email"
+                className="mt-1 p-2 border border-gray-300 rounded w-full"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-700">Password</label>
+              <input
+                type="password"
+                className="mt-1 p-2 border border-gray-300 rounded w-full"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-700">Mobile</label>
+              <input
+                type="text"
+                className="mt-1 p-2 border border-gray-300 rounded w-full"
+                value={mobileNumber}
+                onChange={(e) => setMobileNumber(e.target.value)}
+                required
+              />
+            </div>
+            <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded w-full mt-4">Sign Up</button>
+          </form>
+          <div className="text-center mt-4">
+            <span>Already a user?</span>
+            <button className="text-blue-500 underline ml-2" onClick={() => navigate('/login')}>Login</button>
           </div>
         </div>
       </div>
