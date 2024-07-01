@@ -1,13 +1,15 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../Router/AuthProvider';
-import '../styles/login.css';
+// import '../styles/Login.css';
 
 const Login = () => {
     const [credentials, setCredentials] = useState({ email: '', password: '' });
     const { loginAction } = useAuth();
     const [error, setError] = useState(null);
+    const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -22,7 +24,7 @@ const Login = () => {
         e.preventDefault();
 
         try {
-            const response = await fetch('http://localhost:5001/login', {
+            const response = await fetch('http://localhost:5000/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -35,7 +37,6 @@ const Login = () => {
             }
 
             const data = await response.json();
-            console.log("while submitting" + data)
             loginAction(data); 
             localStorage.setItem('user', JSON.stringify(data)); 
             // navigate('/dashboard'); 
@@ -49,45 +50,50 @@ const Login = () => {
         navigate('/signup');
     };
 
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+
     return (
-        <div className="login-container container">
-            <div className="card login-card">
-                <div className="card-body">
-                    <h2 className="text-center mb-4">Login</h2>
-                    {error && <div className="alert alert-danger">{error}</div>}
-                    <form onSubmit={handleSubmit}>
-                        <div className="form-group" id="email">
-                            <label>Email</label>
-                            <input
-                                type="email"
-                                className="form-control"
-                                name="email"
-                                value={credentials.email}
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
-                        <div className="form-group mt-3" id="password">
-                            <label>Password</label>
-                            <input
-                                type="password"
-                                className="form-control"
-                                name="password"
-                                value={credentials.password}
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
-                        <button type="submit" className="btn btn-primary w-100 mt-4">
-                            Login
-                        </button>
-                    </form>
-                    <div className="w-100 text-center mt-3">
-                        <p>Don't have an account?</p>
-                        <button className="btn btn-link" onClick={handleSignupClick}>
-                            Sign up
-                        </button>
+        <div className="flex justify-center items-center h-screen bg-gray-100">
+            <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
+                <h2 className="text-center text-2xl font-bold mb-6">Login</h2>
+                {error && <div className="text-red-500 text-center mb-4">{error}</div>}
+                <form onSubmit={handleSubmit}>
+                    <div className="mb-4">
+                        <label className="block text-gray-700">Email</label>
+                        <input
+                            type="email"
+                            className="mt-1 p-2 border border-gray-300 rounded w-full"
+                            name="email"
+                            value={credentials.email}
+                            onChange={handleChange}
+                            required
+                        />
                     </div>
+                    <div className="mb-4 relative">
+                        <label className="block text-gray-700">Password</label>
+                        <input
+                            type={showPassword ? 'text' : 'password'}
+                            className="mt-1 p-2 border border-gray-300 rounded w-full"
+                            name="password"
+                            value={credentials.password}
+                            onChange={handleChange}
+                            required
+                        />
+                        <span className="absolute right-2 top-9 cursor-pointer" onClick={togglePasswordVisibility}>
+                            <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+                        </span>
+                    </div>
+                    <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded w-full mt-4">
+                        Login
+                    </button>
+                </form>
+                <div className="text-center mt-4">
+                    <p>Don't have an account?</p>
+                    <button className="text-blue-500 underline" onClick={handleSignupClick}>
+                        Sign up
+                    </button>
                 </div>
             </div>
         </div>
