@@ -81,7 +81,7 @@ router.get('/orders', async (req, res) => {
 router.get('/customers', async (req, res) => {
     try {
         const users = await UserModel.find({}); 
-        console.log(users);
+        // console.log(users);
         res.json(users);
     } catch (error) {
         console.error("Error fetching customers:", error);

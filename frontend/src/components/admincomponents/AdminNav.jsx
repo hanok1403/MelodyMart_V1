@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, Route, Routes, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../Router/AuthProvider';
 import { Navbar, Nav } from 'react-bootstrap';
-import '../../styles/NavStyle.css'; // Custom styles
+// import '../../styles/NavStyle.css'; // Custom styles
 import AddProduct from './AddProduct';
 import Admindashboard from './Admindashboard';
 import OrderList from './OrderList';

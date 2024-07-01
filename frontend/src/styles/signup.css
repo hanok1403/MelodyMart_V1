@@ -5,7 +5,7 @@
   align-items: center;
   height: 100vh;
 }
-.container{
+.signup-container{
   background-image: url('../assets/images/bg1.jpeg'); 
   background-size: cover;
   background-position: center;

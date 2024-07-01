@@ -50,11 +50,6 @@ app.post('/signup',async (req,res)=>{
     res.status(200).json(data);
 })
 
-app.get('/cart/:id',async (req, res)=>{
-    req.userId = req.params.id;
-    res.send(await CartController(req, res))
-})
-
 app.listen(PORT, ()=>{
     console.log(`Server is running on port ${PORT}`)
 })
