@@ -1,40 +1,61 @@
 // src/components/Profile.js
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import '../styles/Profile.css';
 import { useAuth } from '../Router/AuthProvider';
 
 const Profile = () => {
     const auth = useAuth();
-    console.log(auth.user);
+    const [isEditing, setIsEditing] = useState(false);
     const [user, setUser] = useState({
         username: auth.user.username,
         email: auth.user.email,
         mobile: auth.user.mobileNumber
-        // password: auth.user. 
     });
     const [newUsername, setNewUsername] = useState(auth.user.username);
     const [newEmail, setNewEmail] = useState(auth.user.email);
     const [newMobile, setNewMobile] = useState(auth.user.mobileNumber);
-    const [newPassword, setNewPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
     const [message, setMessage] = useState('');
 
-    
-
     useEffect(() => {
-        
-        // axios.get('http://localhost:5000/e')
-        //     .then(response => {
-        //         setUser(response.data);
-        //         setNewUsername(response.data.username);
-        //         setNewEmail(response.data.email);
-        //         setNewMobile(response.data.mobile);
-        //     })
-        //     .catch(error => {
-        //         console.error('Error fetching user data', error);
-        //     });
+        // Fetch user data from backend
+        // This useEffect is executed only once on component mount
+        // You can uncomment this if you need to fetch user data from the server
+        // fetchUserData();
     }, []);
+
+    const handleEdit = () => {
+        setIsEditing(true);
+    };
+
+    const handleSave = () => {
+        // Perform validation if needed
+
+        // Update the user object
+        setUser({
+            username: newUsername,
+            email: newEmail,
+            mobile: newMobile
+        });
+
+        // Save changes to the server using axios or any other method
+        
+        // For demo purposes, we'll just show a message
+        setMessage('Changes saved successfully.');
+
+        // Disable editing mode
+        setIsEditing(false);
+    };
+
+    const handleCancel = () => {
+        // Reset input fields to their original values
+        setNewUsername(user.username);
+        setNewEmail(user.email);
+        setNewMobile(user.mobile);
+
+        // Disable editing mode
+        setIsEditing(false);
+    };
 
     const handleUsernameChange = (e) => {
         setNewUsername(e.target.value);
@@ -48,43 +69,10 @@ const Profile = () => {
         setNewMobile(e.target.value);
     };
 
-    const handlePasswordChange = (e) => {
-        setNewPassword(e.target.value);
-    };
-
-    const handleConfirmPasswordChange = (e) => {
-        setConfirmPassword(e.target.value);
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (newPassword !== confirmPassword) {
-            setMessage('Passwords do not match');
-            return;
-        }
-
-        const updatedUser = {
-            username: newUsername,
-            email: newEmail,
-            mobile: newMobile,
-            password: newPassword
-        };
-
-        axios.put('/api/user/profile', updatedUser)
-            .then(response => {
-                setMessage('Profile updated successfully');
-                setUser(response.data);
-            })
-            .catch(error => {
-                setMessage('Error updating profile');
-                console.error('Error updating profile', error);
-            });
-    };
-
     return (
         <div className="profile-container">
             <h2>User Profile</h2>
-            <form onSubmit={handleSubmit}>
+            <form>
                 <div className="form-group">
                     <label htmlFor="username">Username</label>
                     <input
@@ -92,7 +80,7 @@ const Profile = () => {
                         id="username"
                         value={newUsername}
                         onChange={handleUsernameChange}
-                        required
+                        readOnly={!isEditing}
                     />
                 </div>
                 <div className="form-group">
@@ -102,7 +90,7 @@ const Profile = () => {
                         id="email"
                         value={newEmail}
                         onChange={handleEmailChange}
-                        required
+                        readOnly={!isEditing}
                     />
                 </div>
                 <div className="form-group">
@@ -112,28 +100,20 @@ const Profile = () => {
                         id="mobile"
                         value={newMobile}
                         onChange={handleMobileChange}
-                        required
+                        readOnly={!isEditing}
                     />
                 </div>
-                {/* <div className="form-group">
-                    <label htmlFor="password">New Password</label>
-                    <input
-                        type="password"
-                        id="password"
-                        value={newPassword}
-                        onChange={handlePasswordChange}
-                    />
+                <div className="btn-group">
+                    {!isEditing && (
+                        <button type="button" onClick={handleEdit}>Edit</button>
+                    )}
+                    {isEditing && (
+                        <React.Fragment>
+                            <button type="button" onClick={handleSave}>Save</button>
+                            <button type="button" onClick={handleCancel}>Cancel</button>
+                        </React.Fragment>
+                    )}
                 </div>
-                <div className="form-group">
-                    <label htmlFor="confirmPassword">Confirm Password</label>
-                    <input
-                        type="password"
-                        id="confirmPassword"
-                        value={confirmPassword}
-                        onChange={handleConfirmPasswordChange}
-                    />
-                </div> */}
-                <button type="submit">Update Profile</button>
                 {message && <p className="message">{message}</p>}
             </form>
         </div>

@@ -1,15 +1,17 @@
-/* login page styles */
-.login-container {
+
+.signup-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+}
+.container{
   background-image: url('../assets/images/bg1.jpeg'); 
   background-size: cover;
   background-position: center;
 }
 
-.login-card {
+.signup-card {
   width: 100%;
   max-width: 400px;
   padding: 20px;

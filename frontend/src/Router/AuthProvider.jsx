@@ -7,17 +7,28 @@ const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [token, setToken] = useState(null);
     const [role, setRole] = useState('');
+    const [userId, setUserId] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
         const storedUser = localStorage.getItem('user');
         const storedToken = localStorage.getItem('token');
         const storedRole = localStorage.getItem('role');
+        const storedUserId = localStorage.getItem('userId');
 
-        if (storedUser && storedToken && storedRole) {
+
+        if (storedUser && storedToken && storedRole && storedUserId) {
             setUser(JSON.parse(storedUser));
             setToken(storedToken);
             setRole(storedRole);
+            setUserId(storedUserId);
+        }
+        if (storedRole === 'admin') {
+            navigate('/admin/dashboard');
+        } else if (storedRole === 'user') { 
+            navigate('/home');
+        } else {
+            logoutAction();
         }
     }, []);
 
@@ -26,9 +37,11 @@ const AuthProvider = ({ children }) => {
         setUser(data.user);
         setToken(data.token);
         setRole(data.role);
+        setUserId(data.userId);
         localStorage.setItem('user', JSON.stringify(data.user));
         localStorage.setItem('token', data.token);
         localStorage.setItem('role', data.role);
+        localStorage.setItem('userId', data.userId);
 
         if (data.role === 'admin') {
             navigate('/admin/dashboard');
@@ -46,11 +59,12 @@ const AuthProvider = ({ children }) => {
         localStorage.removeItem('user');
         localStorage.removeItem('token');
         localStorage.removeItem('role');
+        localStorage.removeItem('userId');
         navigate('/login');
     };
 
     return (
-        <AuthContext.Provider value={{ user, token, role, loginAction, logoutAction }}>
+        <AuthContext.Provider value={{ user, token, role, userId, loginAction, logoutAction }}>
             {children}
         </AuthContext.Provider>
     );

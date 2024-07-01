@@ -14,33 +14,42 @@ import OrderList from './components/admincomponents/OrderList';
 import AddProduct from './components/admincomponents/AddProduct';
 import EditProduct from './components/admincomponents/EditProduct';
 import User from './components/userComponents/User';
+import Signup from './components/Signup';
+import Footer from './Footer'
+import Customers from './components/admincomponents/Customers';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
     // const auth = useAuth();
     return (
-        <Router>
-            <AuthProvider>
-                <Routes>
-                    <Route path="/login" element={<Login />} />
-                    <Route element={<AdminPrivateRouter />}>
-                        <Route path="/admin" element={<Admin />}>
-                            <Route path="dashboard" element={<Admindashboard />} />
-                            <Route path="addProduct" element={<AddProduct />} />
-                            <Route path="orders" element={<OrderList />} />
-                            <Route path="editProduct" element={<EditProduct />} />
+        <>
+            <Router>
+                <AuthProvider>
+                    <Routes>
+                        <Route path="/signup" element={<Signup />} />
+                        <Route path="/login" element={<Login />} />
+                        <Route element={<AdminPrivateRouter />}>
+                            <Route path="/admin" element={<Admin />}>
+                                <Route path="dashboard" element={<Admindashboard />} />
+                                <Route path="addProduct" element={<AddProduct />} />
+                                <Route path="orders" element={<OrderList />} />
+                                <Route path="editProduct" element={<EditProduct />} />
+                                <Route path="customers" element={<Customers />} />
+                            </Route>
                         </Route>
-                    </Route>
-                    <Route element={<CustPrivateRouter />}>
-                        <Route path="/" element={<User />}>
-                            <Route path="home" element={<Home />} />
-                            <Route path="profile" element={<Profile />} />
-                            <Route path="cart" element={<Cart />} />
-                            <Route path="orders" element={<Orders />} />
+                        <Route element={<CustPrivateRouter />}>
+                            <Route path="/" element={<User />}>
+                                <Route path="home" element={<Home />} />
+                                <Route path="profile" element={<Profile />} />
+                                <Route path="cart" element={<Cart />} />
+                                <Route path="orders" element={<Orders />} />
+                            </Route>
                         </Route>
-                    </Route>
-                </Routes>
-            </AuthProvider>
-        </Router>
+                    </Routes>
+                </AuthProvider>
+            </Router>
+            <Footer/>
+        </>
     );
 }
 

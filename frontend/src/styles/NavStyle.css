@@ -1,54 +1,43 @@
-/* Navbar.css */
-.navbar {
-    background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
-    margin: 20px;
-  }
-  
-  .navbar ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 10px 0;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-  }
-  
-  .navbar li {
-    float: left;
-  }
-  
-  .navbar li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 20px;
-    text-decoration: none;
-    font-family: "Poetsen One", sans-serif;
-    font-size: 16px;
-    transition: background-color 0.3s, color 0.3s;
-    border-radius: 4px;
-  }
-  
-  .navbar li a:hover {
-    background-color: #1a2a6c;
-    color: #ffdd59;
-  }
-  
-  .navbar li a:active {
-    background-color: #0f1d47;
-  }
-  
-  @media (max-width: 768px) {
-    .navbar ul {
-      flex-direction: column;
-    }
-    
-    .navbar li {
-      width: 100%;
-      text-align: center;
-    }
-  }
-  
+/* NavStyle.css */
+
+.custom-navbar {
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.custom-navbar-brand {
+  font-family: 'Arial', sans-serif;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ff6403;
+}
+
+.custom-nav-link {
+  font-family: 'Arial', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #ffffff; /* Slightly darker color for links */
+  transition: color 0.3s ease;
+}
+
+.custom-nav-link:hover {
+  color: #007bff; /* Bootstrap primary color on hover */
+}
+
+.custom-logout-button {
+  font-family: 'Arial', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #dc3545; /* Bootstrap danger color */
+  border: 1px solid #dc3545; /* Match the button border with text color */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.custom-logout-button:hover {
+  background-color: #dc3545; /* Bootstrap danger background on hover */
+  color: #ffffff; /* White text on hover */
+}
+
+.profile-link {
+  color: #007bff; /* Blue color for profile link */
+}

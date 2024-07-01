@@ -1,4 +1,3 @@
-/* src/components/Profile.css */
 .profile-container {
     max-width: 400px;
     margin: 0 auto;
@@ -49,4 +48,63 @@ button:hover {
     margin-top: 15px;
     text-align: center;
     color: red;
+}
+
+.profile-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.btn-group {
+    display: flex;
+    justify-content: space-between;
+}
+
+button {
+    padding: 5px 8px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button[type="button"] {
+    background-color: #007bff;
+    padding: 5px 8px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+    color: #fff;
+}
+
+button[type="button"]:hover {
+    background-color: #0056b3;
+}
+
+.message {
+    margin-top: 10px;
+    color: green;
 }

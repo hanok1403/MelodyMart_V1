@@ -1,4 +1,4 @@
-// src/components/Footer.js
+// src/components/Footer.js         Footer component
 import React from 'react';
 import './styles/Footer.css';
 
@@ -25,7 +25,7 @@ const Footer = () => {
                             <li><a href="/">Order Status</a></li>
                         </ul>
                     </div>
-                    <div className="footer-col">
+                    {/* <div className="footer-col">
                         <h4>Shop</h4>
                         <ul>
                             <li><a href="/">Guitars</a></li>
@@ -33,7 +33,7 @@ const Footer = () => {
                             <li><a href="/">Keyboards</a></li>
                             <li><a href="/">Accessories</a></li>
                         </ul>
-                    </div>
+                    </div> */}
                     <div className="footer-col">
                         <h4>Follow Us</h4>
                         <div className="social-links">

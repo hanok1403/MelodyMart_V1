@@ -1,23 +1,22 @@
 import express from 'express';
 import orderModel from '../models/OrderModel.js';
 import productModel from '../models/ProductModel.js';
+import UserModel from "../models/UserModel.js";
 
 const router = express.Router()
 router.use(express.urlencoded({extended:true}))
 router.use(express.json()); 
 
-
 router.get('/',async (req, res)=>{
     try {
         const data = await productModel.find({});
-        // console.log(data)
         res.json(data);
     } catch (error) {
         res.status(500).send({ message: "Error fetching products", error });
     }
 })
 
-router.post('/addProduct',async (req, res)=>{
+router.post('/addProduct', async (req, res) => {
     try {
         const product = req.body;
         const prod = await productModel.create(product);
@@ -25,7 +24,7 @@ router.post('/addProduct',async (req, res)=>{
     } catch (error) {
         res.status(400).json({ message: "Unable to add the product", error });
     }
-})
+});
 
 router.get('/delete/:id', async (req, res)=>{
     try {
@@ -42,12 +41,9 @@ router.get('/delete/:id', async (req, res)=>{
 })
 
 router.get('/productEdit/:id', async (req, res) => {
-    try {
-        console.log(req.body)   
+    try {  
         const { id } = req.params;
-        //console.log(id);
         const product = await productModel.findById(id);
-        //console.log(product);
         if (product) {
             res.json(product);
         } else {
@@ -58,13 +54,10 @@ router.get('/productEdit/:id', async (req, res) => {
     }
 });
 
-
-router.post('/productEdit/:id', async (req, res) => {
+router.put('/productEdit/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        console.log(id);
         const updates = req.body;
-        console.log(updates);
         const product = await productModel.findByIdAndUpdate(id, updates, { new: true });
         if (product) {
             res.status(200).send("Product updated");
@@ -76,7 +69,6 @@ router.post('/productEdit/:id', async (req, res) => {
     }
 });
 
-
 router.get('/orders', async (req, res) => {
     try {
         const orders = await orderModel.find({});
@@ -86,4 +78,14 @@ router.get('/orders', async (req, res) => {
     }
 });
 
+router.get('/customers', async (req, res) => {
+    try {
+        const users = await UserModel.find({}); 
+        console.log(users);
+        res.json(users);
+    } catch (error) {
+        console.error("Error fetching customers:", error);
+        res.status(500).json({ message: "Error fetching customers", error });
+    }
+});
 export default router;

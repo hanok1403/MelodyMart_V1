@@ -1,25 +1,30 @@
-import userModel from '../models/UserModel.js'
-import loginModel from '../models/LoginModel.js'
+import userModel from '../models/UserModel.js';
 
+const SignupController = async (req, res) => {
+  const { email, password, username, mobileNumber } = req.body;
 
-async function SignupController(req, res){
-    const data = req.body
-    const login = {
-        email:req.body.email,
-        password: req.body.password
+  try {
+    //Check if user already exists
+    const existingUser = await userModel.findOne({ email });
+    if (existingUser) {
+      return res.json({ message: 'User already exists', userExists: true });
     }
 
-    const user = await userModel.create(data)
-    // await loginModel.create(login)
-    // console.log(user)
-    return saveUser(user)
-}
+    //Create a new instance of userModel
+    const newUser = new userModel({
+      email,
+      password,
+      username,
+      mobileNumber,
+    });
 
-function saveUser(user){
-    if(user){
-        return true;
-    }
-    return false;
-}
+    await newUser.save();
+
+    res.status(201).json({ message: 'User created successfully' });
+  } catch (error) {
+    console.error('Error during signup:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
 
 export default SignupController;

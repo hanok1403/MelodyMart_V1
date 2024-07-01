@@ -31,11 +31,10 @@ const productSchema = mongoose.Schema({
 productSchema.pre('save', function(next) {
     if (!this.productId) {
         this.productId = this._id.toString();
-        // console.log(`productId set to ${this.productId}`);
     }
     next();
 });
 
-const productModel = mongoose.model('Products', productSchema);
+const productModel = mongoose.model('Product', productSchema);
 
 export default productModel;
