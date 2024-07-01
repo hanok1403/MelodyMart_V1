@@ -1,9 +1,8 @@
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope, faEye, faEyeSlash, faLock } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../Router/AuthProvider';
-// import '../styles/Login.css';
 
 const Login = () => {
     const [credentials, setCredentials] = useState({ email: '', password: '' });
@@ -24,7 +23,7 @@ const Login = () => {
         e.preventDefault();
 
         try {
-            const response = await fetch('http://localhost:5000/login', {
+            const response = await fetch('http://localhost:5001/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -55,16 +54,19 @@ const Login = () => {
     };
 
     return (
-        <div className="flex justify-center items-center h-screen bg-gray-100">
+        <div className="flex justify-center items-center h-screen bg-gradient-to-br from-purple-500 via-pink-500 to-red-500">
             <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
                 <h2 className="text-center text-2xl font-bold mb-6">Login</h2>
                 {error && <div className="text-red-500 text-center mb-4">{error}</div>}
                 <form onSubmit={handleSubmit}>
-                    <div className="mb-4">
-                        <label className="block text-gray-700">Email</label>
+                    <div className="mb-4 relative">
+                        <label className="block text-gray-700">
+                            <FontAwesomeIcon icon={faEnvelope} className="mr-2" />
+                            Email
+                        </label>
                         <input
                             type="email"
-                            className="mt-1 p-2 border border-gray-300 rounded w-full"
+                            className="mt-1 p-2 pl-10 border border-gray-300 rounded w-full"
                             name="email"
                             value={credentials.email}
                             onChange={handleChange}
@@ -72,10 +74,13 @@ const Login = () => {
                         />
                     </div>
                     <div className="mb-4 relative">
-                        <label className="block text-gray-700">Password</label>
+                        <label className="block text-gray-700">
+                            <FontAwesomeIcon icon={faLock} className="mr-2" />
+                            Password
+                        </label>
                         <input
                             type={showPassword ? 'text' : 'password'}
-                            className="mt-1 p-2 border border-gray-300 rounded w-full"
+                            className="mt-1 p-2 pl-10 border border-gray-300 rounded w-full"
                             name="password"
                             value={credentials.password}
                             onChange={handleChange}

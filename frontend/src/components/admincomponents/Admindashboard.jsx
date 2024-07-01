@@ -1,17 +1,12 @@
 import React from 'react';
-import '../../styles/MusicItem.css';
-import '../../styles/home.css';
 import Products from './Products';
 
-
 const Admindashboard = () => {
-
   return (
-    <>
-      <Products />
-    </>
-      
-  )
-}
+    <div className="bg-gradient-to-r from-blue-400 to-purple-600 min-h-screen">
+        <Products />
+    </div>
+  );
+};
 
 export default Admindashboard;
