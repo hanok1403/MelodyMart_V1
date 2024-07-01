@@ -7,7 +7,7 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.profile-container h2 {
+.profile-container {
     text-align: center;
     margin-bottom: 20px;
 }
@@ -31,7 +31,6 @@
 }
 
 button {
-    width: 100%;
     padding: 10px;
     background-color: #007bff;
     color: white;
