@@ -1,7 +1,5 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../../styles/addProduct.css';
 import InputV from '../InputV';
 import { useNavigate } from 'react-router-dom';
 
@@ -83,26 +81,18 @@ const AddProduct = (props) => {
   };
 
   return (
-    <div className="add-product-container">
-      <h1 className="text-center">{product.productHead}</h1>
-      <div className="add-product-form-wrapper">
-        <form onSubmit={handleSubmit} className="add-product-form">
-          <div className="form-group">
-            <InputV type="text" name="productName" id="productName" ph="Enter product name" onchange={handleChange} data={formData.productName} />
-          </div>
-          <div className="form-group">
-            <InputV type="text" name="description" id="description" ph="Enter product description" onchange={handleChange} data={formData.description} />
-          </div>
-          <div className="form-group">
-            <InputV type="text" name="price" id="price" ph="Enter product price" onchange={handleChange} data={formData.price} />
-          </div>
-          <div className="form-group">
-            <InputV type="text" name="imageUrl" id="imageUrl" ph="Enter product image url" onchange={handleChange} data={formData.imageUrl} />
-          </div>
-          <div className="form-group">
-            <InputV type="number" name="quantity" id="quantity" ph="Enter product quantity" onchange={handleChange} data={formData.quantity} />
-          </div>
-          <button type="submit" className="btn btn-primary w-100 mt-3">{product.productButton}</button>
+    <div className="add-product-container py-8 px-4">
+      <h1 className="text-3xl font-bold text-center mb-4">{product.productHead}</h1>
+      <div className="max-w-md mx-auto bg-white p-6 rounded-lg shadow-lg">
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <InputV type="text" name="productName" id="productName" ph="Enter product name" onchange={handleChange} data={formData.productName} />
+          <InputV type="text" name="description" id="description" ph="Enter product description" onchange={handleChange} data={formData.description} />
+          <InputV type="text" name="price" id="price" ph="Enter product price" onchange={handleChange} data={formData.price} />
+          <InputV type="text" name="imageUrl" id="imageUrl" ph="Enter product image url" onchange={handleChange} data={formData.imageUrl} />
+          <InputV type="number" name="quantity" id="quantity" ph="Enter product quantity" onchange={handleChange} data={formData.quantity} />
+          <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded-md w-full hover:bg-blue-600 transition duration-300">
+            {product.productButton}
+          </button>
         </form>
       </div>
     </div>

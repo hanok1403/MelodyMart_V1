@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../styles/home.css';
 import { useNavigate } from 'react-router-dom';
 import Items from './Items';
@@ -31,18 +30,16 @@ function Products() {
     };
 
     return (
-        <>
-            {/* <h1>Product Management</h1> */}
-            <div className="container">
-                <div className="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-4 g-4">
-                    {product.map((item, i) => (
-                        <div key={i} className="col mb-4">
-                            <Items product={item} onRemove={handleRemove} onEdit={handleEdit} />
-                        </div>
-                    ))}
-                </div>
+        <div className="container mx-auto px-4 py-8">
+            <h1 className="text-3xl font-semibold mb-8">Product Management</h1>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {product.map((item, i) => (
+                    <div key={i} className="bg-white rounded-lg shadow-md overflow-hidden">
+                        <Items product={item} onRemove={handleRemove} onEdit={handleEdit} />
+                    </div>
+                ))}
             </div>
-        </>
+        </div>
     );
 }
 
