@@ -43,7 +43,7 @@ const Orders = () => {
                   <TableRow key={order._id}>
                     <TableCell className="py-2 px-4 border-b border-gray-200 text-xs md:text-sm">{order.orderId}</TableCell>
                     <TableCell className="py-2 px-4 border-b border-gray-200 text-xs md:text-sm">{new Date(order.orderDate).toLocaleDateString()}</TableCell>
-                    <TableCell className="py-2 px-4 border-b border-gray-200 text-xs md:text-sm">{data.userName}</TableCell>
+                    <TableCell className="py-2 px-4 border-b border-gray-200 text-xs md:text-sm">{order.userName}</TableCell>
                     <TableCell className="py-2 px-4 border-b border-gray-200 text-xs md:text-sm">${order.totalPrice.toFixed(2)}</TableCell>
                     <TableCell className="py-2 px-4 border-b border-gray-200 text-xs md:text-sm">{order.paymentType}</TableCell>
                     <TableCell className="py-2 px-4 border-b border-gray-200 text-xs md:text-sm">{order.status}</TableCell>

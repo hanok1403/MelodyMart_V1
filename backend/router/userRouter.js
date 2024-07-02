@@ -95,6 +95,7 @@ router.delete('/cart/itemDelete/:id', async (req, res) => {
 router.post('/checkout', async (req, res) => {
     try {
         const userId = req.body.userId;
+        const userName = req.body.userName;
         const address = req.body.address;
         const paymentType = req.body.paymentType;
 
@@ -105,6 +106,7 @@ router.post('/checkout', async (req, res) => {
         const orderData = {
             userId: userId,
             orderDate: new Date(),
+            userName:userName,
             address: address,
             paymentType: paymentType,
             totalPrice: totalCost
