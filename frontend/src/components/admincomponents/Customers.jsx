@@ -69,8 +69,8 @@ const Customers = () => {
                                 <div className="mt-4">
                                     <p className="text-sm text-gray-500"><strong>Username:</strong> {selectedUser.username}</p>
                                     <p className="text-sm text-gray-500"><strong>Email:</strong> {selectedUser.email}</p>
+                                    <p className="text-sm text-gray-500"><strong>Mobile Number:</strong> {selectedUser.mobileNumber}</p>
                                     <p className="text-sm text-gray-500"><strong>Role:</strong> {selectedUser.role}</p>
-                                    <p className="text-sm text-gray-500"><strong>Orders:</strong> {selectedUser.orders}</p>
                                 </div>
                             </div>
                             <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
