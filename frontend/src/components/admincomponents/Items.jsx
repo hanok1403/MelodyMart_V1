@@ -10,7 +10,7 @@ const Items = (props) => {
     };
 
     return (
-        <div className="product-item max-w-sm rounded overflow-hidden shadow-lg bg-white">
+        <div className="product-item max-w-sm rounded overflow-hidden shadow-lg bg-white transform transition duration-300 ease-in-out hover:scale-105">
             <img src={props.product.imageUrl} className="w-full product-image" alt={props.product.productName} />
             <div className="px-6 py-4">
                 <div className="font-bold text-xl mb-2">{props.product.productName}</div>
