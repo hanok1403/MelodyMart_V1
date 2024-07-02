@@ -33,7 +33,7 @@ const AddProduct = (props) => {
           });
           setProduct({
             productHead: 'EDIT PRODUCT',
-            productButton: 'Edit'
+            productButton: 'EDIT'
           });
         } catch (error) {
           console.error("Error fetching product data:", error);
@@ -45,6 +45,12 @@ const AddProduct = (props) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    if (name === 'quantity' && value < 0) {
+      alert('Quantity must be a positive number');
+      return;
+    }
+
     setFormData({
       ...formData,
       [name]: value
@@ -53,6 +59,12 @@ const AddProduct = (props) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (formData.quantity < 0) {
+      alert('Quantity must be a positive number');
+      return;
+    }
+
     try {
       const url = props.type === 'edit'
         ? `http://localhost:5001/admin/productEdit/${props.id}`
@@ -64,7 +76,7 @@ const AddProduct = (props) => {
         url: url,
         data: formData
       });
-      
+
       console.log('Product added/edited:', response.data);
       setFormData({
         productName: '',
@@ -73,7 +85,7 @@ const AddProduct = (props) => {
         description: '',
         quantity: ''
       });
-      alert(props.type==='edit'?'Product details edited successfully':'Product added successfully');
+      alert(props.type === 'edit' ? 'Product details edited successfully' : 'Product added successfully');
       navigate('/admin/dashboard');
     } catch (error) {
       console.error('There was an error adding/editing the product:', error);
