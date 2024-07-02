@@ -8,11 +8,19 @@ const SignUp = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [mobileNumber, setMobileNumber] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+
     try {
       const response = await axios.post('http://localhost:5001/signup', {
         email,
@@ -20,10 +28,9 @@ const SignUp = () => {
         username,
         mobileNumber,
       });
-      if(response.data.userExists){
+      if (response.data.userExists) {
         alert('User already exists!!! Navigating to login...');
-      }
-      else{
+      } else {
         alert('Signup Successful');
         console.log(response.data);
       }
@@ -44,6 +51,7 @@ const SignUp = () => {
       <div className="w-full max-w-md">
         <div className="bg-white shadow-md rounded-lg p-8">
           <h2 className="text-2xl font-bold text-center mb-6">Sign Up</h2>
+          {error && <div className="text-red-500 text-center mb-4">{error}</div>}
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label className="block text-gray-700 flex items-center">
@@ -81,6 +89,19 @@ const SignUp = () => {
                 className="mt-1 p-2 pl-10 border border-gray-300 rounded w-full"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-700 flex items-center">
+                <FontAwesomeIcon icon={faLock} className="mr-2" />
+                Confirm Password
+              </label>
+              <input
+                type="password"
+                className="mt-1 p-2 pl-10 border border-gray-300 rounded w-full"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
                 required
               />
             </div>

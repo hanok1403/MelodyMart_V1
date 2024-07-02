@@ -1,46 +1,35 @@
-// src/components/Footer.js         Footer component
 import React from 'react';
-import './styles/Footer.css';
 
 const Footer = () => {
     return (
-        <footer className="footer">
-            <div className="footer-container">
-                <div className="footer-row">
-                    <div className="footer-col">
-                        <h4>MelodyMart</h4>
+        <footer className="bg-gray-900 text-white py-10">
+            <div className="container mx-auto px-4">
+                <div className="flex flex-col md:flex-row justify-between">
+                    <div className="mb-8 md:mb-0">
+                        <h4 className="text-xl font-semibold mb-4">MelodyMart</h4>
                         <ul>
-                            <li><a href="/">About Us</a></li>
-                            <li><a href="/">Contact Us</a></li>
-                            <li><a href="/">Privacy Policy</a></li>
-                            <li><a href="/">Terms & Conditions</a></li>
+                            <li className="mb-2"><a href="/" className="hover:text-gray-400">About Us</a></li>
+                            <li className="mb-2"><a href="/" className="hover:text-gray-400">Contact Us</a></li>
+                            <li className="mb-2"><a href="/" className="hover:text-gray-400">Privacy Policy</a></li>
+                            <li className="mb-2"><a href="/" className="hover:text-gray-400">Terms & Conditions</a></li>
                         </ul>
                     </div>
-                    <div className="footer-col">
-                        <h4>Get Help</h4>
+                    <div className="mb-8 md:mb-0">
+                        <h4 className="text-xl font-semibold mb-4">Get Help</h4>
                         <ul>
-                            <li><a href="/">FAQ</a></li>
-                            <li><a href="/">Shipping</a></li>
-                            <li><a href="/">Returns</a></li>
-                            <li><a href="/">Order Status</a></li>
+                            <li className="mb-2"><a href="/" className="hover:text-gray-400">FAQ</a></li>
+                            <li className="mb-2"><a href="/" className="hover:text-gray-400">Shipping</a></li>
+                            <li className="mb-2"><a href="/" className="hover:text-gray-400">Returns</a></li>
+                            <li className="mb-2"><a href="/" className="hover:text-gray-400">Order Status</a></li>
                         </ul>
                     </div>
-                    {/* <div className="footer-col">
-                        <h4>Shop</h4>
-                        <ul>
-                            <li><a href="/">Guitars</a></li>
-                            <li><a href="/">Drums</a></li>
-                            <li><a href="/">Keyboards</a></li>
-                            <li><a href="/">Accessories</a></li>
-                        </ul>
-                    </div> */}
-                    <div className="footer-col">
-                        <h4>Follow Us</h4>
-                        <div className="social-links">
-                            <a href="/"><i className="fab fa-facebook-f"></i></a>
-                            <a href="/"><i className="fab fa-twitter"></i></a>
-                            <a href="/"><i className="fab fa-instagram"></i></a>
-                            <a href="/"><i className="fab fa-linkedin-in"></i></a>
+                    <div>
+                        <h4 className="text-xl font-semibold mb-4">Follow Us</h4>
+                        <div className="flex space-x-4">
+                            <a href="/" className="hover:text-gray-400"><i className="fab fa-facebook-f"></i></a>
+                            <a href="/" className="hover:text-gray-400"><i className="fab fa-twitter"></i></a>
+                            <a href="/" className="hover:text-gray-400"><i className="fab fa-instagram"></i></a>
+                            <a href="/" className="hover:text-gray-400"><i className="fab fa-linkedin-in"></i></a>
                         </div>
                     </div>
                 </div>

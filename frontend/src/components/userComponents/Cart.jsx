@@ -11,13 +11,12 @@ const Cart = () => {
       .then((response) => response.json())
       .then((data) => setCart(data))
       .catch((error) => console.log(error));
-  }, []);
+  }, [data.user.id]);
 
   const handleRemoveItem = (productId) => {
-    // Ensure user ID is correctly retrieved
   
     fetch(`http://localhost:5001/cart/itemDelete/${productId}`, {
-      method: 'DELETE', // Use DELETE method
+      method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -28,7 +27,7 @@ const Cart = () => {
       .then((response) => response.json())
       .then((data) => {
         // Update the cart state with the new cart data\
-        console.log(data)
+        // console.log(data)
         setCart(data);
       })
       .catch((error) => console.log(error));
@@ -48,6 +47,7 @@ const Cart = () => {
         <h3 className="text-xl font-semibold">
           Total: ${cart.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2)}
         </h3>
+        <button className='btn bg-blue-500 text-white py-2 px-4 mt-4 text-center rounded-md hover:bg-blue-600'>Proceed to checkout</button>
       </div>
     </div>
   );
