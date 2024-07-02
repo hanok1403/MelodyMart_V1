@@ -88,4 +88,15 @@ router.get('/customers', async (req, res) => {
         res.status(500).json({ message: "Error fetching customers", error });
     }
 });
+
+router.get('/orders', async (req, res) => {
+    try {
+      const userId = req.params.userId;
+      const orders = await orderModel.find({ });
+      res.status(200).json(orders);
+    } catch (error) {
+      res.status(500).json({ message: 'Error fetching orders', error });
+    }
+});
+
 export default router;
