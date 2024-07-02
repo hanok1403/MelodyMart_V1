@@ -3,7 +3,7 @@ import React from 'react';
 
 const CartItem = ({ item, onRemove }) => {
   const { productId, productName, price, quantity, imageUrl } = item;
-  console.log(item)
+  // console.log(item)
 
   const handleRemove = () => {
     if (window.confirm('Are you sure you want to remove this item from the cart?')) {

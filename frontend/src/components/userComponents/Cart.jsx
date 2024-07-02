@@ -32,8 +32,10 @@ const Cart = () => {
   };
 
   const handleProceedToCheckout = () => {
+    console.log("Proceed to checkout clicked"); 
     navigate('/checkout');
-  };
+};
+
 
   return (
     <div className="cart-container mx-auto p-4">
