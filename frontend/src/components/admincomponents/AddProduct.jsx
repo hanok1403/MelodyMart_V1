@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import InputV from '../InputV';
 import { useNavigate } from 'react-router-dom';
 
 const AddProduct = (props) => {
@@ -97,11 +96,61 @@ const AddProduct = (props) => {
       <div className="w-full max-w-lg mx-auto bg-white p-8 rounded-lg shadow-lg">
         <h1 className="text-3xl font-bold text-center mb-6">{product.productHead}</h1>
         <form onSubmit={handleSubmit} className="space-y-6">
-          <InputV type="text" name="productName" id="productName" ph="Enter product name" onchange={handleChange} data={formData.productName} />
-          <InputV type="text" name="description" id="description" ph="Enter product description" onchange={handleChange} data={formData.description} />
-          <InputV type="text" name="price" id="price" ph="Enter product price" onchange={handleChange} data={formData.price} />
-          <InputV type="text" name="imageUrl" id="imageUrl" ph="Enter product image url" onchange={handleChange} data={formData.imageUrl} />
-          <InputV type="number" name="quantity" id="quantity" ph="Enter product quantity" onchange={handleChange} data={formData.quantity} />
+          <div className="mb-4">
+            <input
+              type="text"
+              id="productName"
+              name="productName"
+              placeholder="Enter product name"
+              value={formData.productName}
+              onChange={handleChange}
+              className="border border-gray-300 rounded-md p-2 w-full"
+            />
+          </div>
+          <div className="mb-4">
+            <input
+              type="text"
+              id="description"
+              name="description"
+              placeholder="Enter product description"
+              value={formData.description}
+              onChange={handleChange}
+              className="border border-gray-300 rounded-md p-2 w-full"
+            />
+          </div>
+          <div className="mb-4">
+            <input
+              type="text"
+              id="price"
+              name="price"
+              placeholder="Enter product price"
+              value={formData.price}
+              onChange={handleChange}
+              className="border border-gray-300 rounded-md p-2 w-full"
+            />
+          </div>
+          <div className="mb-4">
+            <input
+              type="text"
+              id="imageUrl"
+              name="imageUrl"
+              placeholder="Enter product image url"
+              value={formData.imageUrl}
+              onChange={handleChange}
+              className="border border-gray-300 rounded-md p-2 w-full"
+            />
+          </div>
+          <div className="mb-4">
+            <input
+              type="number"
+              id="quantity"
+              name="quantity"
+              placeholder="Enter product quantity"
+              value={formData.quantity}
+              onChange={handleChange}
+              className="border border-gray-300 rounded-md p-2 w-full"
+            />
+          </div>
           <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded-md w-full hover:bg-blue-600 transition duration-300">
             {product.productButton}
           </button>
