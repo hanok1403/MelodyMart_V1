@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faEnvelope, faLock, faMobileAlt, faUserPlus } from '@fortawesome/free-solid-svg-icons'; // Import necessary FontAwesome icons
+import { faUser, faEnvelope, faLock, faMobileAlt, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 
 const SignUp = () => {
   const [username, setUsername] = useState('');
@@ -15,9 +15,32 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
+    // Username validation
+    if (!/^[a-zA-Z][a-zA-Z0-9]{3,}$/.test(username)) {
+      setError('Username must start with a letter and be at least 4 characters long (letters and numbers only)');
+      return;
+    }
+
+    // Password validation
     if (password !== confirmPassword) {
       setError('Passwords do not match');
+      return;
+    }
+
+    if (password.length < 8) {
+      setError('Password must be at least 8 characters long');
+      return;
+    }
+
+    if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(password)) {
+      setError('Password must contain at least one uppercase letter, one lowercase letter, and one number');
+      return;
+    }
+
+    // Mobile number validation
+    if (!/^\d{10}$/.test(mobileNumber)) {
+      setError('Mobile number must be exactly 10 digits');
       return;
     }
 
