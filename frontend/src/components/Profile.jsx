@@ -53,7 +53,7 @@ const Profile = () => {
     };
 
     return (
-        <div className="flex justify-center items-center h-screen bg-gray-100">
+        <div className="flex justify-center items-center h-screen bg-gray-100 bg-gradient-to-r from-blue-300 via-pink-250 to-orange-300">
             <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
                 <h2 className="text-2xl font-bold text-center mb-6">User Profile</h2>
                 <form>

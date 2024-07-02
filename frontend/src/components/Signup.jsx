@@ -33,8 +33,8 @@ const SignUp = () => {
       return;
     }
 
-    if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(password)) {
-      setError('Password must contain at least one uppercase letter, one lowercase letter, and one number');
+    if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])/.test(password)) {
+      setError('Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character');
       return;
     }
 
@@ -61,7 +61,6 @@ const SignUp = () => {
     } catch (err) {
       if (err.response && err.response.data) {
         alert(err.response.data.message); // Display the error message from the server
-        // navigate('/login');
       } else {
         alert('Signup Failed'); // Generic error message if server response does not indicate user exists
       }
@@ -70,7 +69,7 @@ const SignUp = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-blue-500 via-cyan-500 to-green-500">
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-blue-300 via-cyan-250 to-green-300">
       <div className="w-full max-w-md">
         <div className="bg-white shadow-md rounded-lg p-8">
           <h2 className="text-2xl font-bold text-center mb-6">Sign Up</h2>

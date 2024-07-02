@@ -39,7 +39,7 @@ const Customers = () => {
 
     return (
         <div className="p-6 bg-gradient-to-r from-blue-200 to-green-100">
-            <h1 className="text-3xl font-semibold mb-4">Registered Users</h1>
+            <h1 className="text-3xl font-semibold text-center">Registered Users</h1>
             {error && <p className="text-red-500 mb-4">Error: {error}</p>}
             <Searchbar users={users} setResults={setResults}/>
             <div className="overflow-hidden border border-gray-200 shadow sm:rounded-lg mb-4 bg-gradient-to-r from-purple-100 to-gray-200">

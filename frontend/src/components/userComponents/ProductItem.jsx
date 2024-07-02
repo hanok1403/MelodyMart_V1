@@ -29,12 +29,12 @@ const ProductItem = ({ product }) => {
     };
 
     return (
-        <div className="product-item card bg-white shadow-md rounded-md p-4 transform transition duration-300 ease-in-out hover:scale-105">
-            <img src={product.imageUrl} className="card-img-top product-image rounded-md mb-4" alt={product.productName} />
-            <div className="card-body">
-                <h5 className="card-title text-lg font-bold mb-2">{product.productName}</h5>
-                <p className="card-text text-gray-700 mb-2">{product.description}</p>
-                <p className="card-text text-gray-900 font-semibold mb-4"><strong>Price:</strong> ${product.price}</p>
+        <div className="product-item max-w-sm rounded overflow-hidden shadow-lg bg-white transform transition duration-300 ease-in-out hover:scale-105">
+            <img src={product.imageUrl} className="card-img-top product-image mb-4" alt={product.productName} />
+            <div className="px-6 py-4">
+                <div className="font-bold text-xl mb-2">{product.productName}</div>
+                <p className="text-gray-700 text-base">{product.description}</p>
+                <p className="text-gray-900 font-bold"><strong>Price:</strong> ${product.price}</p>
                 <button className="btn bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600" onClick={() => setShowModal(true)}>Add to Cart</button>
             </div>
 

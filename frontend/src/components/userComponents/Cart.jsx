@@ -51,7 +51,7 @@ const Cart = () => {
   };
 
   return (
-    <div className="cart-container mx-auto p-4">
+    <div className="cart-container mx-auto p-4 bg-gradient-to-r from-blue-300 via-pink-250 to-orange-300">
       <h2 className="text-2xl font-semibold mb-4 text-center">Shopping Cart</h2>
       {cart.length === 0 ? (
         <Box className="flex flex-col items-center justify-center mt-10">
