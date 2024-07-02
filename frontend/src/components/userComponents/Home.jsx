@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-// import '../../styles/home.css';
 import ProductItem from './ProductItem';
 
 const Home = () => {
@@ -13,8 +12,7 @@ const Home = () => {
   }, []);
 
   return (
-    <>
-      {/* <h1>This is Home page</h1> */}
+    <div className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 min-h-screen py-8">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {items.map((item, i) => (
@@ -24,7 +22,7 @@ const Home = () => {
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
