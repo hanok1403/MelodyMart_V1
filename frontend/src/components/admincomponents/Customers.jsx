@@ -40,7 +40,7 @@ const Customers = () => {
         <div className="p-6">
             <h1 className="text-3xl font-semibold mb-4">Registered Users</h1>
             {error && <p className="text-red-500 mb-4">Error: {error}</p>}
-            <div className="overflow-hidden border border-gray-200 shadow sm:rounded-lg mb-4">
+            <div className="overflow-hidden border border-gray-200 shadow sm:rounded-lg mb-4 bg-gradient-to-r from-purple-300 to-gray-200">
                 <ul>
                     {users.map((user, index) => (
                         <li key={user._id} className="border-t border-gray-200 hover:bg-gray-50">
