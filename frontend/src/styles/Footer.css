@@ -3,10 +3,12 @@
     background-color: #222;
     color: #fff;
     padding: 40px 0;
+    bottom: 0;
     text-align: center;
 }
 
 .footer-container {
+    bottom: 0;
     max-width: 1200px;
     margin: auto;
     padding: 0 20px;
