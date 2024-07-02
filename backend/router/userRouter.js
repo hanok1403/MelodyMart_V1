@@ -79,7 +79,7 @@ router.delete('/cart/itemDelete/:id', async (req, res) => {
   
     //   const userId = user
       
-      console.log(`Item ID: ${itemId}, User ID: ${userId}`);
+    //   console.log(`Item ID: ${itemId}, User ID: ${userId}`);
   
         const cartItem = await cartModel.findOneAndDelete({ userId: userId, productId: itemId });
         
@@ -90,6 +90,52 @@ router.delete('/cart/itemDelete/:id', async (req, res) => {
     } catch (error) {
       res.status(500).json({ message: 'Error while removing items from the cart', error });
     }
-  });
+});
+
+router.post('/checkout', async (req, res) => {
+    try {
+        const userId = req.body.userId;
+        const address = req.body.address;
+        const paymentType = req.body.paymentType;
+
+        const cartData = await cartModel.find({ userId: userId });
+        // console.log(req.body);
+
+        const totalCost = cartData.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
+
+        const orderData = {
+            userId: userId,
+            orderDate: new Date(),
+            address: address,
+            paymentType: paymentType,
+            totalPrice: totalCost
+        };
+
+        await orderModel.create(orderData);
+
+        const orders = await orderModel.find({ userId: userId });
+        // console.log(orders);
+
+        if (orders) {
+            const userCart = await 
+            await cartModel.deleteMany({ userId: userId });
+            res.status(200).json(orders);
+        }
+
+    } catch (error) {
+        res.status(500).json({ message: 'Error while ordering', error });
+    }
+});
+
+router.get('/orders/:userId', async (req, res) => {
+    try {
+      const userId = req.params.userId;
+      const orders = await orderModel.find({ userId: userId });
+      res.status(200).json(orders);
+    } catch (error) {
+      res.status(500).json({ message: 'Error fetching orders', error });
+    }
+});
+  
 
 export default router;
