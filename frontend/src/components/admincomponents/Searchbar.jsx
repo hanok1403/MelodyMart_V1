@@ -10,6 +10,7 @@ const Searchbar = (props) => {
     }
   return (
     <div className="flex justify-center items-center p-4">
+      <h3 className=''>Search user: </h3>
       <input 
         type="text" 
         value={search}
