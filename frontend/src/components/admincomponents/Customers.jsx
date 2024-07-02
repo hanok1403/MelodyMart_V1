@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-
+import React, { useEffect, useState } from 'react';
+import Searchbar from './Searchbar';
 const Customers = () => {
     const [users, setUsers] = useState([]);
     const [selectedUser, setSelectedUser] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [error, setError] = useState(null);
-
+    const [results,setResults] = useState([]);
     useEffect(() => {
         const fetchUsers = async () => {
             try {
@@ -17,6 +17,7 @@ const Customers = () => {
                 // Filter out users with role 'admin'
                 const filteredUsers = data.filter(user => user.role !== 'admin');
                 setUsers(filteredUsers);
+                setResults(filteredUsers);
             } catch (error) {
                 setError(error.message);
                 console.error("Error fetching data:", error);
@@ -40,9 +41,10 @@ const Customers = () => {
         <div className="p-6">
             <h1 className="text-3xl font-semibold mb-4">Registered Users</h1>
             {error && <p className="text-red-500 mb-4">Error: {error}</p>}
+            <Searchbar users={users} setResults={setResults}/>
             <div className="overflow-hidden border border-gray-200 shadow sm:rounded-lg mb-4">
                 <ul>
-                    {users.map((user, index) => (
+                    {results.map((user, index) => (
                         <li key={user._id} className="border-t border-gray-200 hover:bg-gray-50">
                             <div className="px-4 py-4 sm:px-6 flex justify-between items-center">
                                 <div className="text-sm font-medium text-indigo-600 truncate">{index + 1}. {user.username}</div>

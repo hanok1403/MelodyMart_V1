@@ -1,13 +1,11 @@
-import express from 'express'
-import dotenv from 'dotenv'
 import cors from 'cors'
-import path from 'path'
+import dotenv from 'dotenv'
+import express from 'express'
 import mongoose from 'mongoose'
 
+import CartController from './controllers/CartController.js'
 import LoginController from './controllers/LoginController.js'
 import SignupController from './controllers/SignupController.js'
-import ProductController from './controllers/ProductController.js'
-import CartController from './controllers/CartController.js'
 import adminRouter from './router/adminRouter.js'
 import userRouter from './router/userRouter.js'
 
@@ -18,11 +16,7 @@ mongoose.connect(process.env.DBClient).then(response => console.log("Connected t
 const PORT = process.env.PORT
 const app = express()
 
-app.use(cors({
-    origin: 'http://localhost:3000', // Replace with the correct origin
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type']
-}));
+app.use(cors());
 app.use('/admin', adminRouter)
 app.use('/', userRouter)
 app.use(express.urlencoded({extended:true}))
