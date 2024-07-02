@@ -93,10 +93,10 @@ const AddProduct = (props) => {
   };
 
   return (
-    <div className="add-product-container py-8 px-4">
-      <h1 className="text-3xl font-bold text-center mb-4">{product.productHead}</h1>
-      <div className="max-w-md mx-auto bg-white p-6 rounded-lg shadow-lg">
-        <form onSubmit={handleSubmit} className="space-y-4">
+    <div className="min-h-screen bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 flex items-center justify-center px-4">
+      <div className="w-full max-w-lg mx-auto bg-white p-8 rounded-lg shadow-lg">
+        <h1 className="text-3xl font-bold text-center mb-6">{product.productHead}</h1>
+        <form onSubmit={handleSubmit} className="space-y-6">
           <InputV type="text" name="productName" id="productName" ph="Enter product name" onchange={handleChange} data={formData.productName} />
           <InputV type="text" name="description" id="description" ph="Enter product description" onchange={handleChange} data={formData.description} />
           <InputV type="text" name="price" id="price" ph="Enter product price" onchange={handleChange} data={formData.price} />
