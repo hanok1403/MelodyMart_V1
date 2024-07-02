@@ -5,6 +5,7 @@ import Home from './Home';
 import Profile from '../Profile';
 import Cart from './Cart';
 import Orders from './Orders';
+import Checkout from './Checkout';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle, faBars } from '@fortawesome/free-solid-svg-icons'; // Assuming you are using FontAwesome icons
 
@@ -145,6 +146,7 @@ const NavBar = () => {
         <Route path="/profile" element={<Profile />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/orders" element={<Orders />} />
+        <Route path="/checkout" element={<Checkout/>} />
       </Routes>
     </div>
   );

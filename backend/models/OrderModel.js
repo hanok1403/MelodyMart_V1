@@ -1,38 +1,40 @@
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
+import { v4 as uuidv4 } from 'uuid';
 
 const orderSchema = mongoose.Schema({
-    orderId:{
+    orderId: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        default: uuidv4
     },
-    userId:{
+    userId: {
         type: String,
         required: true
     },
-    // productName:{
-    //     type: String,
-    //     required: true
-    // },
-    quantity:{
-        type: Number,
+    orderDate: {
+        type: Date,
         required: true
     },
-    totalPrice:{
-        type: Number,
-        required: true
-    },
-    status:{
+    address: {
         type: String,
-        default:"order placed",
+        required: true
+    },
+    paymentType:{
+        type: String,
+        required:true
+    },
+    totalPrice: {
+        type: Number,
+        required: true
+    },
+    status: {
+        type: String,
+        default: "order placed",
         required: true
     }
-    // price:{
-    //     type: Number,
-    //     required: true
-    // }
-})
+});
 
-const orderModel = mongoose.model('Orders', orderSchema)
+const orderModel = mongoose.model('Orders', orderSchema);
 
 export default orderModel;
