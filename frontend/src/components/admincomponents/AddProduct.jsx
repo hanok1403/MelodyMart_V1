@@ -92,7 +92,7 @@ const AddProduct = (props) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gradient-to-r from-purple-400 via-pink-300 to-red-400 flex items-center justify-center px-4">
       <div className="w-full max-w-lg mx-auto bg-white p-8 rounded-lg shadow-lg">
         <h1 className="text-3xl font-bold text-center mb-6">{product.productHead}</h1>
         <form onSubmit={handleSubmit} className="space-y-6">
