@@ -16,6 +16,7 @@ import EditProduct from './components/admincomponents/EditProduct';
 import User from './components/userComponents/User';
 import Signup from './components/Signup';
 import Footer from './Footer';
+import Checkout from './components/userComponents/Checkout';
 import Customers from './components/admincomponents/Customers';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -43,6 +44,7 @@ function App() {
                                     <Route path="profile" element={<Profile />} />
                                     <Route path="cart" element={<Cart />} />
                                     <Route path="orders" element={<Orders />} />
+                                    <Route path="checkout" element={<Checkout />} />
                                 </Route>
                             </Route>
                         </Routes>

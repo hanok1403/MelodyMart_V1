@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import CartItem from './CartItem';
 
 const Cart = () => {
   const [cart, setCart] = useState([]);
-
   const data = JSON.parse(localStorage.getItem('user'));
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`http://localhost:5001/cart/${data.user.id}`)
@@ -14,7 +15,6 @@ const Cart = () => {
   }, [data.user.id]);
 
   const handleRemoveItem = (productId) => {
-  
     fetch(`http://localhost:5001/cart/itemDelete/${productId}`, {
       method: 'DELETE',
       headers: {
@@ -26,12 +26,16 @@ const Cart = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        // Update the cart state with the new cart data\
-        // console.log(data)
         setCart(data);
       })
       .catch((error) => console.log(error));
   };
+
+  const handleProceedToCheckout = () => {
+    console.log("Proceed to checkout clicked"); 
+    navigate('/checkout');
+};
+
 
   return (
     <div className="cart-container mx-auto p-4">
@@ -47,7 +51,12 @@ const Cart = () => {
         <h3 className="text-xl font-semibold">
           Total: ${cart.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2)}
         </h3>
-        <button className='btn bg-blue-500 text-white py-2 px-4 mt-4 text-center rounded-md hover:bg-blue-600'>Proceed to checkout</button>
+        <button
+          className='btn bg-blue-500 text-white py-2 px-4 mt-4 text-center rounded-md hover:bg-blue-600'
+          onClick={handleProceedToCheckout}
+        >
+          Proceed to checkout
+        </button>
       </div>
     </div>
   );
