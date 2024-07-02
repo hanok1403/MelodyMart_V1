@@ -8,7 +8,7 @@ const Orders = () => {
   const data = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
-    fetch(`http://localhost:5001/orders/${data.user.id}`)
+    fetch(`http://localhost:5001/admin/orders`)
       .then((response) => response.json())
       .then((data) => setOrders(data))
       .catch((error) => console.log(error));
@@ -32,6 +32,7 @@ const Orders = () => {
                 <TableRow>
                   <TableCell className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-xs md:text-sm uppercase font-medium text-gray-700">Order ID</TableCell>
                   <TableCell className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-xs md:text-sm uppercase font-medium text-gray-700">Order Date</TableCell>
+                  <TableCell className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-xs md:text-sm uppercase font-medium text-gray-700">Username</TableCell>
                   <TableCell className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-xs md:text-sm uppercase font-medium text-gray-700">Total Cost</TableCell>
                   <TableCell className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-xs md:text-sm uppercase font-medium text-gray-700">Payment Status</TableCell>
                   <TableCell className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-xs md:text-sm uppercase font-medium text-gray-700">Status</TableCell>
@@ -42,6 +43,7 @@ const Orders = () => {
                   <TableRow key={order._id}>
                     <TableCell className="py-2 px-4 border-b border-gray-200 text-xs md:text-sm">{order.orderId}</TableCell>
                     <TableCell className="py-2 px-4 border-b border-gray-200 text-xs md:text-sm">{new Date(order.orderDate).toLocaleDateString()}</TableCell>
+                    <TableCell className="py-2 px-4 border-b border-gray-200 text-xs md:text-sm">{data.userName}</TableCell>
                     <TableCell className="py-2 px-4 border-b border-gray-200 text-xs md:text-sm">${order.totalPrice.toFixed(2)}</TableCell>
                     <TableCell className="py-2 px-4 border-b border-gray-200 text-xs md:text-sm">{order.paymentType}</TableCell>
                     <TableCell className="py-2 px-4 border-b border-gray-200 text-xs md:text-sm">{order.status}</TableCell>
