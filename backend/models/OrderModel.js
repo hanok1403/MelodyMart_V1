@@ -14,7 +14,7 @@ const orderSchema = mongoose.Schema({
     },
     userName:{
         type: String,
-        required: false
+        required: true
     },
     orderDate: {
         type: Date,

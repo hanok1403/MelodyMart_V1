@@ -1,19 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth } from '../Router/AuthProvider';
 
 const Profile = () => {
     const auth = useAuth();
     const [isEditing, setIsEditing] = useState(false);
-    const [user, setUser] = useState({
-        username: auth.user.username,
-        email: auth.user.email,
-        mobile: auth.user.mobileNumber
-    });
-    const [newUsername, setNewUsername] = useState(auth.user.username);
-    const [newEmail, setNewEmail] = useState(auth.user.email);
-    const [newMobile, setNewMobile] = useState(auth.user.mobileNumber);
-    const [message, setMessage] = useState('');
 
+    const data = JSON.parse(localStorage.getItem('user'))
+    console.log(data.user.username);
+
+    const [user, setUser] = useState({
+        username: data.user.username,
+        email: data.user.email,
+        mobile: data.user.mobileNumber
+    });
+    const [newUsername, setNewUsername] = useState(data.user.username);
+    const [newEmail, setNewEmail] = useState(data.user.email);
+    const [newMobile, setNewMobile] = useState(data.user.mobileNumber);
+    const [message, setMessage] = useState('');
     useEffect(() => {}, []);
 
     const handleEdit = () => {
