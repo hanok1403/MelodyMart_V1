@@ -11,7 +11,13 @@ const Items = (props) => {
 
     return (
         <div className="product-item max-w-sm rounded overflow-hidden shadow-lg bg-white">
-            <img src={props.product.imageUrl} className="w-full product-image" alt={props.product.productName} />
+            <div className="relative h-48 overflow-hidden">
+                <img
+                    src={props.product.imageUrl}
+                    className="object-cover w-full h-full"
+                    alt={props.product.productName}
+                />
+            </div>
             <div className="px-6 py-4">
                 <div className="font-bold text-xl mb-2">{props.product.productName}</div>
                 <p className="text-gray-700 text-base">{props.product.description}</p>
