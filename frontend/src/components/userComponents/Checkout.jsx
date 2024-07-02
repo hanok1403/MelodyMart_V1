@@ -13,6 +13,7 @@ const Checkout = () => {
 
     const orderData = {
       userId: data.user.id,
+      userName:data.user.username,
       address: shippingAddress,
       paymentType: paymentMethod
     };
