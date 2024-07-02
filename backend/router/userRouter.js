@@ -43,6 +43,7 @@ router.post('/home/:id', async (req, res)=>{
         } else {
             cart = await cartModel.create({
                 userId:userId,
+                productName:productDetails.productName,
                 imageUrl:productDetails.imageUrl,
                 productId: itemId,
                 quantity: quantity,
@@ -81,18 +82,7 @@ router.delete('/cart/itemDelete/:id', async (req, res) => {
       console.log(`Item ID: ${itemId}, User ID: ${userId}`);
   
         const cartItem = await cartModel.findOneAndDelete({ userId: userId, productId: itemId });
-
-    //   console.log(cartItem)  
-
-    //   if (!cart) {
-    //     return res.status(404).json({ message: 'Cart not found' });
-    //   }
-  
-      // Remove the item from the cart
-    //   cart.items = cart.items.filter(item => item.productId !== itemId);
-    //   await cart.save();
-  
-      // Fetch the updated cart data for the user
+        
       const updatedCart = await cartModel.find({ userId: userId });
     //   console.log(updatedCart)
   
