@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-const Searchbar = () => {
+const Searchbar = (props) => {
     const [search, setSearch] = useState('');
-    const filteredUsers = data.filter(user => user.role !== 'admin');
     const handlechange= (value)=>{
         setSearch(value);
-        fetchData(value);
+        const filteredUsers = props.users.filter((user)=>{
+            return user.username.toLowerCase().includes(value);
+        });
+        props.setResults(filteredUsers);
     }
   return (
     <div className="flex justify-center items-center p-4">
