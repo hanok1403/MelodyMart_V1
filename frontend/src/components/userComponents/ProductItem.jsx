@@ -29,7 +29,7 @@ const ProductItem = ({ product }) => {
     };
 
     return (
-        <div className="product-item card bg-white shadow-md rounded-md p-4">
+        <div className="product-item card bg-white shadow-md rounded-md p-4 transform transition duration-300 ease-in-out hover:scale-105">
             <img src={product.imageUrl} className="card-img-top product-image rounded-md mb-4" alt={product.productName} />
             <div className="card-body">
                 <h5 className="card-title text-lg font-bold mb-2">{product.productName}</h5>

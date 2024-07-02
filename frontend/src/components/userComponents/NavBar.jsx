@@ -118,7 +118,7 @@ const NavBar = () => {
               </Link>
               <Link
                 to="/orders"
-                className="text-white text-lg font-medium hover:text-gray-300 py-2 block w-full text-center"
+                className="text-white text-lg font-medium hover:text-gray-300 hover:text-blue-400 py-2 block w-full text-center"
                 onClick={closeMobileMenu}
               >
                 Orders
@@ -131,7 +131,7 @@ const NavBar = () => {
                 Profile
               </Link>
               <button
-                className="text-red-600 text-lg font-medium hover:bg-red-100 hover:text-red-400 w-full text-left py-2"
+                className="text-red-600 text-lg font-medium hover:bg-red-100 hover:text-red-400 w-full text-left py-2 text-center"
                 onClick={() => { handleLogout(); closeMobileMenu(); }}
               >
                 Logout
