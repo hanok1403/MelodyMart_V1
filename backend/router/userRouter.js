@@ -112,6 +112,8 @@ router.post('/checkout', async (req, res) => {
             totalPrice: totalCost
         };
 
+        console.log(orderData)
+
         await orderModel.create(orderData);
 
         const orders = await orderModel.find({ userId: userId });
