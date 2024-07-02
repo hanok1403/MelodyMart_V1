@@ -24,7 +24,7 @@ const AdminNav = () => {
             <div className="flex items-center">
               <Link to="/admin/dashboard" className="text-white text-3xl font-bold px-3">Admin Panel</Link>
             </div>
-            <div className="hidden sm:block sm:ml-6">
+            <div className="hidden md:flex ml-10 space-x-4">
               <div className="flex space-x-4">
                 <Link to="/admin/dashboard" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-lg font-medium">Dashboard</Link>
                 <Link to="/admin/addProduct" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-lg font-medium">Add Products</Link>

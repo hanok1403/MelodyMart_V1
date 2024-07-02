@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import '../../styles/home.css';
+// import '../../styles/home.css';
 import ProductItem from './ProductItem';
 
 const Home = () => {
