@@ -52,7 +52,7 @@ const Cart = () => {
 
   return (
     <div className="cart-container mx-auto p-4">
-      <h2 className="text-2xl font-semibold mb-4">Shopping Cart</h2>
+      <h2 className="text-2xl font-semibold mb-4 text-center">Shopping Cart</h2>
       {cart.length === 0 ? (
         <Box className="flex flex-col items-center justify-center mt-10">
           <SentimentDissatisfied style={{ fontSize: 100, color: '#9e9e9e' }} />

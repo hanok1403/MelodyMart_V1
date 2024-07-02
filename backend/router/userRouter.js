@@ -99,7 +99,6 @@ router.post('/checkout', async (req, res) => {
         const paymentType = req.body.paymentType;
 
         const cartData = await cartModel.find({ userId: userId });
-        // console.log(req.body);
 
         const totalCost = cartData.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
 
@@ -114,11 +113,20 @@ router.post('/checkout', async (req, res) => {
         await orderModel.create(orderData);
 
         const orders = await orderModel.find({ userId: userId });
-        // console.log(orders);
 
         if (orders) {
-            const userCart = await 
+            // Update quantities in the product inventory
+            for (let item of cartData) {
+                const product = await productModel.findById(item.productId);
+                if (product) {
+                    await productModel.findByIdAndUpdate(item.productId, {
+                        quantity: product.quantity - item.quantity
+                    });
+                }
+            }
+
             await cartModel.deleteMany({ userId: userId });
+
             res.status(200).json(orders);
         }
 
@@ -126,6 +134,7 @@ router.post('/checkout', async (req, res) => {
         res.status(500).json({ message: 'Error while ordering', error });
     }
 });
+
 
 router.get('/orders/:userId', async (req, res) => {
     try {
