@@ -42,9 +42,10 @@ const ChangePassword = () => {
             return;
           }
 
-          await axios.put(`http://localhost:5001/users/${userId}`, {
+          const response= await axios.put(`http://localhost:5001/users/${userId}`, {
             password: newPassword
           });
+          console.log(response.data);
           alert("Password updated successfully");
           setCurrentPassword('');
           setNewPassword('');

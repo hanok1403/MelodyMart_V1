@@ -17,6 +17,7 @@ const Profile = () => {
     const [newUsername, setNewUsername] = useState('');
     const [newMobile, setNewMobile] = useState('');
     const [message, setMessage] = useState('');
+    const [error, setError] = useState('');
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -45,39 +46,62 @@ const Profile = () => {
 
     const handleSave = async () => {
         try {
-          const response = await axios.put(`http://localhost:5001/users/${userId}`, {
-            username: newUsername,
-            mobileNumber: newMobile
-          });
-      
-          console.log('Response:', response.data); // Log the response
-      
-          setUser({
-            username: newUsername,
-            email: user.email,
-            mobile: newMobile
-          });
-          setMessage('Changes saved successfully.');
-          setIsEditing(false);
+            if (!validateUsername(newUsername)) {
+                setError('Username must have at least 4 characters, start with a letter, and only contain letters and numbers.');
+                return;
+            }
+            if (!validateMobile(newMobile)) {
+                setError('Mobile number must have exactly 10 digits.');
+                return;
+            }
+
+            const response = await axios.put(`http://localhost:5001/users/update/${userId}`, {
+                username: newUsername,
+                mobileNumber: newMobile
+            });
+
+            console.log('Response:', response.data); // Log the response
+
+            setUser({
+                username: newUsername,
+                email: user.email,
+                mobile: newMobile
+            });
+            setMessage('Changes saved successfully.');
+            setIsEditing(false);
+            setError('');
         } catch (error) {
-          console.error("Error updating user data:", error);
-          setMessage("Error updating user data. Please try again later.");
+            console.error("Error updating user data:", error);
+            setMessage("Error updating user data. Please try again later.");
         }
-      };
-      
+    };
 
     const handleCancel = () => {
         setNewUsername(user.username);
         setNewMobile(user.mobile);
         setIsEditing(false);
+        setError('');
     };
 
     const handleUsernameChange = (e) => {
         setNewUsername(e.target.value);
+        setError('');
     };
 
     const handleMobileChange = (e) => {
         setNewMobile(e.target.value);
+        setError('');
+    };
+
+    // Validation functions
+    const validateUsername = (username) => {
+        const regex = /^[a-zA-Z][a-zA-Z0-9]{3,}$/;
+        return regex.test(username);
+    };
+
+    const validateMobile = (mobile) => {
+        const regex = /^\d{10}$/;
+        return regex.test(mobile);
     };
 
     return (
@@ -111,6 +135,7 @@ const Profile = () => {
                             className={`mt-1 p-2 border ${isEditing ? 'border-blue-500' : 'border-gray-300'} rounded w-full`}
                         />
                     </div>
+                    {error && <p className="text-red-500 mb-3 text-center">{error}</p>}
                     <div className="flex justify-between">
                         {!isEditing && (
                             <button
