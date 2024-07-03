@@ -18,7 +18,8 @@ const ProductItem = ({ product }) => {
             },
             body: JSON.stringify({ token, user, quantity }) 
         }).then((response) => {
-            console.log(response);
+            // console.log(response);
+            
             setShowModal(false); 
         });
     };

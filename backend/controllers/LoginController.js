@@ -16,14 +16,12 @@ async function LoginController(req, res) {
        
         const data = await userModel.findOne(login);
         console.log("data   ", data)
-        if (data.length <= 0)
+        if (!data)
             throw new Error("User not found");
         
         
         
         const token = generateToken(login);
-
-        
 
         return {
             user:{
@@ -36,7 +34,7 @@ async function LoginController(req, res) {
             role:data.role
         };
     } catch (error) {
-        console.error(error);
+        // console.error(error);
         return {
             message: 'Error Logging in',
             error: error.message

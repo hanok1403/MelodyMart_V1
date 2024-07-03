@@ -21,6 +21,7 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setError(null); // Clear any previous errors
 
         try {
             const response = await fetch('http://localhost:5001/login', {
@@ -32,13 +33,18 @@ const Login = () => {
             });
 
             if (!response.ok) {
-                throw new Error('Login failed');
+                if (response.status === 401) {
+                    setError('Incorrect email or password.');
+                } else {
+                    setError('Login failed. Please try again later.');
+                }
+                return;
             }
 
             const data = await response.json();
             loginAction(data); 
             localStorage.setItem('user', JSON.stringify(data)); 
-            // navigate('/dashboard'); 
+            navigate('/'); // Redirect to home or any other protected route
         } catch (err) {
             setError('Login failed. Please check your credentials and try again.');
             console.error(err);
