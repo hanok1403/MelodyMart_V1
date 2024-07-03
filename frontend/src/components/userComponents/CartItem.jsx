@@ -18,7 +18,7 @@ const CartItem = ({ item, onRemove }) => {
         <p><b>Quantity:</b> {quantity}</p>
         <p className="cart-item-total">Total: ${(price * quantity).toFixed(2)}</p>
       </div>
-      <button onClick={handleRemove} className="remove-button text-red-600 hover:text-white-600 focus:outline-none">
+      <button onClick={handleRemove} className="remove-button text-red-600 pd-6 hover:text-white-600 hover:bg-blue-600 focus:outline-none">
         Remove from cart
       </button>
     </div>
