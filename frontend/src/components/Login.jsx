@@ -21,7 +21,7 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setError(null); // Clear any previous errors
+        setError(null); 
 
         try {
             const response = await fetch('http://localhost:5001/login', {
@@ -44,7 +44,7 @@ const Login = () => {
             const data = await response.json();
             loginAction(data); 
             localStorage.setItem('user', JSON.stringify(data)); 
-            navigate('/'); // Redirect to home or any other protected route
+            
         } catch (err) {
             setError('Login failed. Please check your credentials and try again.');
             console.error(err);
