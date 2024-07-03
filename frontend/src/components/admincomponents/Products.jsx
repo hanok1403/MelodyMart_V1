@@ -24,9 +24,14 @@ function Products() {
     fetch(`http://localhost:5001/admin/delete/${id}`, { method: 'get' })
       .then(response => response.json())
       .then(() => {
-        setProduct(product.filter(prod => prod.productId !== id));
-        setFilteredProduct(filteredProduct.filter(prod => prod.productId !== id));
-        alert('Product removed successfully');
+        if(window.confirm("Do you want to remove the Product?")===true){
+          setProduct(product.filter(prod => prod.productId !== id));
+          setFilteredProduct(filteredProduct.filter(prod => prod.productId !== id));
+          alert('Product removed successfully');
+        }
+        else{
+          return;
+        }
       })
       .catch(error => console.log(error));
   };

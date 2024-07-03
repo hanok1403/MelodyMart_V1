@@ -9,7 +9,7 @@ const Orders = () => {
   useEffect(() => {
     fetch(`http://localhost:5001/orders/${data.user.id}`)
       .then((response) => response.json())
-      .then((data) => setOrders(data))
+      .then((data) => setOrders(data.reverse()))
       .catch((error) => console.log(error));
   }, [data.user.id]);
 
@@ -23,7 +23,7 @@ const Orders = () => {
         body: JSON.stringify({ userId: data.user.id })
       })
         .then((response) => response.json())
-        .then((updatedOrders) => setOrders(updatedOrders))
+        .then((updatedOrders) => setOrders(updatedOrders.reverse()))
         .catch((error) => console.log(error));
     }
   };

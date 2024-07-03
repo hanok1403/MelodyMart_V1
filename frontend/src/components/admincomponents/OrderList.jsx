@@ -12,7 +12,7 @@ const OrderList = () => {
   useEffect(() => {
     fetch(`http://localhost:5001/admin/orders`)
       .then((response) => response.json())
-      .then((data) => setOrders(data))
+      .then((data) => setOrders(data.reverse()))
       .catch((error) => console.log(error));
   }, [data.user.id]);
 
@@ -64,7 +64,7 @@ const OrderList = () => {
   };
 
   return (
-    <div className="orders-container mx-auto p-4 w-full bg-gradient-to-r from-purple-400 via-pink-300 to-red-400">
+    <div className="orders-container mx-auto p-4 w-full bg-gradient-to-r from-blue-300 via-pink-250 to-orange-300">
       <h2 className="text-2xl font-semibold text-center mb-4">Your Orders</h2>
       {orders.length === 0 ? (
         <Box className="flex flex-col items-center justify-center mt-10">
