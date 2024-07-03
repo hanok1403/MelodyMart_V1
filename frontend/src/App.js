@@ -19,6 +19,7 @@ import Footer from './Footer';
 import Checkout from './components/userComponents/Checkout';
 import Customers from './components/admincomponents/Customers';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ChangePassword from './components/userComponents/ChangePassword';
 
 function App() {
     return (
@@ -45,6 +46,7 @@ function App() {
                                     <Route path="cart" element={<Cart />} />
                                     <Route path="orders" element={<Orders />} />
                                     <Route path="checkout" element={<Checkout />} />
+                                    <Route path="changePassword" element={<ChangePassword />} />
                                 </Route>
                             </Route>
                         </Routes>

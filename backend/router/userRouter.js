@@ -4,9 +4,43 @@ import productModel from '../models/ProductModel.js';
 import userModel from '../models/UserModel.js';
 import cartModel from '../models/CartModel.js';
 
+
 const router = express.Router()
 router.use(express.urlencoded({extended:true}))
 router.use(express.json()); 
+
+router.get('/users/:id', async (req, res) => {
+    const userId = req.params.id;
+    try {
+      const userDetails = await userModel.findById(userId);
+      if (!userDetails) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+      res.status(200).json(userDetails);
+    } catch (err) {
+      res.status(500).send({ message: 'Error fetching user details', error: err.message });
+    }
+  });
+
+router.put('/users/:id', async(req,res)=>{
+    const userId= req.params.id;
+    const updatedPassword= req.body.password;
+    try{
+        const updatedUser= await userModel.findByIdAndUpdate(
+            userId,
+            {password:updatedPassword},
+            {new:true}
+        );
+
+        if(!updatedUser){
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.status(200).json(updatedUser);
+    }catch (err) {
+        res.status(500).send({ message: 'Error updating user', error: err.message });
+    }
+});
+
 
 router.get('/home', async (req, res)=>{
     try {

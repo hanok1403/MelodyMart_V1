@@ -1,51 +1,79 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { useAuth } from '../Router/AuthProvider';
 
 const Profile = () => {
     const auth = useAuth();
     const [isEditing, setIsEditing] = useState(false);
 
-    const data = JSON.parse(localStorage.getItem('user'))
-    console.log(data.user.username);
+    const data = JSON.parse(localStorage.getItem('user'));
+    const userId = data.user.id;
 
     const [user, setUser] = useState({
-        username: data.user.username,
-        email: data.user.email,
-        mobile: data.user.mobileNumber
+        username: '',
+        email: '',
+        mobile: ''
     });
-    const [newUsername, setNewUsername] = useState(data.user.username);
-    const [newEmail, setNewEmail] = useState(data.user.email);
-    const [newMobile, setNewMobile] = useState(data.user.mobileNumber);
+    const [newUsername, setNewUsername] = useState('');
+    const [newMobile, setNewMobile] = useState('');
     const [message, setMessage] = useState('');
-    useEffect(() => {}, []);
+
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const response = await axios.get(`http://localhost:5001/users/${userId}`);
+                const userData = response.data;
+                setUser({
+                    username: userData.username,
+                    email: userData.email,
+                    mobile: userData.mobileNumber
+                });
+                setNewUsername(userData.username);
+                setNewMobile(userData.mobileNumber);
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+                setMessage("Error fetching user data. Please try again later.");
+            }
+        };
+
+        fetchUserData();
+    }, [userId]);
 
     const handleEdit = () => {
         setIsEditing(true);
     };
 
-    const handleSave = () => {
-        setUser({
+    const handleSave = async () => {
+        try {
+          const response = await axios.put(`http://localhost:5001/users/${userId}`, {
             username: newUsername,
-            email: newEmail,
+            mobileNumber: newMobile
+          });
+      
+          console.log('Response:', response.data); // Log the response
+      
+          setUser({
+            username: newUsername,
+            email: user.email,
             mobile: newMobile
-        });
-        setMessage('Changes saved successfully.');
-        setIsEditing(false);
-    };
+          });
+          setMessage('Changes saved successfully.');
+          setIsEditing(false);
+        } catch (error) {
+          console.error("Error updating user data:", error);
+          setMessage("Error updating user data. Please try again later.");
+        }
+      };
+      
 
     const handleCancel = () => {
         setNewUsername(user.username);
-        setNewEmail(user.email);
         setNewMobile(user.mobile);
         setIsEditing(false);
     };
 
     const handleUsernameChange = (e) => {
         setNewUsername(e.target.value);
-    };
-
-    const handleEmailChange = (e) => {
-        setNewEmail(e.target.value);
     };
 
     const handleMobileChange = (e) => {
@@ -56,9 +84,13 @@ const Profile = () => {
         <div className="flex justify-center items-center h-screen bg-gray-100 bg-gradient-to-r from-blue-300 via-pink-250 to-orange-300">
             <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
                 <h2 className="text-2xl font-bold text-center mb-6">User Profile</h2>
+                <div className="mb-4">
+                    <label htmlFor="email" className="block text-gray-700">Email:</label>
+                    <p className="mt-1 w-full"><strong>{user.email}</strong></p>
+                </div>
                 <form>
                     <div className="mb-4">
-                        <label htmlFor="username" className="block text-gray-700">Username</label>
+                        <label htmlFor="username" className="block text-gray-700">Username:</label>
                         <input
                             type="text"
                             id="username"
@@ -69,18 +101,7 @@ const Profile = () => {
                         />
                     </div>
                     <div className="mb-4">
-                        <label htmlFor="email" className="block text-gray-700">Email</label>
-                        <input
-                            type="email"
-                            id="email"
-                            value={newEmail}
-                            onChange={handleEmailChange}
-                            readOnly={!isEditing}
-                            className={`mt-1 p-2 border ${isEditing ? 'border-blue-500' : 'border-gray-300'} rounded w-full`}
-                        />
-                    </div>
-                    <div className="mb-4">
-                        <label htmlFor="mobile" className="block text-gray-700">Mobile Number</label>
+                        <label htmlFor="mobile" className="block text-gray-700">Mobile Number:</label>
                         <input
                             type="text"
                             id="mobile"

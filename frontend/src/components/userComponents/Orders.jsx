@@ -29,7 +29,7 @@ const Orders = () => {
   };
 
   return (
-    <div className="orders-container mx-auto p-4 w-full bg-gradient-to-r from-purple-400 via-pink-300 to-red-400 min-h-screen flex flex-col">
+    <div className="orders-container mx-auto p-4 w-full bg-gradient-to-r from-purple-300  to-blue-300 via-gray-250 min-h-screen flex flex-col">
       <h2 className="text-2xl font-semibold text-center mb-4">Your Orders</h2>
       {orders.length === 0 ? (
         <Box className="flex flex-col items-center justify-center flex-grow">
