@@ -14,16 +14,18 @@ const Orders = () => {
   }, [data.user.id]);
 
   const handleCancelOrder = (orderId) => {
-    fetch(`http://localhost:5001/orders/cancel/${orderId}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ userId: data.user.id })
-    })
-      .then((response) => response.json())
-      .then((updatedOrders) => setOrders(updatedOrders))
-      .catch((error) => console.log(error));
+    if (window.confirm('Are you sure you want to cancel this order?')) {
+      fetch(`http://localhost:5001/orders/cancel/${orderId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ userId: data.user.id })
+      })
+        .then((response) => response.json())
+        .then((updatedOrders) => setOrders(updatedOrders))
+        .catch((error) => console.log(error));
+    }
   };
 
   return (

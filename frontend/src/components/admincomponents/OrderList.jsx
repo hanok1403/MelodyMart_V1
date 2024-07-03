@@ -79,9 +79,10 @@ const OrderList = () => {
             <Table className="min-w-full">
               <TableHead>
                 <TableRow>
-                  <TableCell className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-xs md:text-sm uppercase font-medium text-gray-700">Order ID</TableCell>
+                  <TableCell className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-xs md:text-sm uppercase font-medium text-gray-700" style={{ width: '20%' }}>Order ID</TableCell>
                   <TableCell className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-xs md:text-sm uppercase font-medium text-gray-700">Order Date</TableCell>
                   <TableCell className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-xs md:text-sm uppercase font-medium text-gray-700">Username</TableCell>
+                  <TableCell className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-xs md:text-sm uppercase font-medium text-gray-700" style={{ width: '30%' }}>Address</TableCell>
                   <TableCell className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-xs md:text-sm uppercase font-medium text-gray-700">Total Cost</TableCell>
                   <TableCell className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-xs md:text-sm uppercase font-medium text-gray-700">Payment Status</TableCell>
                   <TableCell className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-xs md:text-sm uppercase font-medium text-gray-700">Status</TableCell>
@@ -91,9 +92,10 @@ const OrderList = () => {
               <TableBody>
                 {orders.map((order) => (
                   <TableRow key={order._id}>
-                    <TableCell className="py-2 px-4 border-b border-gray-200 text-xs md:text-sm">{order.orderId}</TableCell>
+                    <TableCell className="py-2 px-4 border-b border-gray-200 text-xs md:text-sm" style={{ width: '20%' }}>{order.orderId}</TableCell>
                     <TableCell className="py-2 px-4 border-b border-gray-200 text-xs md:text-sm">{new Date(order.orderDate).toLocaleDateString()}</TableCell>
                     <TableCell className="py-2 px-4 border-b border-gray-200 text-xs md:text-sm">{order.userName}</TableCell>
+                    <TableCell className="py-2 px-4 border-b border-gray-200 text-xs md:text-sm" style={{ width: '30%' }}>{order.address}</TableCell>
                     <TableCell className="py-2 px-4 border-b border-gray-200 text-xs md:text-sm">${order.totalPrice.toFixed(2)}</TableCell>
                     <TableCell className="py-2 px-4 border-b border-gray-200 text-xs md:text-sm">{order.paymentType}</TableCell>
                     <TableCell className="py-2 px-4 border-b border-gray-200 text-xs md:text-sm">{order.status}</TableCell>
