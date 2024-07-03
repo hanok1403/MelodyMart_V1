@@ -51,10 +51,10 @@ const Cart = () => {
   };
 
   return (
-    <div className="cart-container mx-auto p-4 bg-gradient-to-r from-blue-300 via-pink-250 to-orange-300">
+    <div className="cart-container mx-auto p-4 bg-gradient-to-r from-blue-300 via-pink-250 to-orange-300 min-h-screen flex flex-col">
       <h2 className="text-2xl font-semibold mb-4 text-center">Shopping Cart</h2>
       {cart.length === 0 ? (
-        <Box className="flex flex-col items-center justify-center mt-10">
+        <Box className="flex flex-col items-center justify-center flex-grow">
           <SentimentDissatisfied style={{ fontSize: 100, color: '#9e9e9e' }} />
           <Typography variant="h6" className="mt-4 text-gray-600">
             You have not added anything to the cart yet.
@@ -74,7 +74,7 @@ const Cart = () => {
               Total: ${cart.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2)}
             </h3>
             <button
-              className='btn bg-blue-500 text-white py-2 px-4 mt-4 text-center rounded-md hover:bg-blue-600'
+              className='btn bg-blue-500 text-white  px-4 mt-4 text-center rounded-md hover:bg-blue-600'
               onClick={handleProceedToCheckout}
             >
               Proceed to checkout
