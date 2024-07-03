@@ -47,7 +47,12 @@ const Cart = () => {
 
   const handleProceedToCheckout = () => {
     console.log("Proceed to checkout clicked"); 
-    navigate('/checkout');
+    if(window.confirm("Do you want to proceed to checkout?")===true){
+      navigate('/checkout');
+    }
+    else{
+      return;
+    }
   };
 
   return (

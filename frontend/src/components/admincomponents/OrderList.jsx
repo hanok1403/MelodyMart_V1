@@ -27,6 +27,8 @@ const OrderList = () => {
   };
 
   const handleCancelOrder = () => {
+    if(!window.confirm("Do you want to cancel the order?")===true)
+      return ;
     if (selectedOrderId) {
       fetch(`http://localhost:5001/admin/orders/cancel/${selectedOrderId}`, {
         method: 'PUT',
@@ -45,13 +47,15 @@ const OrderList = () => {
   };
 
   const handleCompleteOrder = () => {
+    if(!window.confirm("Do you want to complete the order?")===true)
+      return ;
     if (selectedOrderId) {
       fetch(`http://localhost:5001/admin/orders/complete/${selectedOrderId}`, {
         method: 'PUT',
       })
         .then((response) => response.json())
         .then((updatedOrder) => {
-          console.log("Order completed:", updatedOrder); // Add this line for debugging
+          console.log("Order completed:", updatedOrder); 
           setOrders((prevOrders) =>
             prevOrders.map((order) =>
               order._id === updatedOrder._id ? updatedOrder : order
@@ -60,6 +64,19 @@ const OrderList = () => {
           handleMenuClose();
         })
         .catch((error) => console.log(error));
+    }
+  };
+
+  const getStatusColor = (status) => {
+    switch (status) {
+      case 'order placed':
+        return '#b59c0b';
+      case 'Completed':
+        return 'green';
+      case 'Cancelled':
+        return 'red';
+      default:
+        return 'white';
     }
   };
 
@@ -98,7 +115,14 @@ const OrderList = () => {
                     <TableCell className="py-2 px-4 border-b border-gray-200 text-xs md:text-sm" style={{ width: '30%' }}>{order.address}</TableCell>
                     <TableCell className="py-2 px-4 border-b border-gray-200 text-xs md:text-sm">${order.totalPrice.toFixed(2)}</TableCell>
                     <TableCell className="py-2 px-4 border-b border-gray-200 text-xs md:text-sm">{order.paymentType}</TableCell>
-                    <TableCell className="py-2 px-4 border-b border-gray-200 text-xs md:text-sm">{order.status}</TableCell>
+                    <TableCell className="py-2 px-4 border-b border-gray-200 text-xs md:text-sm">
+                      <div
+                        className="rounded-md p-2 text-white"
+                        style={{ backgroundColor: getStatusColor(order.status) }}
+                      >
+                        {order.status}
+                      </div>
+                    </TableCell>
                     <TableCell className="py-2 px-4 border-b border-gray-200 text-xs md:text-sm">
                       {order.status !== 'Cancelled' && order.status !== 'Completed' && (
                         <>

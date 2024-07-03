@@ -104,7 +104,7 @@ router.put('/orders/cancel/:id', async (req, res) => {
 router.put('/orders/complete/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        const order = await orderModel.findByIdAndUpdate(id, { status: 'Completed' });
+        const order = await orderModel.findByIdAndUpdate(id, { status: 'Completed' },{ new: true });
         if (order) {
             res.status(200).json(order);
         } else {

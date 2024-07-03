@@ -5,7 +5,7 @@ import 'tailwindcss/tailwind.css';
 
 const ProductItem = ({ product }) => {
     const [showModal, setShowModal] = useState(false);
-    const [quantity, setQuantity] = useState(1);
+    const [quantity, setQuantity] = useState(1); 
 
     const handleAddToCart = (id, quantity) => {
         const token = localStorage.getItem('token');
@@ -18,14 +18,14 @@ const ProductItem = ({ product }) => {
             },
             body: JSON.stringify({ token, user, quantity }) 
         }).then((response) => {
-            // console.log(response);
-            
+            console.log(response);
             setShowModal(false); 
+            alert('Product added to cart');
         });
     };
 
     const handleQuantityChange = (e) => {
-        const value = Math.max(0, Math.min(product.quantity, parseInt(e.target.value)));
+        const value = Math.max(1, Math.min(product.quantity, parseInt(e.target.value)));
         setQuantity(value);
     };
 

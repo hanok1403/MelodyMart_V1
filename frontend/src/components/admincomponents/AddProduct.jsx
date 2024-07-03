@@ -45,7 +45,7 @@ const AddProduct = (props) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    if (name === 'quantity' && value < 0) {
+    if (name === 'quantity' && value < 1) {
       alert('Quantity must be a positive number');
       return;
     }
@@ -59,7 +59,7 @@ const AddProduct = (props) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (formData.quantity < 0) {
+    if (formData.quantity < 1) {
       alert('Quantity must be a positive number');
       return;
     }

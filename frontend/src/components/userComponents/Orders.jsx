@@ -28,6 +28,19 @@ const Orders = () => {
     }
   };
 
+  const getStatusColor = (status) => {
+    switch (status) {
+      case 'order placed':
+        return '#b59c0b';
+      case 'Completed':
+        return 'green';
+      case 'Cancelled':
+        return 'red';
+      default:
+        return 'white';
+    }
+  };
+
   return (
     <div className="orders-container mx-auto p-4 w-full bg-gradient-to-r from-purple-300  to-blue-300 via-gray-250 min-h-screen flex flex-col">
       <h2 className="text-2xl font-semibold text-center mb-4">Your Orders</h2>
@@ -59,7 +72,14 @@ const Orders = () => {
                     <TableCell className="py-2 px-4 border-b border-gray-200 text-xs md:text-sm">{new Date(order.orderDate).toLocaleDateString()}</TableCell>
                     <TableCell className="py-2 px-4 border-b border-gray-200 text-xs md:text-sm">${order.totalPrice.toFixed(2)}</TableCell>
                     <TableCell className="py-2 px-4 border-b border-gray-200 text-xs md:text-sm">{order.paymentType}</TableCell>
-                    <TableCell className="py-2 px-4 border-b border-gray-200 text-xs md:text-sm">{order.status}</TableCell>
+                    <TableCell className="py-2 px-4 border-b border-gray-200 text-xs md:text-sm">
+                      <div
+                        className="rounded-md p-2 text-white"
+                        style={{ backgroundColor: getStatusColor(order.status) }}
+                      >
+                        {order.status}
+                      </div>
+                    </TableCell>
                     <TableCell className="py-2 px-4 border-b border-gray-200 text-xs md:text-sm">
                       {order.status === 'order placed' && (
                         <Button 
