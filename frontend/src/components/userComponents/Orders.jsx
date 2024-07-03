@@ -15,17 +15,17 @@ const Orders = () => {
   }, [data.user.id]);
 
   return (
-    <div className="orders-container mx-auto p-4 w-full bg-gradient-to-r from-purple-400 via-pink-300 to-red-400">
+    <div className="orders-container mx-auto p-4 w-full bg-gradient-to-r from-purple-400 via-pink-300 to-red-400 min-h-screen flex flex-col">
       <h2 className="text-2xl font-semibold text-center mb-4">Your Orders</h2>
       {orders.length === 0 ? (
-        <Box className="flex flex-col items-center justify-center mt-10">
+        <Box className="flex flex-col items-center justify-center flex-grow">
           <SentimentDissatisfied style={{ fontSize: 100, color: '#9e9e9e' }} />
           <Typography variant="h6" className="mt-4 text-gray-600">
             You have no orders yet.
           </Typography>
         </Box>
       ) : (
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto flex-grow">
           <TableContainer component={Paper}>
             <Table className="min-w-full">
               <TableHead>
