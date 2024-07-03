@@ -149,6 +149,30 @@ router.get('/orders/:userId', async (req, res) => {
       res.status(500).json({ message: 'Error fetching orders', error });
     }
 });
+
+router.post('/orders/cancel/:orderId', async (req, res) => {
+    try {
+      const { orderId } = req.params;
+      const userId  = req.body.userId;
+  
+        console.log(orderId + " " + userId)
+      const order = await orderModel.findOne({ _id: orderId, userId });
+  
+      if (!order) {
+        return res.status(404).json({ message: 'Order not found' });
+      }
+  
+      order.status = 'Cancelled';
+      await order.save();
+  
+      const updatedOrders = await orderModel.find({ userId });
+      
+      res.status(200).json(updatedOrders);
+    } catch (error) {
+      res.status(500).json({ message: 'Error cancelling order', error });
+    }
+  });
+  
   
 
   
