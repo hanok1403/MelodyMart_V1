@@ -33,11 +33,8 @@ const Login = () => {
             });
 
             if (!response.ok) {
-                if (response.status === 401) {
-                    setError('Incorrect email or password.');
-                } else {
-                    setError('Login failed. Please try again later.');
-                }
+                
+                setError('Login failed. Please check your credentials and try again.');
                 return;
             }
 
