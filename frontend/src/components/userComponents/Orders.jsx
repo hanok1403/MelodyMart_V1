@@ -1,6 +1,6 @@
 import { SentimentDissatisfied } from '@mui/icons-material';
 import { Box, Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
-import { default as React, default as React, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
