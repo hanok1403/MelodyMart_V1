@@ -32,6 +32,8 @@ const Orders = () => {
     switch (status) {
       case 'order placed':
         return '#b59c0b';
+      case 'Shipped':
+        return 'orange';
       case 'Completed':
         return 'green';
       case 'Cancelled':
@@ -81,7 +83,7 @@ const Orders = () => {
                       </div>
                     </TableCell>
                     <TableCell className="py-2 px-4 border-b border-gray-200 text-xs md:text-sm">
-                      {order.status === 'order placed' && (
+                      {(order.status === 'order placed' || order.status === 'Shipped')&& (
                         <Button 
                           variant="contained" 
                           color="secondary" 
@@ -90,6 +92,7 @@ const Orders = () => {
                           Cancel
                         </Button>
                       )}
+                      
                     </TableCell>
                   </TableRow>
                 ))}

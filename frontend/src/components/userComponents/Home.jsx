@@ -30,8 +30,9 @@ const Home = () => {
     fetch('http://localhost:5001/home')
       .then((response) => response.json())
       .then((data) => {
-        setItems(data);
-        setFilteredItems(data); 
+        const validProducts = data.filter(prod => prod.quantity > 0);
+        setItems(validProducts);
+        setFilteredItems(validProducts)
       })
       .catch((error) => console.log(error));
   }, []);
