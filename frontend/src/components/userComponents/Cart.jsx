@@ -47,11 +47,16 @@ const Cart = () => {
 
   const handleProceedToCheckout = () => {
     console.log("Proceed to checkout clicked"); 
-    navigate('/checkout');
+    if(window.confirm("Do you want to proceed to checkout?")===true){
+      navigate('/checkout');
+    }
+    else{
+      return;
+    }
   };
 
   return (
-    <div className="cart-container mx-auto p-4 bg-gradient-to-r from-blue-300 via-pink-250 to-orange-300 min-h-screen flex flex-col">
+    <div className="cart-container mx-auto p-4 bg-gradient-to-r from-purple-300  to-blue-300 via-gray-250 min-h-screen flex flex-col">
       <h2 className="text-2xl font-semibold mb-4 text-center">Shopping Cart</h2>
       {cart.length === 0 ? (
         <Box className="flex flex-col items-center justify-center flex-grow">

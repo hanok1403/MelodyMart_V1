@@ -7,7 +7,8 @@ import Cart from './Cart';
 import Orders from './Orders';
 import Checkout from './Checkout';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserCircle, faBars } from '@fortawesome/free-solid-svg-icons'; // Assuming you are using FontAwesome icons
+import ChangePassword from './ChangePassword';
+import { faUserCircle, faBars } from '@fortawesome/free-solid-svg-icons'; 
 
 const NavBar = () => {
   const auth = useAuth();
@@ -53,7 +54,7 @@ const NavBar = () => {
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth > 768) {
-        setMobileMenuOpen(false); // Close mobile menu on larger screens
+        setMobileMenuOpen(false);
       }
     };
 
@@ -86,6 +87,7 @@ const NavBar = () => {
               {dropdownOpen && (
                 <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 z-10">
                   <Link to="/profile" className="block px-4 py-2 text-sm text-blue-700 hover:bg-blue-100">Profile</Link>
+                  <Link to="/changePassword" className="block px-4 py-2 text-sm text-blue-700 hover:bg-blue-100">Change Password</Link>
                   <button onClick={handleLogout} className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-100">Logout</button>
                 </div>
               )}
@@ -131,6 +133,13 @@ const NavBar = () => {
               >
                 Profile
               </Link>
+              <Link
+                to="/changePassword"
+                className="text-blue-700 text-lg font-medium hover:bg-blue-100 hover:text-blue-400 py-2 block w-full text-center"
+                onClick={() => { closeMobileMenu(); toggleDropdown(); }}
+              >
+                Change Password
+              </Link>
               <button
                 className="text-red-600 text-lg font-medium hover:bg-red-100 hover:text-red-400 w-full text-left py-2 text-center"
                 onClick={() => { handleLogout(); closeMobileMenu(); }}
@@ -147,6 +156,7 @@ const NavBar = () => {
         <Route path="/cart" element={<Cart />} />
         <Route path="/orders" element={<Orders />} />
         <Route path="/checkout" element={<Checkout/>} />
+        <Route path="/changePassword" element={<ChangePassword/>} />
       </Routes>
     </div>
   );

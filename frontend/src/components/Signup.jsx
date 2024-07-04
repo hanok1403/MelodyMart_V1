@@ -16,13 +16,12 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Username validation
+    // Client-side validation
     if (!/^[a-zA-Z][a-zA-Z0-9]{3,}$/.test(username)) {
       setError('Username must start with a letter and be at least 4 characters long (letters and numbers only)');
       return;
     }
 
-    // Password validation
     if (password !== confirmPassword) {
       setError('Passwords do not match');
       return;
@@ -38,12 +37,14 @@ const SignUp = () => {
       return;
     }
 
-    // Mobile number validation
     if (!/^\d{10}$/.test(mobileNumber)) {
       setError('Mobile number must be exactly 10 digits');
       return;
     }
 
+    // If all validations pass, reset the error and make the API request
+    setError('');
+    
     try {
       const response = await axios.post('http://localhost:5001/signup', {
         email,
@@ -51,12 +52,14 @@ const SignUp = () => {
         username,
         mobileNumber,
       });
+      
       if (response.data.userExists) {
         alert('User already exists!!! Navigating to login...');
       } else {
         alert('Signup Successful');
         console.log(response.data);
       }
+
       navigate('/login');
     } catch (err) {
       if (err.response && err.response.data) {

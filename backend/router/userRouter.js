@@ -4,9 +4,66 @@ import productModel from '../models/ProductModel.js';
 import userModel from '../models/UserModel.js';
 import cartModel from '../models/CartModel.js';
 
+
 const router = express.Router()
 router.use(express.urlencoded({extended:true}))
 router.use(express.json()); 
+
+router.get('/users/:id', async (req, res) => {
+    const userId = req.params.id;
+    try {
+      const userDetails = await userModel.findById(userId);
+      if (!userDetails) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+      res.status(200).json(userDetails);
+    } catch (err) {
+      res.status(500).send({ message: 'Error fetching user details', error: err.message });
+    }
+  });
+  router.put('/users/:id', async(req,res)=>{
+      const userId= req.params.id;
+      const updatedPassword= req.body.password;
+      try{
+          const updatedUser= await userModel.findByIdAndUpdate(
+              userId,
+              {password:updatedPassword},
+              {new:true}
+          );
+  
+          if(!updatedUser){
+              return res.status(404).json({ message: 'User not found' });
+          }
+          res.status(200).json(updatedUser);
+      }catch (err) {
+          res.status(500).send({ message: 'Error updating user', error: err.message });
+      }
+  });
+
+  router.put('/users/update/:id', async (req, res) => {
+    const userId = req.params.id;
+    const { username, mobileNumber } = req.body; 
+    try {
+        const updatedUser = await userModel.findByIdAndUpdate(
+            userId,
+            {
+                username: username,
+                mobileNumber: mobileNumber
+            },
+            { new: true }
+        );
+
+        if (!updatedUser) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.status(200).json(updatedUser);
+    } catch (err) {
+        res.status(500).send({ message: 'Error updating user', error: err.message });
+    }
+});
+
+
+
 
 router.get('/home', async (req, res)=>{
     try {
@@ -149,6 +206,30 @@ router.get('/orders/:userId', async (req, res) => {
       res.status(500).json({ message: 'Error fetching orders', error });
     }
 });
+
+router.post('/orders/cancel/:orderId', async (req, res) => {
+    try {
+      const { orderId } = req.params;
+      const userId  = req.body.userId;
+  
+        console.log(orderId + " " + userId)
+      const order = await orderModel.findOne({ _id: orderId, userId });
+  
+      if (!order) {
+        return res.status(404).json({ message: 'Order not found' });
+      }
+  
+      order.status = 'Cancelled';
+      await order.save();
+  
+      const updatedOrders = await orderModel.find({ userId });
+      
+      res.status(200).json(updatedOrders);
+    } catch (error) {
+      res.status(500).json({ message: 'Error cancelling order', error });
+    }
+  });
+  
   
 
   

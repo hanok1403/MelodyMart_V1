@@ -31,7 +31,7 @@ const Home = () => {
       .then((response) => response.json())
       .then((data) => {
         setItems(data);
-        setFilteredItems(data); // Initialize filteredItems with all items
+        setFilteredItems(data); 
       })
       .catch((error) => console.log(error));
   }, []);
@@ -39,12 +39,11 @@ const Home = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
-    }, 3000); // Change slide every 3 seconds
+    }, 3000);
     return () => clearInterval(interval);
   }, [slides.length]);
 
   const handleAddToCart = (id, quantity) => {
-    // Your existing handleAddToCart function remains unchanged
   };
 
   const prevSlide = () => {

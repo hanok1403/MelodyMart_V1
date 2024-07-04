@@ -10,6 +10,11 @@ const Checkout = () => {
 
   const handleCheckout = async (e) => {
     e.preventDefault();
+    const confirmed = window.confirm('Do you really want to place the order?');
+
+    if (!confirmed) {
+      return;
+    }
 
     const orderData = {
       userId: data.user.id,

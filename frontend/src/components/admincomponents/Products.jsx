@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import '../../styles/home.css';
 import { useNavigate } from 'react-router-dom';
 import Items from './Items';
-import AdminSearchbar from './AdminSearchbar'; // Import the AdminSearchbar component
+import AdminSearchbar from './AdminSearchbar';
 
 function Products() {
   const [product, setProduct] = useState([]);
@@ -14,8 +14,9 @@ function Products() {
     fetch('http://localhost:5001/admin/')
       .then((response) => response.json())
       .then((data) => {
-        setProduct(data);
-        setFilteredProduct(data); // Initialize filteredProduct with all products
+        const validProducts = data.filter(prod => prod.quantity > 0);
+        setProduct(validProducts);
+        setFilteredProduct(validProducts);
       })
       .catch((error) => console.log(error));
   }, []);
@@ -24,9 +25,13 @@ function Products() {
     fetch(`http://localhost:5001/admin/delete/${id}`, { method: 'get' })
       .then(response => response.json())
       .then(() => {
-        setProduct(product.filter(prod => prod.productId !== id));
-        setFilteredProduct(filteredProduct.filter(prod => prod.productId !== id));
-        alert('Product removed successfully');
+        if(window.confirm("Do you want to remove the Product?") === true){
+          setProduct(product.filter(prod => prod.productId !== id));
+          setFilteredProduct(filteredProduct.filter(prod => prod.productId !== id));
+          alert('Product removed successfully');
+        } else {
+          return;
+        }
       })
       .catch(error => console.log(error));
   };
@@ -39,7 +44,7 @@ function Products() {
   return (
     <div className="container mx-auto px-4">
       <h1 className="text-3xl font-semibold mb-2 text-center pt-3">Product Management</h1>
-      <AdminSearchbar products={product} setFilteredItems={setFilteredProduct} /> {/* Add AdminSearchbar */}
+      <AdminSearchbar products={product} setFilteredItems={setFilteredProduct} />
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {filteredProduct.map((item, i) => (
           <div key={i} className="mb-4">
