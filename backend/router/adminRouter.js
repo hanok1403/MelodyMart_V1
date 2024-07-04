@@ -101,6 +101,20 @@ router.put('/orders/cancel/:id', async (req, res) => {
     }
 });
 
+router.put('/orders/shipped/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const order = await orderModel.findByIdAndUpdate(id, { status: 'Shipped' }, { new: true });
+        if (order) {
+            res.status(200).json(order);
+        } else {
+            res.status(404).send("Order not found");
+        }
+    } catch (error) {
+        res.status(400).json({ message: "Error updating order status", error });
+    }
+});
+
 router.put('/orders/complete/:id', async (req, res) => {
     try {
         const { id } = req.params;
