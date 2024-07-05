@@ -224,16 +224,10 @@ router.post('/orders/cancel/:orderId', async (req, res) => {
       await order.save();
 
       const prevItems = order.cartData;
-      console.log(prevItems)
-      console.log('______________________')
+    //   console.log(prevItems)
+    //   console.log('______________________')
       for (let item of prevItems) {
-        // console.log(item)
-        // console.log('item' + items)
-        // console.log('items id ' + items.productId)
-        // const item = JSON.parse(items)
-        // console.log('item id ' + item.productId)
         const product = await productModel.findOne({productId:item.productId});
-        // console.log('product:' + product)
         if (product) {
             await productModel.findByIdAndUpdate(item.productId, {
                 quantity: product.quantity + item.quantity
@@ -249,7 +243,7 @@ router.post('/orders/cancel/:orderId', async (req, res) => {
                 description:description,
                 quantity: item.quantity
             }
-            console.log('deleted product' + deletedNewProduct)
+            // console.log('deleted product' + deletedNewProduct)
             await productModel.create(deletedNewProduct);
         }
       }
