@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth } from '../Router/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -18,6 +18,20 @@ const Login = () => {
             [name]: value
         });
     };
+
+    useEffect(() =>{
+        const user = JSON.parse(localStorage.getItem('user'));
+        if(user){
+            if (user.user.role === 'user') {
+                navigate('/home');
+            }
+            if (user.user.role === 'admin') {
+                navigate('/admin/dashboard');
+            }
+        }
+        
+
+    }, [])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
