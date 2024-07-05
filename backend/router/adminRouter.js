@@ -92,7 +92,35 @@ router.put('/orders/cancel/:id', async (req, res) => {
         const { id } = req.params;
         const order = await orderModel.findByIdAndUpdate(id, { status: 'Cancelled' }, { new: true });
         if (order) {
+
+            const prevItems = order.cartData;
+            console.log(prevItems)
+            console.log('______________________')
+            for (let item of prevItems) {
+                const product = await productModel.findOne({productId:item.productId});
+                if (product) {
+                    await productModel.findByIdAndUpdate(item.productId, {
+                        quantity: product.quantity + item.quantity
+                    });
+                }
+                else{
+                    const deletedNewProduct = {
+                        _id:item.productId,
+                        productId: item.productId,
+                        imageUrl: item.imageUrl,
+                        productName: item.productName,
+                        price:item.price,
+                        description:description,
+                        quantity: item.quantity
+                    }
+                    console.log('deleted product' + deletedNewProduct)
+                    await productModel.create(deletedNewProduct);
+                }
+            }
+
+
             res.status(200).json(order);
+
         } else {
             res.status(404).send("Order not found");
         }
