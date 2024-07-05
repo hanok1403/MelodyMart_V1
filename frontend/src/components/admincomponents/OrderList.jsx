@@ -113,6 +113,7 @@ const OrderList = () => {
   return (
     <div className="orders-container mx-auto p-4 w-full bg-gradient-to-r from-blue-300 via-pink-250 to-orange-300">
       <h2 className="text-2xl font-semibold text-center mb-4">Your Orders</h2>
+      <UserFilter filteredUsers={orders} setFilteredItems={setResults}/>
       {result.length === 0 ? (
         <Box className="flex flex-col items-center justify-center mt-10">
           <SentimentDissatisfied style={{ fontSize: 100, color: '#9e9e9e' }} />
@@ -123,7 +124,6 @@ const OrderList = () => {
       ) : (
         
         <div className="overflow-x-auto">
-          <UserFilter filteredUsers={orders} setFilteredItems={setResults}/>
           <TableContainer component={Paper}>
             <Table className="min-w-full">
               <TableHead>
