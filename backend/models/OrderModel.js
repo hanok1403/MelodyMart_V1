@@ -20,6 +20,10 @@ const orderSchema = mongoose.Schema({
         type: Date,
         required: true
     },
+    cartData:{
+        type: Array,
+        required: true
+    },
     address: {
         type: String,
         required: true

@@ -164,6 +164,7 @@ router.post('/checkout', async (req, res) => {
             userId: userId,
             orderDate: new Date(),
             userName:userName,
+            cartData:cartData,
             address: address,
             paymentType: paymentType,
             totalPrice: totalCost
@@ -221,6 +222,38 @@ router.post('/orders/cancel/:orderId', async (req, res) => {
   
       order.status = 'Cancelled';
       await order.save();
+
+      const prevItems = order.cartData;
+      console.log(prevItems)
+      console.log('______________________')
+      for (let item of prevItems) {
+        // console.log(item)
+        // console.log('item' + items)
+        // console.log('items id ' + items.productId)
+        // const item = JSON.parse(items)
+        // console.log('item id ' + item.productId)
+        const product = await productModel.findOne({productId:item.productId});
+        // console.log('product:' + product)
+        if (product) {
+            await productModel.findByIdAndUpdate(item.productId, {
+                quantity: product.quantity + item.quantity
+            });
+        }
+        else{
+            const deletedNewProduct = {
+                _id:item.productId,
+                productId: item.productId,
+                imageUrl: item.imageUrl,
+                productName: item.productName,
+                price:item.price,
+                description:description,
+                quantity: item.quantity
+            }
+            console.log('deleted product' + deletedNewProduct)
+            await productModel.create(deletedNewProduct);
+        }
+      }
+
   
       const updatedOrders = await orderModel.find({ userId });
       
