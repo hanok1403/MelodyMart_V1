@@ -34,7 +34,7 @@ const Home = () => {
         setItems(validProducts);
         setFilteredItems(validProducts)
       })
-      .catch((error) => console.log(error));
+      .catch((error) =>  console.log(error));
   }, []);
 
   useEffect(() => {

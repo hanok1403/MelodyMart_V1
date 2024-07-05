@@ -34,7 +34,7 @@ const Checkout = () => {
 
       const result = await response.json();
       if (response.ok) {
-        console.log('Order placed successfully:', result);
+        // console.log('Order placed successfully:', result);
         
         navigate('/orders');
       } else {

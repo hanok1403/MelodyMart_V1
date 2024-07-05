@@ -68,7 +68,7 @@ router.get('/users/:id', async (req, res) => {
 router.get('/home', async (req, res)=>{
     try {
         const data = await productModel.find({});
-        // console.log(data)
+        // // console.log(data)
         res.json(data);
     } catch (error) {
         res.status(500).send({ message: "Error fetching products", error });
@@ -76,11 +76,11 @@ router.get('/home', async (req, res)=>{
 })
 
 router.post('/home/:id', async (req, res)=>{
-    // console.log(req.body)
+    // // console.log(req.body)
     try {
         const userData = JSON.parse(req.body.user);
         const itemId = req.params.id;
-        // console.log(req.body)
+        // // console.log(req.body)
         const userId = userData.user.id;
         const quantity = req.body.quantity;
 
@@ -91,7 +91,7 @@ router.post('/home/:id', async (req, res)=>{
         }
 
         const existingCartItem = await cartModel.findOne({ userId:userId, productId: itemId });
-        // console.log("existing cart: " + existingCartItem)
+        // // console.log("existing cart: " + existingCartItem)
         let cart;
         if (existingCartItem) {
             existingCartItem.quantity += quantity;
@@ -107,7 +107,7 @@ router.post('/home/:id', async (req, res)=>{
                 price: productDetails.price
             });
         }
-        // console.log(cart)
+        // // console.log(cart)
         res.json({ message: 'Item added to cart successfully', cart });
     } catch (error) {
         res.status(500).json({ message: 'Error adding item to cart', error });
@@ -117,10 +117,10 @@ router.post('/home/:id', async (req, res)=>{
 router.get('/cart/:id', async (req, res)=>{
     try{
         const userId = req.params.id;
-        // console.log("back " + userId)
+        // // console.log("back " + userId)
 
         const cartData = await cartModel.find({ userId: userId });
-        // console.log(cartData)
+        // // console.log(cartData)
 
         res.json(cartData);
 
@@ -136,12 +136,12 @@ router.delete('/cart/itemDelete/:id', async (req, res) => {
   
     //   const userId = user
       
-    //   console.log(`Item ID: ${itemId}, User ID: ${userId}`);
+    //   // console.log(`Item ID: ${itemId}, User ID: ${userId}`);
   
         const cartItem = await cartModel.findOneAndDelete({ userId: userId, productId: itemId });
         
       const updatedCart = await cartModel.find({ userId: userId });
-    //   console.log(updatedCart)
+    //   // console.log(updatedCart)
   
       res.json(updatedCart);
     } catch (error) {
@@ -169,7 +169,7 @@ router.post('/checkout', async (req, res) => {
             totalPrice: totalCost
         };
 
-        console.log(orderData)
+        // console.log(orderData)
 
         await orderModel.create(orderData);
 
@@ -212,7 +212,7 @@ router.post('/orders/cancel/:orderId', async (req, res) => {
       const { orderId } = req.params;
       const userId  = req.body.userId;
   
-        console.log(orderId + " " + userId)
+        // console.log(orderId + " " + userId)
       const order = await orderModel.findOne({ _id: orderId, userId });
   
       if (!order) {

@@ -31,7 +31,7 @@ function App() {
                             <Route path="/signup" element={<Signup />} />
                             <Route path="/login" element={<Login />} />
                             <Route element={<AdminPrivateRouter />}>
-                                <Route path="/admin" element={<Admin />}>
+                                <Route path="/admin/*" element={<Admin />}>
                                     <Route path="dashboard" element={<Admindashboard />} />
                                     <Route path="addProduct" element={<AddProduct />} />
                                     <Route path="orders" element={<OrderList />} />
@@ -40,7 +40,7 @@ function App() {
                                 </Route>
                             </Route>
                             <Route element={<CustPrivateRouter />}>
-                                <Route path="/" element={<User />}>
+                                <Route path="/*" element={<User />}>
                                     <Route path="home" element={<Home />} />
                                     <Route path="profile" element={<Profile />} />
                                     <Route path="cart" element={<Cart />} />

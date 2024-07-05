@@ -18,7 +18,7 @@ const ProductItem = ({ product }) => {
             },
             body: JSON.stringify({ token, user, quantity }) 
         }).then((response) => {
-            console.log(response);
+            // console.log(response);
             setShowModal(false); 
             alert('Product added to cart');
         });
@@ -36,6 +36,7 @@ const ProductItem = ({ product }) => {
                 <div className="font-bold text-xl mb-2">{product.productName}</div>
                 <p className="text-gray-700 text-base">{product.description}</p>
                 <p className="text-gray-900 font-bold"><strong>Price:</strong> ${product.price}</p>
+                <p className="text-gray-900 font-bold py-2"><strong>Quantity remaining:</strong> {product.quantity}</p>
                 <button className="btn bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600" onClick={() => setShowModal(true)}>Add to Cart</button>
             </div>
 

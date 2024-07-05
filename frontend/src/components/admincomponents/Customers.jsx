@@ -14,7 +14,6 @@ const Customers = () => {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
                 const data = await response.json();
-                // Filter out users with role 'admin'
                 const filteredUsers = data.filter(user => user.role !== 'admin');
                 setUsers(filteredUsers);
                 setResults(filteredUsers);
@@ -38,7 +37,7 @@ const Customers = () => {
     };
 
     return (
-        <div className="p-6 bg-gradient-to-r from-blue-200 to-green-100">
+        <div className="p-6 bg-gradient-to-r from-blue-200 to-green-100 min-h-screen">
             <h1 className="text-3xl font-semibold text-center">Registered Users</h1>
             {error && <p className="text-red-500 mb-4">Error: {error}</p>}
             <Searchbar users={users} setResults={setResults}/>
