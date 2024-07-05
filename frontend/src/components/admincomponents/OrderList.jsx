@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, Box, IconButton, Menu, MenuItem } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, Box, IconButton, Menu, MenuItem, TablePagination } from '@mui/material';
 import { SentimentDissatisfied, MoreVert as MoreVertIcon } from '@mui/icons-material';
 import UserFilter from './UserFilter';
 
@@ -8,18 +8,18 @@ const OrderList = () => {
   const [result, setResults] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedOrderId, setSelectedOrderId] = useState(null);
-
-  const data = JSON.parse(localStorage.getItem('user'));
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   useEffect(() => {
     fetch(`http://localhost:5001/admin/orders`)
       .then((response) => response.json())
       .then((data) => {
-        setOrders(data.reverse());
+        setOrders(data);
         setResults(data.reverse());
       })
       .catch((error) => console.log(error));
-  }, [data.user.id]);
+  }, []);
 
   const handleMenuOpen = (event, orderId) => {
     setAnchorEl(event.currentTarget);
@@ -32,8 +32,8 @@ const OrderList = () => {
   };
 
   const handleCancelOrder = () => {
-    if(!window.confirm("Do you want to cancel the order?")===true)
-      return ;
+    if (!window.confirm("Do you want to cancel the order?") === true)
+      return;
     if (selectedOrderId) {
       fetch(`http://localhost:5001/admin/orders/cancel/${selectedOrderId}`, {
         method: 'PUT',
@@ -45,7 +45,7 @@ const OrderList = () => {
               order._id === updatedOrder._id ? updatedOrder : order
             )
           );
-          setResults(orders);
+          setResults(orders.reverse());
           handleMenuClose();
         })
         .catch((error) => console.log(error));
@@ -53,8 +53,8 @@ const OrderList = () => {
   };
 
   const handleShippedOrder = () => {
-    if(!window.confirm("Is the product shipped?")===true)
-      return ;
+    if (!window.confirm("Is the product shipped?") === true)
+      return;
     if (selectedOrderId) {
       fetch(`http://localhost:5001/admin/orders/shipped/${selectedOrderId}`, {
         method: 'PUT',
@@ -66,7 +66,7 @@ const OrderList = () => {
               order._id === updatedOrder._id ? updatedOrder : order
             )
           );
-          setResults(orders);
+          setResults(orders.reverse());
           handleMenuClose();
         })
         .catch((error) => console.log(error));
@@ -74,25 +74,34 @@ const OrderList = () => {
   };
 
   const handleCompleteOrder = () => {
-    if(!window.confirm("Do you want to complete the order?")===true)
-      return ;
+    if (!window.confirm("Do you want to complete the order?") === true)
+      return;
     if (selectedOrderId) {
       fetch(`http://localhost:5001/admin/orders/complete/${selectedOrderId}`, {
         method: 'PUT',
       })
         .then((response) => response.json())
         .then((updatedOrder) => {
-          console.log("Order completed:", updatedOrder); 
+          console.log("Order completed:", updatedOrder);
           setOrders((prevOrders) =>
             prevOrders.map((order) =>
               order._id === updatedOrder._id ? updatedOrder : order
             )
           );
-          setResults(orders);
+          setResults(orders.reverse());
           handleMenuClose();
         })
         .catch((error) => console.log(error));
     }
+  };
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
   };
 
   const getStatusColor = (status) => {
@@ -111,9 +120,9 @@ const OrderList = () => {
   };
 
   return (
-    <div className="orders-container mx-auto p-4 w-full bg-gradient-to-r from-blue-300 via-pink-250 to-orange-300">
+    <div className="orders-container mx-auto p-4 w-full bg-gradient-to-r from-blue-300 via-pink-250 to-orange-300 min-h-screen">
       <h2 className="text-2xl font-semibold text-center mb-4">Your Orders</h2>
-      <UserFilter filteredUsers={orders} setFilteredItems={setResults}/>
+      <UserFilter filteredUsers={orders} setFilteredItems={setResults} />
       {result.length === 0 ? (
         <Box className="flex flex-col items-center justify-center mt-10">
           <SentimentDissatisfied style={{ fontSize: 100, color: '#9e9e9e' }} />
@@ -122,24 +131,23 @@ const OrderList = () => {
           </Typography>
         </Box>
       ) : (
-        
         <div className="overflow-x-auto">
           <TableContainer component={Paper}>
             <Table className="min-w-full">
-              <TableHead>
+              <TableHead className="sticky top-0 bg-gray-100 z-10">
                 <TableRow>
-                  <TableCell className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-xs md:text-sm uppercase font-medium text-gray-700" style={{ width: '20%' }}>Order ID</TableCell>
-                  <TableCell className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-xs md:text-sm uppercase font-medium text-gray-700">Order Date</TableCell>
-                  <TableCell className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-xs md:text-sm uppercase font-medium text-gray-700">Username</TableCell>
-                  <TableCell className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-xs md:text-sm uppercase font-medium text-gray-700" style={{ width: '30%' }}>Address</TableCell>
-                  <TableCell className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-xs md:text-sm uppercase font-medium text-gray-700">Total Cost</TableCell>
-                  <TableCell className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-xs md:text-sm uppercase font-medium text-gray-700">Payment Status</TableCell>
-                  <TableCell className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-xs md:text-sm uppercase font-medium text-gray-700">Status</TableCell>
-                  <TableCell className="py-2 px-4 border-b border-gray-200 bg-gray-100 text-left text-xs md:text-sm uppercase font-medium text-gray-700">Actions</TableCell>
+                  <TableCell className="py-2 px-4 border-b border-gray-200 text-left text-xs md:text-sm uppercase font-medium text-gray-700" style={{ width: '20%' }}>Order ID</TableCell>
+                  <TableCell className="py-2 px-4 border-b border-gray-200 text-left text-xs md:text-sm uppercase font-medium text-gray-700">Order Date</TableCell>
+                  <TableCell className="py-2 px-4 border-b border-gray-200 text-left text-xs md:text-sm uppercase font-medium text-gray-700">Username</TableCell>
+                  <TableCell className="py-2 px-4 border-b border-gray-200 text-left text-xs md:text-sm uppercase font-medium text-gray-700" style={{ width: '30%' }}>Address</TableCell>
+                  <TableCell className="py-2 px-4 border-b border-gray-200 text-left text-xs md:text-sm uppercase font-medium text-gray-700">Total Cost</TableCell>
+                  <TableCell className="py-2 px-4 border-b border-gray-200 text-left text-xs md:text-sm uppercase font-medium text-gray-700">Payment Status</TableCell>
+                  <TableCell className="py-2 px-4 border-b border-gray-200 text-left text-xs md:text-sm uppercase font-medium text-gray-700">Status</TableCell>
+                  <TableCell className="py-2 px-4 border-b border-gray-200 text-left text-xs md:text-sm uppercase font-medium text-gray-700">Actions</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {result.map((order) => (
+                {result.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((order) => (
                   <TableRow key={order._id}>
                     <TableCell className="py-2 px-4 border-b border-gray-200 text-xs md:text-sm" style={{ width: '20%' }}>{order.orderId}</TableCell>
                     <TableCell className="py-2 px-4 border-b border-gray-200 text-xs md:text-sm">{new Date(order.orderDate).toLocaleDateString()}</TableCell>
@@ -184,6 +192,15 @@ const OrderList = () => {
               </TableBody>
             </Table>
           </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25]}
+            component="div"
+            count={result.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
         </div>
       )}
     </div>

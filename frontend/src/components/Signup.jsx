@@ -57,7 +57,7 @@ const SignUp = () => {
         alert('User already exists!!! Navigating to login...');
       } else {
         alert('Signup Successful');
-        console.log(response.data);
+        // console.log(response.data);
       }
 
       navigate('/login');
@@ -67,7 +67,7 @@ const SignUp = () => {
       } else {
         alert('Signup Failed'); // Generic error message if server response does not indicate user exists
       }
-      console.log('Error signing up:', err);
+      // console.log('Error signing up:', err);
     }
   };
 

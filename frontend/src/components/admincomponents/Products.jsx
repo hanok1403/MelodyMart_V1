@@ -18,7 +18,7 @@ function Products() {
         setProduct(validProducts);
         setFilteredProduct(validProducts);
       })
-      .catch((error) => console.log(error));
+      .catch((error) =>  console.log(error));
   }, []);
 
   const handleRemove = (id) => {
@@ -33,7 +33,7 @@ function Products() {
           return;
         }
       })
-      .catch(error => console.log(error));
+      .catch(error =>  console.log(error));
   };
 
   const handleEdit = (id) => {

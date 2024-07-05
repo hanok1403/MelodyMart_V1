@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-import { useAuth } from '../../Router/AuthProvider';
 
 const ChangePassword = () => {
   const [currentPassword, setCurrentPassword] = useState('');
@@ -36,7 +35,6 @@ const ChangePassword = () => {
             return;
         }
         if (newPassword === confirmPassword) {
-          // Check password requirements
           if (!validatePassword(newPassword)) {
             setError("Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.");
             return;
