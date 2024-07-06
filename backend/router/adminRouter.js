@@ -95,7 +95,7 @@ router.put('/orders/cancel/:id', async (req, res) => {
 
             const prevItems = order.cartData;
             console.log(prevItems)
-            console.log('______________________')
+            console.log('______________________');
             for (let item of prevItems) {
                 const product = await productModel.findOne({productId:item.productId});
                 if (product) {

@@ -45,7 +45,11 @@ const OrderList = () => {
               order._id === updatedOrder._id ? updatedOrder : order
             )
           );
-          setResults(orders.reverse());
+          setResults((prevResults) =>
+            prevResults.map((order) =>
+              order._id === updatedOrder._id ? updatedOrder : order
+            )
+          );
           handleMenuClose();
         })
         .catch((error) => console.log(error));
@@ -66,7 +70,11 @@ const OrderList = () => {
               order._id === updatedOrder._id ? updatedOrder : order
             )
           );
-          setResults(orders.reverse());
+          setResults((prevResults) =>
+            prevResults.map((order) =>
+              order._id === updatedOrder._id ? updatedOrder : order
+            )
+          );
           handleMenuClose();
         })
         .catch((error) => console.log(error));
@@ -88,7 +96,11 @@ const OrderList = () => {
               order._id === updatedOrder._id ? updatedOrder : order
             )
           );
-          setResults(orders.reverse());
+          setResults((prevResults) =>
+            prevResults.map((order) =>
+              order._id === updatedOrder._id ? updatedOrder : order
+            )
+          );
           handleMenuClose();
         })
         .catch((error) => console.log(error));
@@ -120,7 +132,7 @@ const OrderList = () => {
   };
 
   return (
-    <div className="orders-container mx-auto p-4 w-full bg-gradient-to-r from-blue-300 via-pink-250 to-orange-300 min-h-screen">
+    <div className="orders-container mx-auto p-4 w-full bg-gradient-to-r from-blue-200 to-green-100 min-h-screen">
       <h2 className="text-2xl font-semibold text-center mb-4">Your Orders</h2>
       <UserFilter filteredUsers={orders} setFilteredItems={setResults} />
       {result.length === 0 ? (

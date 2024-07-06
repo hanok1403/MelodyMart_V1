@@ -3,7 +3,7 @@ import Products from './Products';
 
 const Admindashboard = () => {
   return (
-    <div className="bg-gradient-to-r from-orange-200 to-purple-300 min-h-screen">
+    <div className="bg-gradient-to-r from-blue-200 to-green-100 min-h-screen">
         <Products />
     </div>
   );
