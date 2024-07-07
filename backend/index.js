@@ -11,7 +11,7 @@ import pkg from 'jsonwebtoken';
 dotenv.config()
 mongoose.connect(process.env.DBClient).then(response =>  console.log("Connected to DB")).catch(error =>  console.log("Cannot cannot to DB..!"))
 
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 5001
 const app = express()
 const JWT_SECRET = 'your_secret_key'; 
 const { sign } = pkg;

@@ -1,4 +1,3 @@
-// Home.jsx
 import React, { useEffect, useState } from 'react';
 import ProductItem from './ProductItem';
 import Searchbar from './UserSearchbar'; // Import the Searchbar component
@@ -32,9 +31,9 @@ const Home = () => {
       .then((data) => {
         const validProducts = data.filter(prod => prod.quantity > 0);
         setItems(validProducts);
-        setFilteredItems(validProducts)
+        setFilteredItems(validProducts);
       })
-      .catch((error) =>  console.log(error));
+      .catch((error) => console.log(error));
   }, []);
 
   useEffect(() => {
@@ -45,6 +44,16 @@ const Home = () => {
   }, [slides.length]);
 
   const handleAddToCart = (id, quantity) => {
+    setItems(prevItems =>
+      prevItems.map(item =>
+        item._id === id ? { ...item, quantity: item.quantity - quantity } : item
+      )
+    );
+    setFilteredItems(prevItems =>
+      prevItems.map(item =>
+        item._id === id ? { ...item, quantity: item.quantity - quantity } : item
+      )
+    );
   };
 
   const prevSlide = () => {

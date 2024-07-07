@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, Box, Button, TablePagination } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, Box, Button, TablePagination, Modal } from '@mui/material';
 import { SentimentDissatisfied } from '@mui/icons-material';
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [selectedOrder, setSelectedOrder] = useState(null);
+  const [open, setOpen] = useState(false);
   const data = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
@@ -37,6 +39,16 @@ const Orders = () => {
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
+  };
+
+  const handleOpenModal = (order) => {
+    setSelectedOrder(order);
+    setOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpen(false);
+    setSelectedOrder(null);
   };
 
   const getStatusColor = (status) => {
@@ -94,6 +106,14 @@ const Orders = () => {
                       </div>
                     </TableCell>
                     <TableCell className="py-2 px-4 border-b border-gray-200 text-xs md:text-sm text-center">
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={() => handleOpenModal(order)}
+                        className='mx-1'
+                      >
+                        View Details
+                      </Button>
                       {(order.status === 'order placed' || order.status === 'Shipped') && (
                         <Button
                           variant="contained"
@@ -119,6 +139,67 @@ const Orders = () => {
             onRowsPerPageChange={handleChangeRowsPerPage}
           />
         </div>
+      )}
+
+      {selectedOrder && (
+        <Modal open={open} onClose={handleCloseModal}>
+          <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '80%', maxHeight: '90%', bgcolor: 'background.paper', border: '2px solid #000', borderRadius: '2', boxShadow: 24, p: 4, overflowY: 'auto' }}>
+            <Typography variant="h4" component="h2" sx={{ mb: 2 }}>
+              Order Details
+            </Typography>
+            <Typography sx={{ mt: 2 }}>
+              <strong>Order ID:</strong> {selectedOrder.orderId}
+            </Typography>
+            <Typography sx={{ mt: 2 }}>
+              <strong>Order Date:</strong> {new Date(selectedOrder.orderDate).toLocaleDateString()}
+            </Typography>
+            <Typography sx={{ mt: 2 }}>
+              <strong>Total Cost:</strong> ${selectedOrder.totalPrice.toFixed(2)}
+            </Typography>
+            <Typography sx={{ mt: 2 }}>
+              <strong>Payment Status:</strong> {selectedOrder.paymentType}
+            </Typography>
+            <Typography sx={{ mt: 2 }}>
+              <strong>Status:</strong> {selectedOrder.status}
+            </Typography>
+            <Typography sx={{ mt: 2 }}>
+              <strong>Items:</strong>
+            </Typography>
+            <TableContainer component={Paper}>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Image</TableCell>
+                    <TableCell>Product Name</TableCell>
+                    <TableCell>Quantity</TableCell>
+                    <TableCell>Cost</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {selectedOrder.cartData.map((item) => (
+                    <TableRow key={item.productId}>
+                      <TableCell>
+                        <img src={item.imageUrl} alt={item.productName} style={{ width: '50px', height: '50px' }} />
+                      </TableCell>
+                      <TableCell>{item.productName}</TableCell>
+                      <TableCell>{item.quantity}</TableCell>
+                      <TableCell>${item.price.toFixed(2)}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <Button 
+              variant="contained" 
+              color="primary" 
+              onClick={handleCloseModal} 
+              sx={{ mt: 2, display: 'block', marginLeft: 'auto', marginRight: 'auto' }}
+            >
+              Close
+            </Button>
+
+          </Box>
+        </Modal>
       )}
     </div>
   );
