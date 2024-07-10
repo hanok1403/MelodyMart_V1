@@ -9,9 +9,9 @@ import userRouter from './router/userRouter.js'
 import pkg from 'jsonwebtoken';
 
 dotenv.config()
-mongoose.connect(process.env.DBClient).then(response => console.log("Connected to DB")).catch(error => console.log("Cannot cannot to DB..!"))
+mongoose.connect(process.env.DBClient).then(response =>  console.log("Connected to DB")).catch(error =>  console.log("Cannot cannot to DB..!"))
 
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 5001
 const app = express()
 const JWT_SECRET = 'your_secret_key'; 
 const { sign } = pkg;
@@ -23,10 +23,10 @@ app.use(express.urlencoded({extended:true}))
 app.use(express.json())
 
 app.post('/login',async (req, res)=>{
-    // console.log(req.body);
+    // // console.log(req.body);
     try {
         const user = req;
-        // console.log(user)
+        // // console.log(user)
         const login = {
             email: req.body.email,
             password: req.body.password
@@ -34,7 +34,7 @@ app.post('/login',async (req, res)=>{
         
        
         const data = await userModel.findOne(login);
-        console.log("data   ", data)
+        // console.log("data   ", data)
         if (!data)
             throw new Error("User not found");
         
@@ -57,7 +57,7 @@ app.post('/login',async (req, res)=>{
             error: error.message
         });
     }
-    // console.log(data)
+    // // console.log(data)
     
     
 })

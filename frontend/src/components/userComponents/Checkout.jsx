@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Checkout = () => {
   const [shippingAddress, setShippingAddress] = useState('');
   const [paymentMethod, setPaymentMethod] = useState('Cash on Delivery');
   const navigate = useNavigate();
+  const locater = useLocation();
   
   const data = JSON.parse(localStorage.getItem('user'));
+  const { orderData } = locater.state;
+
+
+  // console.log(orderData)
 
   const handleCheckout = async (e) => {
     e.preventDefault();
@@ -16,9 +21,10 @@ const Checkout = () => {
       return;
     }
 
-    const orderData = {
+    const orders = {
       userId: data.user.id,
       userName:data.user.username,
+      cartData: orderData,
       address: shippingAddress,
       paymentType: paymentMethod
     };
@@ -29,12 +35,12 @@ const Checkout = () => {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(orderData)
+        body: JSON.stringify(orders)
       });
 
       const result = await response.json();
       if (response.ok) {
-        console.log('Order placed successfully:', result);
+        // console.log('Order placed successfully:', result);
         
         navigate('/orders');
       } else {

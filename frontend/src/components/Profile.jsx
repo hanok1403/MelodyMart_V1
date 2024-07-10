@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useAuth } from '../Router/AuthProvider';
 
 const Profile = () => {
-    const auth = useAuth();
     const [isEditing, setIsEditing] = useState(false);
 
     const data = JSON.parse(localStorage.getItem('user'));
@@ -60,7 +58,7 @@ const Profile = () => {
                 mobileNumber: newMobile
             });
 
-            console.log('Response:', response.data); // Log the response
+            console.log('Response:', response.data);
 
             setUser({
                 username: newUsername,
@@ -93,7 +91,6 @@ const Profile = () => {
         setError('');
     };
 
-    // Validation functions
     const validateUsername = (username) => {
         const regex = /^[a-zA-Z][a-zA-Z0-9]{3,}$/;
         return regex.test(username);

@@ -57,7 +57,7 @@ const SignUp = () => {
         alert('User already exists!!! Navigating to login...');
       } else {
         alert('Signup Successful');
-        console.log(response.data);
+        // console.log(response.data);
       }
 
       navigate('/login');
@@ -67,12 +67,12 @@ const SignUp = () => {
       } else {
         alert('Signup Failed'); // Generic error message if server response does not indicate user exists
       }
-      console.log('Error signing up:', err);
+      // console.log('Error signing up:', err);
     }
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-blue-300 via-cyan-250 to-green-300">
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-purple-300 to-orange-300">
       <div className="w-full max-w-md">
         <div className="bg-white shadow-md rounded-lg p-8">
           <h2 className="text-2xl font-bold text-center mb-6">Sign Up</h2>
