@@ -1,10 +1,9 @@
 import express from 'express';
+import cartModel from '../models/CartModel.js';
 import orderModel from '../models/OrderModel.js';
 import productModel from '../models/ProductModel.js';
 import userModel from '../models/UserModel.js';
-import cartModel from '../models/CartModel.js';
-
-
+import mail from './sendmail.js';
 const router = express.Router()
 router.use(express.urlencoded({extended:true}))
 router.use(express.json()); 
@@ -157,9 +156,16 @@ router.post('/checkout', async (req, res) => {
         const paymentType = req.body.paymentType;
 
         const cartData = await cartModel.find({ userId: userId });
-
+        // const userData= await userModel.find({userId: userId});
+        const userData= await userModel.findById(userId);
+        console.log(userData, userData.email);
+        
         const totalCost = cartData.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
 
+        const emaildata = {
+            email: userData.email,
+            cost: totalCost
+        }
         const orderData = {
             userId: userId,
             orderDate: new Date(),
@@ -187,7 +193,8 @@ router.post('/checkout', async (req, res) => {
             }
 
             await cartModel.deleteMany({ userId: userId });
-
+            await mail(emaildata).catch(console.error);
+            console.log(emaildata);
             res.status(200).json(orders);
         }
 
