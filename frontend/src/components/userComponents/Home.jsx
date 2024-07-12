@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ProductItem from './ProductItem';
 import Searchbar from './UserSearchbar'; 
-import { Alert, CircularProgress, Box, Typography } from '@mui/material';
+import { Alert, CircularProgress, Box, Typography, MenuItem, Select, FormControl, InputLabel } from '@mui/material';
 
 const Home = () => {
   const [items, setItems] = useState([]);
@@ -9,6 +9,7 @@ const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState('');
 
   const slides = [
     {
@@ -26,6 +27,18 @@ const Home = () => {
       alt: 'Slide 3',
       caption: 'Join our community and share your passion for music!',
     },
+  ];
+
+  const categories = [
+    'All',
+    'Indian Instruments',
+    'Keyboards/Pianos',
+    'Guitars',
+    'Amplifiers',
+    'Band Instruments',
+    'Drums',
+    'Percussion Instruments',
+    'String Instruments'
   ];
 
   useEffect(() => {
@@ -72,6 +85,18 @@ const Home = () => {
     setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
   };
 
+  const handleCategoryChange = (event) => {
+    const category = event.target.value;
+    setSelectedCategory(category);
+
+    if (category === 'All') {
+      setFilteredItems(items);
+    } else {
+      const filtered = items.filter(item => item.category === category);
+      setFilteredItems(filtered);
+    }
+  };
+
   return (
     <div className="bg-gradient-to-r from-purple-300 via-yellow-350 to-gray-400 min-h-screen py-8">
       <div className="container mx-auto px-4">
@@ -97,6 +122,18 @@ const Home = () => {
               <button onClick={nextSlide} className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full">&#9654;</button>
             </div>
             <Searchbar products={items} setFilteredItems={setFilteredItems} /> 
+            <FormControl variant="outlined" fullWidth margin="normal">
+              <InputLabel>Category</InputLabel>
+              <Select
+                value={selectedCategory}
+                onChange={handleCategoryChange}
+                label="Category"
+              >
+                {categories.map((category) => (
+                  <MenuItem key={category} value={category}>{category}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-8">
               {filteredItems.map((item, i) => (
                 <div key={i} className="mb-4">

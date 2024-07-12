@@ -17,10 +17,14 @@ const Items = (props) => {
                 <p className="text-gray-700 text-base">{props.product.description}</p>
                 <p className="text-gray-900 font-bold"><strong>Price:</strong> ${props.product.price}</p>
                 <p className="text-gray-700">Remaining: {props.product.quantity}</p>
+                {props.product.quantity <= 0 && (
+                    <p className="bg-red-500 text-white text-center p-2 mt-2 rounded">Out of Stock</p>
+                )}
                 <div className="flex mt-4">
                     <button
                         onClick={() => handleEdit(props.product.productId)}
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
+                        disabled={props.product.quantity === 0} // Disable edit button if out of stock
                     >
                         Edit
                     </button>
