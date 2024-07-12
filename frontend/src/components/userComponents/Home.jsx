@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import ProductItem from './ProductItem';
-import Searchbar from './UserSearchbar'; // Import the Searchbar component
+import Searchbar from './UserSearchbar'; 
+import { Alert, CircularProgress, Box, Typography } from '@mui/material';
 
 const Home = () => {
   const [items, setItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const slides = [
     {
@@ -32,8 +35,13 @@ const Home = () => {
         const validProducts = data.filter(prod => prod.quantity > 0);
         setItems(validProducts);
         setFilteredItems(validProducts);
+        setLoading(false);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.log(error);
+        setError('Failed to fetch products. Please try again later.');
+        setLoading(false);
+      });
   }, []);
 
   useEffect(() => {
@@ -67,29 +75,37 @@ const Home = () => {
   return (
     <div className="bg-gradient-to-r from-purple-300 via-yellow-350 to-gray-400 min-h-screen py-8">
       <div className="container mx-auto px-4">
-        {/* Carousel Component */}
-        <div className="relative w-full mx-auto overflow-hidden rounded-lg mb-6">
-          <div className="flex transition-transform ease-in-out duration-700" style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
-            {slides.map((slide, index) => (
-              <div key={index} className="w-full flex-shrink-0">
-                <img src={slide.src} alt={slide.alt} className="w-full h-64 object-cover" />
-                <p className="absolute bottom-0 w-full text-white text-center bg-black bg-opacity-50 p-2">{slide.caption}</p>
+        {error ? (
+          <Alert severity="error">{error}</Alert>
+        ) : loading ? (
+          <Box display="flex" justifyContent="center" alignItems="center" minHeight="40vh">
+            <CircularProgress />
+            <Typography variant="h6" className="ml-2">Loading products...</Typography>
+          </Box>
+        ) : (
+          <>
+            <div className="relative w-full mx-auto overflow-hidden rounded-lg mb-6">
+              <div className="flex transition-transform ease-in-out duration-700" style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
+                {slides.map((slide, index) => (
+                  <div key={index} className="w-full flex-shrink-0">
+                    <img src={slide.src} alt={slide.alt} className="w-full h-64 object-cover" />
+                    <p className="absolute bottom-0 w-full text-white text-center bg-black bg-opacity-50 p-2">{slide.caption}</p>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-          <button onClick={prevSlide} className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full">&#9664;</button>
-          <button onClick={nextSlide} className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full">&#9654;</button>
-        </div>
-        
-        <Searchbar products={items} setFilteredItems={setFilteredItems} /> {/* Pass products and setFilteredItems to Searchbar */}
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-8">
-          {filteredItems.map((item, i) => (
-            <div key={i} className="mb-4">
-              <ProductItem product={item} handleAddToCart={handleAddToCart} />
+              <button onClick={prevSlide} className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full">&#9664;</button>
+              <button onClick={nextSlide} className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full">&#9654;</button>
             </div>
-          ))}
-        </div>
+            <Searchbar products={items} setFilteredItems={setFilteredItems} /> 
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-8">
+              {filteredItems.map((item, i) => (
+                <div key={i} className="mb-4">
+                  <ProductItem product={item} handleAddToCart={handleAddToCart} />
+                </div>
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

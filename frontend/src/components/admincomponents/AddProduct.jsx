@@ -105,6 +105,7 @@ const AddProduct = (props) => {
               value={formData.productName}
               onChange={handleChange}
               className="border border-gray-300 rounded-md p-2 w-full"
+              required
             />
           </div>
           <div className="mb-4">
@@ -116,6 +117,7 @@ const AddProduct = (props) => {
               value={formData.description}
               onChange={handleChange}
               className="border border-gray-300 rounded-md p-2 w-full"
+              required
             />
           </div>
           <div className="mb-4">
@@ -127,6 +129,7 @@ const AddProduct = (props) => {
               value={formData.price}
               onChange={handleChange}
               className="border border-gray-300 rounded-md p-2 w-full"
+              required
             />
           </div>
           <div className="mb-4">
@@ -138,6 +141,7 @@ const AddProduct = (props) => {
               value={formData.imageUrl}
               onChange={handleChange}
               className="border border-gray-300 rounded-md p-2 w-full"
+              required
             />
           </div>
           <div className="mb-4">
@@ -149,6 +153,8 @@ const AddProduct = (props) => {
               value={formData.quantity}
               onChange={handleChange}
               className="border border-gray-300 rounded-md p-2 w-full"
+              min={1}
+              required
             />
           </div>
           <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded-md w-full hover:bg-blue-600 transition duration-300">
