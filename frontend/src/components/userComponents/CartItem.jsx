@@ -6,16 +6,14 @@ const CartItem = ({ item, onRemove, onUpdate }) => {
   const [maxQuantity, setMaxQuantity] = useState(1);
   const [isEditing, setIsEditing] = useState(false);
 
-  useEffect(()=>{
-    fetch(`http://localhost:5001/getProduct/${item.productId}`)
-    .then(response => response.json())
-    .then((data) => {
-      // console.log(data[0].quantity)
-      setMaxQuantity(data[0].quantity);
-      // console.log(maxQuantity)
-    })
-    .catch(err => console.log(err))
-  }, [])
+  useEffect(() => {
+    fetch(`http://localhost:5001/getProduct/${productId}`)
+      .then(response => response.json())
+      .then((data) => {
+        setMaxQuantity(data[0].quantity);
+      })
+      .catch(err => console.log(err));
+  }, [productId]);
 
   const handleRemove = () => {
     if (window.confirm('Are you sure you want to remove this item from the cart?')) {
@@ -24,10 +22,8 @@ const CartItem = ({ item, onRemove, onUpdate }) => {
   };
 
   const handleQuantityChange = (e) => {
-
     const value = Math.max(0, Math.min(parseInt(e.target.value), maxQuantity));
     setNewQuantity(value);
-    // onUpdate(productId, value);
   };
 
   const handleEditClick = () => {
@@ -35,8 +31,8 @@ const CartItem = ({ item, onRemove, onUpdate }) => {
   };
 
   const handleSaveClick = () => {
-    if(!newQuantity){
-      setNewQuantity(Math.min(maxQuantity, 1))
+    if (!newQuantity) {
+      setNewQuantity(Math.min(maxQuantity, 1));
     }
     setIsEditing(false);
     onUpdate(productId, newQuantity);
@@ -56,17 +52,19 @@ const CartItem = ({ item, onRemove, onUpdate }) => {
             className="ml-2 shadow appearance-none border rounded w-auto py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             value={newQuantity}
             onChange={handleQuantityChange}
-            disabled={!isEditing}
+            disabled={!isEditing || maxQuantity === 0}
             min="0"
             max={maxQuantity}
           />
         </div>
         <p className="cart-item-total mt-2">Total: ${(price * newQuantity).toFixed(2)}</p>
+        {maxQuantity === 0 && <p className="text-red-600 mt-2"><b>Out of Stock</b></p>}
       </div>
       {isEditing ? (
         <button
           onClick={handleSaveClick}
           className="save-button text-green-600 px-6 ml-2 hover:text-white hover:bg-green-600 focus:outline-none"
+          disabled={maxQuantity === 0}
         >
           Save Quantity
         </button>
@@ -74,6 +72,7 @@ const CartItem = ({ item, onRemove, onUpdate }) => {
         <button
           onClick={handleEditClick}
           className="edit-button text-blue-600 px-6 ml-2 hover:text-white hover:bg-blue-600 focus:outline-none"
+          disabled={maxQuantity === 0}
         >
           Change Quantity
         </button>
@@ -84,7 +83,6 @@ const CartItem = ({ item, onRemove, onUpdate }) => {
       >
         Remove from cart
       </button>
-      
     </div>
   );
 };
