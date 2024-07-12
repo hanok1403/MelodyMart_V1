@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-=======
-import React, { useEffect, useState } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, Box, Button, TablePagination, Modal } from '@mui/material';
->>>>>>> fd2fb1387068c5c87d1313c5169187b61199cd30
 import { SentimentDissatisfied } from '@mui/icons-material';
-import { Box, Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
+import { Box, Button, Modal, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 
 const Orders = () => {
