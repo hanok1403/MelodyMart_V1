@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 
 const AddProduct = (props) => {
   const navigate = useNavigate();
@@ -84,8 +85,17 @@ const AddProduct = (props) => {
         description: '',
         quantity: ''
       });
-      alert(props.type === 'edit' ? 'Product details edited successfully' : 'Product added successfully');
-      navigate('/admin/dashboard');
+      toast.success(
+        props.type === 'edit' ? 'Product details edited successfully' : 'Product added successfully',
+        {
+          onClose: () => {
+            navigate('/admin/dashboard');
+          }
+        }
+      );
+      
+      // alert(props.type === 'edit' ?'Product details edited successfully' : 'Product added successfully');
+      // navigate('/admin/dashboard');
     } catch (error) {
       console.error('There was an error adding/editing the product:', error);
     }
@@ -156,6 +166,14 @@ const AddProduct = (props) => {
           </button>
         </form>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        newestOnTop
+        pauseOnHover
+        closeOnClick
+        limit={3}
+      />
     </div>
   );
 };

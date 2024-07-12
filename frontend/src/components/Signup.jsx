@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faEnvelope, faLock, faMobileAlt, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SignUp = () => {
   const [username, setUsername] = useState('');
@@ -10,40 +12,52 @@ const SignUp = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [mobileNumber, setMobileNumber] = useState('');
-  const [error, setError] = useState('');
+  // const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
+    // Email validation regex
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  
     // Client-side validation
     if (!/^[a-zA-Z][a-zA-Z0-9]{3,}$/.test(username)) {
-      setError('Username must start with a letter and be at least 4 characters long (letters and numbers only)');
+      // setError('Username must start with a letter and be at least 4 characters long (letters and numbers only)');
+      toast.error('Username must start with a letter and be at least 4 characters long (letters and numbers only)');
       return;
     }
-
+  
+    if (!emailRegex.test(email)) {
+      // setError('Please enter a valid email address');
+      toast.error('Please enter a valid email address');
+      return;
+    }
+  
     if (password !== confirmPassword) {
-      setError('Passwords do not match');
+      // setError('Passwords do not match');
+      toast.error('Passwords do not match');
       return;
     }
-
+  
     if (password.length < 8) {
-      setError('Password must be at least 8 characters long');
+      // setError('Password must be at least 8 characters long');
+      toast.error('Password must be at least 8 characters long');
       return;
     }
-
+  
     if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])/.test(password)) {
-      setError('Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character');
+      // setError('Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character');
+      toast.error('Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character');
       return;
     }
-
+  
     if (!/^\d{10}$/.test(mobileNumber)) {
-      setError('Mobile number must be exactly 10 digits');
+      // setError('Mobile number must be exactly 10 digits');
+      toast.error('Mobile number must be exactly 10 digits');
       return;
     }
-
-    // If all validations pass, reset the error and make the API request
-    setError('');
+  
     
     try {
       const response = await axios.post('http://localhost:5001/signup', {
@@ -54,29 +68,44 @@ const SignUp = () => {
       });
       
       if (response.data.userExists) {
-        alert('User already exists!!! Navigating to login...');
+        toast.info('User already exists!!! Navigating to login...');
+        setTimeout(() => {
+          navigate('/login');
+        }, 3000);
       } else {
-        alert('Signup Successful');
-        // console.log(response.data);
+        toast.success('Signup Successful!!! Navigating to login...');
+        setTimeout(() => {
+          navigate('/login');
+        }, 3000);
       }
-
-      navigate('/login');
     } catch (err) {
       if (err.response && err.response.data) {
-        alert(err.response.data.message); // Display the error message from the server
+        toast.error(err.response.data.message);
       } else {
-        alert('Signup Failed'); // Generic error message if server response does not indicate user exists
+        toast.error('Signup Failed');
       }
-      // console.log('Error signing up:', err);
     }
   };
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-purple-300 to-orange-300">
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        limit={3}
+      />
       <div className="w-full max-w-md">
-        <div className="bg-white shadow-md rounded-lg p-8">
+        <div className="bg-white shadow-md rounded-lg p-8 mt-3">
           <h2 className="text-2xl font-bold text-center mb-6">Sign Up</h2>
-          {error && <div className="text-red-500 text-center mb-4">{error}</div>}
+          {/* {error && <div className="text-red-500 text-center mb-4">{error}</div>} */}
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label className="block text-gray-700 flex items-center">

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import ProductItem from './ProductItem';
-import Searchbar from './UserSearchbar'; // Import the Searchbar component
+import Searchbar from './UserSearchbar';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Home = () => {
   const [items, setItems] = useState([]);
@@ -54,6 +56,7 @@ const Home = () => {
         item._id === id ? { ...item, quantity: item.quantity - quantity } : item
       )
     );
+    toast.success('Item added to cart successfully!');
   };
 
   const prevSlide = () => {
@@ -67,7 +70,6 @@ const Home = () => {
   return (
     <div className="bg-gradient-to-r from-purple-300 via-yellow-350 to-gray-400 min-h-screen py-8">
       <div className="container mx-auto px-4">
-        {/* Carousel Component */}
         <div className="relative w-full mx-auto overflow-hidden rounded-lg mb-6">
           <div className="flex transition-transform ease-in-out duration-700" style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
             {slides.map((slide, index) => (
@@ -81,7 +83,7 @@ const Home = () => {
           <button onClick={nextSlide} className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full">&#9654;</button>
         </div>
         
-        <Searchbar products={items} setFilteredItems={setFilteredItems} /> {/* Pass products and setFilteredItems to Searchbar */}
+        <Searchbar products={items} setFilteredItems={setFilteredItems} />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-8">
           {filteredItems.map((item, i) => (
@@ -90,6 +92,11 @@ const Home = () => {
             </div>
           ))}
         </div>
+        
+        <ToastContainer 
+        // position='top-center'
+        autoClose = {2000}
+        />
       </div>
     </div>
   );

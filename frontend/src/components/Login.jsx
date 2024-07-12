@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useAuth } from '../Router/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faEye, faEyeSlash, faLock } from '@fortawesome/free-solid-svg-icons';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
     const [credentials, setCredentials] = useState({ email: '', password: '' });
@@ -19,23 +21,9 @@ const Login = () => {
         });
     };
 
-    useEffect(() =>{
-        const user = JSON.parse(localStorage.getItem('user'));
-        if(user){
-            if (user.user.role === 'user') {
-                navigate('/home');
-            }
-            if (user.user.role === 'admin') {
-                navigate('/admin/dashboard');
-            }
-        }
-        
-
-    }, [])
-
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setError(null); 
+        setError(null);
 
         try {
             const response = await fetch('http://localhost:5001/login', {
@@ -47,17 +35,29 @@ const Login = () => {
             });
 
             if (!response.ok) {
-                
-                setError('Login failed. Please check your credentials and try again.');
+                toast.error('Login failed. Please check your credentials and try again.');
                 return;
             }
 
             const data = await response.json();
-            loginAction(data); 
-            localStorage.setItem('user', JSON.stringify(data)); 
-            
+            loginAction(data);
+            localStorage.setItem('user', JSON.stringify(data));
+
+            alert("Login successful");
+            toast.success("Login Successful!!!", {
+                onClose: () => {
+                    const user = JSON.parse(localStorage.getItem('user'));
+                    if (user) {
+                        if (user.user.role === 'user') {
+                            navigate('/home');
+                        } else if (user.user.role === 'admin') {
+                            navigate('/admin/dashboard');
+                        }
+                    }
+                }
+            });
         } catch (err) {
-            setError('Login failed. Please check your credentials and try again.');
+            toast.error('Login failed. Please check your credentials and try again.');
             console.error(err);
         }
     };
@@ -66,12 +66,24 @@ const Login = () => {
         navigate('/signup');
     };
 
+    const handleForgotPassword = () => {
+        navigate('/forgotPassword');
+    };
+
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
 
     return (
         <div className="flex justify-center items-center h-screen bg-gradient-to-br from-purple-300 to-orange-300">
+            <ToastContainer
+                position='top-center'
+                autoClose={3000}
+                closeOnClick
+                newestOnTop
+                pauseOnHover
+                limit={3}
+            />
             <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
                 <h2 className="text-center text-2xl font-bold mb-6">Login</h2>
                 {error && <div className="text-red-500 text-center mb-4">{error}</div>}
@@ -111,11 +123,15 @@ const Login = () => {
                         Login
                     </button>
                 </form>
-                <div className="text-center mt-4">
-                    <p>Don't have an account?</p>
-                    <button className="text-blue-500 underline" onClick={handleSignupClick}>
-                        Sign up
-                    </button>
+                <div className=" mt-4">
+                    <div className='flex justify-between'>
+                        <button className="text-blue-500 underline text-left" onClick={handleForgotPassword}>
+                            Forgot Password?
+                        </button>
+                        <button className="text-blue-500 underline text-right" onClick={handleSignupClick}>
+                            New user? Sign up here
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

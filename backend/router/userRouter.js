@@ -7,7 +7,7 @@ import cartModel from '../models/CartModel.js';
 
 const router = express.Router()
 router.use(express.urlencoded({extended:true}))
-router.use(express.json()); 
+router.use(express.json());
 
 router.get('/users/:id', async (req, res) => {
     const userId = req.params.id;
@@ -21,6 +21,19 @@ router.get('/users/:id', async (req, res) => {
       res.status(500).send({ message: 'Error fetching user details', error: err.message });
     }
   });
+
+  router.post('/forgotPassword/', async (req, res) => {
+    const {email}= req.body;
+    try{
+        const userDetails= await userModel.findOne({email:email});
+        if(!userDetails)
+            return res.json({message:'User not found'});
+        res.status(200).json(userDetails);
+    }catch(err){
+        res.status(500).json({message:'Error fetching user details',error: err.message});
+    }
+  });
+
   router.put('/users/:id', async(req,res)=>{
       const userId= req.params.id;
       const updatedPassword= req.body.password;
