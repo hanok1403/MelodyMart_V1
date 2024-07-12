@@ -110,7 +110,7 @@ const Orders = () => {
                         variant="contained"
                         color="primary"
                         onClick={() => handleOpenModal(order)}
-                        className='mx-1'
+                        className='mx-1 my-1'
                       >
                         View Details
                       </Button>
@@ -152,6 +152,9 @@ const Orders = () => {
             </Typography>
             <Typography sx={{ mt: 2 }}>
               <strong>Order Date:</strong> {new Date(selectedOrder.orderDate).toLocaleDateString()}
+            </Typography>
+            <Typography sx={{ mt: 2 }}>
+              <strong>Address:</strong> {selectedOrder.address}
             </Typography>
             <Typography sx={{ mt: 2 }}>
               <strong>Total Cost:</strong> ${selectedOrder.totalPrice.toFixed(2)}

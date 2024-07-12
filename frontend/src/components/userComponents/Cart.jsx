@@ -10,6 +10,8 @@ const Cart = () => {
   const data = JSON.parse(localStorage.getItem('user'));
   const navigate = useNavigate();
 
+
+
   useEffect(() => {
     if (data && data.user && data.user.id) {
       fetch(`http://localhost:5001/cart/${data.user.id}`)
@@ -20,7 +22,7 @@ const Cart = () => {
           return response.json();
         })
         .then((data) => {
-          console.log(data);
+          // console.log(data);
           setCart(data);
           setOrders(data);
         })
@@ -51,6 +53,19 @@ const Cart = () => {
       .catch((error) => console.error('Error removing item:', error));
   };
 
+  const handleUpdateQuantity = (productId, quantity) =>{
+    fetch(`http://localhost:5001/cart/setProductQuantity/${productId}`,{
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId: data.user.id,
+          quantity: quantity,
+        }),
+    })
+  }
+
   const handleProceedToCheckout = (orderData) => {
     console.log('Proceed to checkout clicked');
     if (window.confirm('Do you want to proceed to checkout?') === true) {
@@ -74,7 +89,7 @@ const Cart = () => {
       ) : (
         <>
           {cart.map((item) => (
-            <CartItem key={item.productId} item={item} onRemove={handleRemoveItem} />
+            <CartItem key={item.productId} item={item} onRemove={handleRemoveItem} onUpdate={handleUpdateQuantity}/>
           ))}
           <div className="text-right mt-4">
             <h3 className="text-xl font-semibold">
