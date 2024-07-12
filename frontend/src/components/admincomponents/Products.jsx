@@ -14,7 +14,7 @@ function Products() {
     fetch('http://localhost:5001/admin/')
       .then((response) => response.json())
       .then((data) => {
-        const validProducts = data.filter(prod => prod.quantity > 0);
+        const validProducts = data;
         setProduct(validProducts);
         setFilteredProduct(validProducts);
       })

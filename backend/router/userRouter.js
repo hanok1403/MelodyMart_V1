@@ -39,6 +39,36 @@ router.get('/users/:id', async (req, res) => {
       }
   });
 
+  router.get('/getProduct/:id', async (req, res)=>{
+    const productId = req.params.id;
+
+    const data = await productModel.find({productId:productId})
+
+    if(data){
+        res.status(200).json(data)
+    }
+    else{
+        res.status(404).json({message: 'Product not found'})
+    }
+
+  })
+  router.put('/cart/setProductQuantity/:id', async (req, res)=>{
+    const productId = req.params.id;
+    const quantity = (req.body.quantity)?req.body.quantity:1;
+
+   
+    const user = req.body.userId;
+    const data = await cartModel.findOne({userId:user, productId:productId})
+    if(data){
+        data.quantity = quantity
+        await data.save()
+        res.status(200).json({message: 'Product quantity updated successfully'})
+    }
+    else{
+        res.status(404).json({message: 'Product not found'})
+    }
+  })
+
   router.put('/users/update/:id', async (req, res) => {
     const userId = req.params.id;
     const { username, mobileNumber } = req.body; 
@@ -264,8 +294,4 @@ router.post('/orders/cancel/:orderId', async (req, res) => {
     }
   });
   
-  
-
-  
-
 export default router;
