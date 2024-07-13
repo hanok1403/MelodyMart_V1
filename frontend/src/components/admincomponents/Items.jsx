@@ -23,14 +23,14 @@ const Items = (props) => {
                 <div className="flex mt-4">
                     <button
                         onClick={() => handleEdit(props.product.productId)}
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
-                        disabled={props.product.quantity === 0} // Disable edit button if out of stock
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 flex-1"
+                        // disabled={props.product.quantity === 0}
                     >
                         Edit
                     </button>
                     <button
                         onClick={() => handleRemove(props.product.productId)}
-                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 pl-4 pr-4 rounded mr-2 flex-1"
                     >
                         Remove
                     </button>

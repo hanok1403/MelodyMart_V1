@@ -15,7 +15,7 @@ const AddProduct = (props) => {
     price: '',
     description: '',
     quantity: '',
-    category: '' // Add category field
+    category: ''
   });
 
   const categories = [
@@ -26,7 +26,8 @@ const AddProduct = (props) => {
     "Band Instruments",
     "Drums",
     "Percussion Instruments",
-    "String Instruments"
+    "String Instruments",
+    "Wind Instruments",
   ];
 
   useEffect(() => {
@@ -41,7 +42,7 @@ const AddProduct = (props) => {
             price: data.price || '',
             description: data.description || '',
             quantity: data.quantity || '',
-            category: data.category || '' // Set category field
+            category: data.category || ''
           });
           setProduct({
             productHead: 'EDIT PRODUCT',
@@ -96,7 +97,7 @@ const AddProduct = (props) => {
         price: '',
         description: '',
         quantity: '',
-        category: '' // Reset category field
+        category: ''
       });
       alert(props.type === 'edit' ? 'Product details edited successfully' : 'Product added successfully');
       navigate('/admin/dashboard');
