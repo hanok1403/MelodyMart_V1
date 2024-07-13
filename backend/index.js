@@ -13,7 +13,7 @@ mongoose.connect(process.env.DBClient).then(response =>  console.log("Connected 
 
 const PORT = process.env.PORT || 5001
 const app = express()
-const JWT_SECRET = 'your_secret_key'; 
+const JWT_SECRET = process.env.JWT_SECRET || 'my_secret_key'; 
 const { sign } = pkg;
 
 app.use(cors());

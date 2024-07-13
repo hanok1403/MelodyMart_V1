@@ -122,7 +122,7 @@ const Home = () => {
               <button onClick={nextSlide} className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full">&#9654;</button>
             </div>
             <Searchbar products={items} setFilteredItems={setFilteredItems} /> 
-            <FormControl variant="outlined" fullWidth margin="normal">
+            {/* <FormControl variant="outlined" fullWidth margin="normal">
               <InputLabel>Category</InputLabel>
               <Select
                 value={selectedCategory}
@@ -133,7 +133,7 @@ const Home = () => {
                   <MenuItem key={category} value={category}>{category}</MenuItem>
                 ))}
               </Select>
-            </FormControl>
+            </FormControl> */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-8">
               {filteredItems.map((item, i) => (
                 <div key={i} className="mb-4">
