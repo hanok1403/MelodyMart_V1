@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, Box, Button, TablePagination, Modal } from '@mui/material';
 import { SentimentDissatisfied } from '@mui/icons-material';
+import { Box, Button, Modal, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Typography } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
@@ -110,7 +110,7 @@ const Orders = () => {
                         variant="contained"
                         color="primary"
                         onClick={() => handleOpenModal(order)}
-                        className='mx-1'
+                        className='mx-1 my-1'
                       >
                         View Details
                       </Button>
@@ -152,6 +152,9 @@ const Orders = () => {
             </Typography>
             <Typography sx={{ mt: 2 }}>
               <strong>Order Date:</strong> {new Date(selectedOrder.orderDate).toLocaleDateString()}
+            </Typography>
+            <Typography sx={{ mt: 2 }}>
+              <strong>Address:</strong> {selectedOrder.address}
             </Typography>
             <Typography sx={{ mt: 2 }}>
               <strong>Total Cost:</strong> ${selectedOrder.totalPrice.toFixed(2)}

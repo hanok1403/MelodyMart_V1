@@ -15,8 +15,20 @@ const AddProduct = (props) => {
     imageUrl: '',
     price: '',
     description: '',
-    quantity: ''
+    quantity: '',
+    category: '' // Add category field
   });
+
+  const categories = [
+    "Indian Instruments",
+    "Keyboards/Pianos",
+    "Guitars",
+    "Amplifiers",
+    "Band Instruments",
+    "Drums",
+    "Percussion Instruments",
+    "String Instruments"
+  ];
 
   useEffect(() => {
     if (props.type === 'edit') {
@@ -29,7 +41,8 @@ const AddProduct = (props) => {
             imageUrl: data.imageUrl || '',
             price: data.price || '',
             description: data.description || '',
-            quantity: data.quantity || ''
+            quantity: data.quantity || '',
+            category: data.category || '' // Set category field
           });
           setProduct({
             productHead: 'EDIT PRODUCT',
@@ -83,7 +96,8 @@ const AddProduct = (props) => {
         imageUrl: '',
         price: '',
         description: '',
-        quantity: ''
+        quantity: '',
+        category: '' // Reset category field
       });
       toast.success(
         props.type === 'edit' ? 'Product details edited successfully' : 'Product added successfully',
@@ -115,6 +129,7 @@ const AddProduct = (props) => {
               value={formData.productName}
               onChange={handleChange}
               className="border border-gray-300 rounded-md p-2 w-full"
+              required
             />
           </div>
           <div className="mb-4">
@@ -126,6 +141,7 @@ const AddProduct = (props) => {
               value={formData.description}
               onChange={handleChange}
               className="border border-gray-300 rounded-md p-2 w-full"
+              required
             />
           </div>
           <div className="mb-4">
@@ -137,6 +153,7 @@ const AddProduct = (props) => {
               value={formData.price}
               onChange={handleChange}
               className="border border-gray-300 rounded-md p-2 w-full"
+              required
             />
           </div>
           <div className="mb-4">
@@ -148,6 +165,7 @@ const AddProduct = (props) => {
               value={formData.imageUrl}
               onChange={handleChange}
               className="border border-gray-300 rounded-md p-2 w-full"
+              required
             />
           </div>
           <div className="mb-4">
@@ -159,7 +177,24 @@ const AddProduct = (props) => {
               value={formData.quantity}
               onChange={handleChange}
               className="border border-gray-300 rounded-md p-2 w-full"
+              min={1}
+              required
             />
+          </div>
+          <div className="mb-4">
+            <select
+              id="category"
+              name="category"
+              value={formData.category}
+              onChange={handleChange}
+              className="border border-gray-300 rounded-md p-2 w-full"
+              required
+            >
+              <option value="" disabled>Select category</option>
+              {categories.map((category) => (
+                <option key={category} value={category}>{category}</option>
+              ))}
+            </select>
           </div>
           <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded-md w-full hover:bg-blue-600 transition duration-300">
             {product.productButton}

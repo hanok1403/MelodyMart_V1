@@ -1,10 +1,9 @@
 import express from 'express';
+import cartModel from '../models/CartModel.js';
 import orderModel from '../models/OrderModel.js';
 import productModel from '../models/ProductModel.js';
 import userModel from '../models/UserModel.js';
-import cartModel from '../models/CartModel.js';
-
-
+import mail from './sendmail.js';
 const router = express.Router()
 router.use(express.urlencoded({extended:true}))
 router.use(express.json());
@@ -52,6 +51,36 @@ router.get('/users/:id', async (req, res) => {
           res.status(500).send({ message: 'Error updating user', error: err.message });
       }
   });
+
+  router.get('/getProduct/:id', async (req, res)=>{
+    const productId = req.params.id;
+
+    const data = await productModel.find({productId:productId})
+
+    if(data){
+        res.status(200).json(data)
+    }
+    else{
+        res.status(404).json({message: 'Product not found'})
+    }
+
+  })
+  router.put('/cart/setProductQuantity/:id', async (req, res)=>{
+    const productId = req.params.id;
+    const quantity = (req.body.quantity)?req.body.quantity:1;
+
+   
+    const user = req.body.userId;
+    const data = await cartModel.findOne({userId:user, productId:productId})
+    if(data){
+        data.quantity = quantity
+        await data.save()
+        res.status(200).json({message: 'Product quantity updated successfully'})
+    }
+    else{
+        res.status(404).json({message: 'Product not found'})
+    }
+  })
 
   router.put('/users/update/:id', async (req, res) => {
     const userId = req.params.id;
@@ -170,9 +199,16 @@ router.post('/checkout', async (req, res) => {
         const paymentType = req.body.paymentType;
 
         const cartData = await cartModel.find({ userId: userId });
-
+        // const userData= await userModel.find({userId: userId});
+        const userData= await userModel.findById(userId);
+        console.log(userData, userData.email);
+        
         const totalCost = cartData.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
 
+        const emaildata = {
+            email: userData.email,
+            cost: totalCost
+        }
         const orderData = {
             userId: userId,
             orderDate: new Date(),
@@ -201,7 +237,8 @@ router.post('/checkout', async (req, res) => {
             }
 
             await cartModel.deleteMany({ userId: userId });
-
+            await mail(emaildata).catch(console.error);
+            console.log(emaildata);
             res.status(200).json(orders);
         }
 
@@ -270,8 +307,4 @@ router.post('/orders/cancel/:orderId', async (req, res) => {
     }
   });
   
-  
-
-  
-
 export default router;
