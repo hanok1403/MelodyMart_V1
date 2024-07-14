@@ -1,6 +1,5 @@
 // src/components/ProductItem.js
 import React, { useState } from 'react';
-import { Modal } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import 'tailwindcss/tailwind.css';
 
@@ -21,7 +20,6 @@ const ProductItem = ({ product }) => {
             body: JSON.stringify({ token, user, quantity }) 
         }).then((response) => {
             // console.log(response);
-            setShowModal(false); 
             toast.success("Product added to cart",{
                 autoClose:2000
             })

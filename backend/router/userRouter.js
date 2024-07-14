@@ -26,7 +26,7 @@ router.get('/users/:id', async (req, res) => {
     try{
         const userDetails= await userModel.findOne({email:email});
         if(!userDetails)
-            return res.json({message:'User not found'});
+            return res.status(404).json({message:'User not found'});
         res.status(200).json(userDetails);
     }catch(err){
         res.status(500).json({message:'Error fetching user details',error: err.message});

@@ -27,10 +27,17 @@ const Orders = () => {
         body: JSON.stringify({ userId: data.user.id })
       })
         .then((response) => response.json())
-        .then((updatedOrders) => setOrders(updatedOrders.reverse()))
+        .then((updatedOrders) => {
+          if (Array.isArray(updatedOrders)) {
+            setOrders(updatedOrders.reverse());
+          } else {
+            console.error('Unexpected response format:', updatedOrders);
+          }
+        })
         .catch((error) => console.log(error));
     }
   };
+  
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);

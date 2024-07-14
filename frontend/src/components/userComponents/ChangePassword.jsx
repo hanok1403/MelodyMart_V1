@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ChangePassword = () => {
   const [currentPassword, setCurrentPassword] = useState('');
@@ -31,12 +33,14 @@ const ChangePassword = () => {
 
       if (user.password === currentPassword) {
         if(user.password === newPassword){
-            setError("New Password can't be same as Current Password");
+            toast.error("New Password can't be same as Current Password");
+            // setError("New Password can't be same as Current Password");
             return;
         }
         if (newPassword === confirmPassword) {
           if (!validatePassword(newPassword)) {
-            setError("Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.");
+            toast.error("Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.");
+            // setError("Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.");
             return;
           }
 
@@ -44,19 +48,23 @@ const ChangePassword = () => {
             password: newPassword
           });
           console.log(response.data);
-          alert("Password updated successfully");
+          toast.success("Password Changed Successfully");
+          // alert("Password updated successfully");
           setCurrentPassword('');
           setNewPassword('');
           setConfirmPassword('');
           setError('');
         } else {
-          setError("Passwords do not match");
+          toast.error("Passwords do not match");
+          // setError("Passwords do not match");
         }
       } else {
-        setError("Current password is incorrect");
+        toast.error("Current Password is incorrect");
+        // setError("Current password is incorrect");
       }
     } catch (error) {
-      setError("Error updating password. Please try again later.");
+      toast.error("Error updating password. Please try again later.");
+      // setError("Error updating password. Please try again later.");
       console.error("Error:", error);
     }
   };
@@ -77,9 +85,16 @@ const ChangePassword = () => {
 
   return (
     <div className="flex items-center justify-center min-h-[90vh] bg-gradient-to-r from-blue-300 via-pink-250 to-orange-200">
+      <ToastContainer 
+      position="top-center"
+      autoClose={3000}
+      closeOnClick
+      pauseOnHover
+      limit={3}
+      />
       <div className="bg-white p-8 rounded-lg shadow-md w-96">
         <h1 className="text-2xl font-semibold mb-6 text-center">Change Password</h1>
-        {error && <p className="text-red-500 mb-4 text-center">{error}</p>}
+        {/* {error && <p className="text-red-500 mb-4 text-center">{error}</p>} */}
         <form onSubmit={handleChangePassword}>
           <div className="mb-4 relative">
             <input

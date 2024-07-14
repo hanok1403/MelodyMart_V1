@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import ProductItem from './ProductItem';
 import Searchbar from './UserSearchbar'; 
 import { Alert, CircularProgress, Box, Typography, MenuItem, Select, FormControl, InputLabel } from '@mui/material';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Home = () => {
   const [items, setItems] = useState([]);
@@ -100,6 +102,13 @@ const Home = () => {
 
   return (
     <div className="bg-gradient-to-r from-purple-300 via-yellow-350 to-gray-400 min-h-screen py-8">
+      <ToastContainer 
+        position="top-right"
+        autoClose={3000}
+        limit={3}
+        closeOnClick
+        pauseOnHover
+      />
       <div className="container mx-auto px-4">
         {error ? (
           <Alert severity="error">{error}</Alert>
