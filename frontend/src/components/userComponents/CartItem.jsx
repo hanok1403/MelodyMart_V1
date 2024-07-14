@@ -71,7 +71,7 @@ const CartItem = ({ item, onRemove, onUpdate }) => {
       ) : (
         <button
           onClick={handleEditClick}
-          className="edit-button text-blue-600 px-6 ml-2 hover:text-white hover:bg-blue-600 focus:outline-none"
+          className="edit-button text-blue-600 px-6 ml-2 py-1 hover:text-white hover:bg-blue-600 rounded focus:outline-none"
           disabled={maxQuantity === 0}
         >
           Change Quantity
@@ -79,7 +79,7 @@ const CartItem = ({ item, onRemove, onUpdate }) => {
       )}
       <button
         onClick={handleRemove}
-        className="remove-button text-red-600 px-6 hover:text-white hover:bg-red-600 focus:outline-none"
+        className="remove-button text-red-600 px-6 py-1 hover:text-white hover:bg-red-600 rounded focus:outline-none"
       >
         Remove from cart
       </button>
