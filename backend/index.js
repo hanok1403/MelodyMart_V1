@@ -32,6 +32,10 @@ app.use(express.json());
 app.use('/admin', adminRouter);
 app.use('/', userRouter);
 
+app.get('/', (req, res)=>{
+    res.send("Welcome to Melody Mart API");
+})
+
 app.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
