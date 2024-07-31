@@ -22,6 +22,7 @@ const { sign } = pkg;
 const corsOptions = {
   origin: 'https://melodymart.vercel.app',
   methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true,
   optionsSuccessStatus: 200
 };
 
