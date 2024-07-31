@@ -22,6 +22,13 @@ app.use('/', userRouter)
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
 
+const corsOptions = {
+    origin: 'https://melodymart.vercel.app',
+    optionsSuccessStatus: 200
+};
+  
+app.use(cors(corsOptions));
+
 app.post('/login',async (req, res)=>{
     // // console.log(req.body);
     try {
