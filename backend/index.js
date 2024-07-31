@@ -1,75 +1,65 @@
-import cors from 'cors'
-import dotenv from 'dotenv'
-import express from 'express'
-import mongoose from 'mongoose'
+import cors from 'cors';
+import dotenv from 'dotenv';
+import express from 'express';
+import mongoose from 'mongoose';
 
 import userModel from './models/UserModel.js';
-import adminRouter from './router/adminRouter.js'
-import userRouter from './router/userRouter.js'
+import adminRouter from './router/adminRouter.js';
+import userRouter from './router/userRouter.js';
 import pkg from 'jsonwebtoken';
 
-dotenv.config()
-mongoose.connect(process.env.DBClient).then(response =>  console.log("Connected to DB")).catch(error =>  console.log("Cannot cannot to DB..!"))
+dotenv.config();
 
-const PORT = process.env.PORT || 5001
-const app = express()
-const JWT_SECRET = process.env.JWT_SECRET || 'my_secret_key'; 
+mongoose.connect(process.env.DBClient)
+  .then(() => console.log("Connected to DB"))
+  .catch((error) => console.log("Cannot connect to DB..!", error));
+
+const PORT = process.env.PORT || 5001;
+const app = express();
+const JWT_SECRET = process.env.JWT_SECRET || 'my_secret_key';
 const { sign } = pkg;
 
-app.use(cors());
-app.use('/admin', adminRouter)
-app.use('/', userRouter)
-app.use(express.urlencoded({extended:true}))
-app.use(express.json())
-
 const corsOptions = {
-    origin: 'https://melodymart.vercel.app',
-    optionsSuccessStatus: 200
+  origin: 'https://melodymart.vercel.app',
+  optionsSuccessStatus: 200
 };
-  
+
 app.use(cors(corsOptions));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-app.post('/login',async (req, res)=>{
-    // // console.log(req.body);
-    try {
-        const user = req;
-        // // console.log(user)
-        const login = {
-            email: req.body.email,
-            password: req.body.password
-        };
-        
-       
-        const data = await userModel.findOne(login);
-        // console.log("data   ", data)
-        if (!data)
-            throw new Error("User not found");
-        
-        const token = generateToken(login);
+app.use('/admin', adminRouter);
+app.use('/', userRouter);
 
-        res.status(200).json({
-            user:{
-                id:data._id, 
-                username:data.username,
-                email:data.email,
-                mobileNumber:data.mobileNumber
-            },
-            token: token,
-            role:data.role
-        });
-    } catch (error) {
-        
-        res.status(500).json( {
-            message: 'Error Logging in',
-            error: error.message
-        });
-    }
-    // // console.log(data)
-    
-    
-})
-app.post('/signup',async (req,res)=>{
-    const { email, password, username, mobileNumber } = req.body;
+app.post('/login', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const data = await userModel.findOne({ email, password });
+
+    if (!data) throw new Error("User not found");
+
+    const token = generateToken(data);
+
+    res.status(200).json({
+      user: {
+        id: data._id,
+        username: data.username,
+        email: data.email,
+        mobileNumber: data.mobileNumber
+      },
+      token: token,
+      role: data.role
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: 'Error logging in',
+      error: error.message
+    });
+  }
+});
+
+app.post('/signup', async (req, res) => {
+  const { email, password, username, mobileNumber } = req.body;
 
   try {
     const existingUser = await userModel.findOne({ email });
@@ -91,17 +81,17 @@ app.post('/signup',async (req,res)=>{
     console.error('Error during signup:', error);
     res.status(500).json({ message: 'Server error' });
   }
-})
+});
 
 function generateToken(user) {
-    const payload = {
-        id: user._id, 
-        email: user.email,
-        role: user.role
-    };
-    return sign(payload, JWT_SECRET, { expiresIn: '24h' }); 
+  const payload = {
+    id: user._id,
+    email: user.email,
+    role: user.role
+  };
+  return sign(payload, JWT_SECRET, { expiresIn: '24h' });
 }
 
-app.listen(PORT, ()=>{
-    console.log(`Server is running on port ${PORT}`)
-})
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
