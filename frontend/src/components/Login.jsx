@@ -26,7 +26,7 @@ const Login = () => {
         setError(null);
 
         try {
-            const response = await fetch('http://localhost:5001/login', {
+            const response = await fetch(process.env.REACT_APP_BASE_URL + '/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

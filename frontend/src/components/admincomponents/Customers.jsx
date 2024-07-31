@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Searchbar from './Searchbar';
+
+
 const Customers = () => {
     const [users, setUsers] = useState([]);
     const [selectedUser, setSelectedUser] = useState(null);
@@ -9,7 +11,7 @@ const Customers = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await fetch("http://localhost:5001/admin/customers");
+                const response = await fetch(process.env.REACT_APP_BASE_URL + `/admin/customers`);
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }

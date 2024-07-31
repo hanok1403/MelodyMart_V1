@@ -44,7 +44,9 @@ const Home = () => {
   ];
 
   useEffect(() => {
-    fetch('http://localhost:5001/home')
+    const baseURL = process.env.REACT_APP_BASE_URL;
+    // console.log(baseURL)
+    fetch(baseURL + '/home')
       .then((response) => response.json())
       .then((data) => {
         const validProducts = data.filter(prod => prod.quantity > 0);
@@ -78,6 +80,7 @@ const Home = () => {
       )
     );
     toast.success('Item added to cart successfully!');
+    
   };
 
   const prevSlide = () => {

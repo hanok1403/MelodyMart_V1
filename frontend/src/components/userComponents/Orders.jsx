@@ -19,7 +19,7 @@ const Orders = () => {
 
   const handleCancelOrder = (orderId) => {
     if (window.confirm('Are you sure you want to cancel this order?')) {
-      fetch(`http://localhost:5001/orders/cancel/${orderId}`, {
+      fetch(process.env.REACT_APP_BASE_URL + `/orders/cancel/${orderId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

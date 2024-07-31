@@ -60,7 +60,7 @@ const SignUp = () => {
   
     
     try {
-      const response = await axios.post('http://localhost:5001/signup', {
+      const response = await axios.post(process.env.REACT_APP_BASE_URL + '/signup', {
         email,
         password,
         username,
