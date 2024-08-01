@@ -2,13 +2,19 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
 import mongoose from 'mongoose';
+import pkg from 'jsonwebtoken';
 
 import userModel from './models/UserModel.js';
 import adminRouter from './router/adminRouter.js';
 import userRouter from './router/userRouter.js';
-import pkg from 'jsonwebtoken';
 
 dotenv.config();
+const corsOptions = {
+  origin: 'https://melodymart.vercel.app',
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true,
+  optionsSuccessStatus: 200
+};
 
 mongoose.connect(process.env.DBClient)
   .then(() => console.log("Connected to DB"))
@@ -19,12 +25,6 @@ const app = express();
 const JWT_SECRET = process.env.JWT_SECRET || 'my_secret_key';
 const { sign } = pkg;
 
-const corsOptions = {
-  origin: 'https://melodymart.vercel.app',
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true,
-  optionsSuccessStatus: 200
-};
 
 app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: true }));
