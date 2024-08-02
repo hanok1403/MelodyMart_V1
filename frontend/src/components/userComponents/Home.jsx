@@ -44,9 +44,7 @@ const Home = () => {
   ];
 
   useEffect(() => {
-    const baseURL = process.env.REACT_APP_BASE_URL;
-    // console.log(baseURL)
-    fetch(baseURL + '/home')
+    fetch('/home')
       .then((response) => response.json())
       .then((data) => {
         const validProducts = data.filter(prod => prod.quantity > 0);
