@@ -12,7 +12,7 @@ function Products() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(process.env.REACT_APP_BASE_URL + '/admin/')
+    fetch('/admin/')
       .then((response) => response.json())
       .then((data) => {
         const validProducts = data;
@@ -23,7 +23,7 @@ function Products() {
   }, []);
 
   const handleRemove = (id) => {
-    fetch(process.env.REACT_APP_BASE_URL + `/admin/delete/${id}`, { method: 'get' })
+    fetch(`/admin/delete/${id}`, { method: 'get' })
       .then(response => response.json())
       .then(() => {
         if(window.confirm("Do you want to remove the Product?") === true){

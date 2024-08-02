@@ -29,7 +29,7 @@ const Checkout = () => {
     };
 
     try {
-      const response = await fetch(process.env.REACT_APP_BASE_URL + '/checkout', {
+      const response = await fetch('/checkout', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

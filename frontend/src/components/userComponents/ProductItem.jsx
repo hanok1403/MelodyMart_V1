@@ -12,7 +12,7 @@ const ProductItem = ({ product }) => {
         const token = localStorage.getItem('token');
         const user = localStorage.getItem('user');
 
-        fetch(process.env.REACT_APP_BASE_URL + `/home/${id}`, {
+        fetch(`/home/${id}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

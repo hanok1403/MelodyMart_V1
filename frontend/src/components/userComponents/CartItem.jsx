@@ -7,7 +7,7 @@ const CartItem = ({ item, onRemove, onUpdate }) => {
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
-    fetch(process.env.REACT_APP_BASE_URL + `/getProduct/${productId}`)
+    fetch(`/getProduct/${productId}`)
       .then(response => response.json())
       .then((data) => {
         setMaxQuantity(data[0].quantity);

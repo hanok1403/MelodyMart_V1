@@ -53,7 +53,7 @@ const Profile = () => {
                 return;
             }
 
-            const response = await axios.put(process.env.REACT_APP_BASE_URL + `/users/update/${userId}`, {
+            const response = await axios.put(`/users/update/${userId}`, {
                 username: newUsername,
                 mobileNumber: newMobile
             });

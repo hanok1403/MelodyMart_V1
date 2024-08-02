@@ -14,7 +14,7 @@ const OrderList = () => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    fetch(process.env.REACT_APP_BASE_URL + `/admin/orders`)
+    fetch(`/admin/orders`)
       .then((response) => response.json())
       .then((data) => {
         setOrders(data);
@@ -37,7 +37,7 @@ const OrderList = () => {
     if (!window.confirm("Do you want to cancel the order?") === true)
       return;
     if (selectedOrderId) {
-      fetch(process.env.REACT_APP_BASE_URL + `/admin/orders/cancel/${selectedOrderId}`, {
+      fetch(`/admin/orders/cancel/${selectedOrderId}`, {
         method: 'PUT',
       })
         .then((response) => response.json())
@@ -62,7 +62,7 @@ const OrderList = () => {
     if (!window.confirm("Is the product shipped?") === true)
       return;
     if (selectedOrderId) {
-      fetch(process.env.REACT_APP_BASE_URL + `/admin/orders/shipped/${selectedOrderId}`, {
+      fetch(`/admin/orders/shipped/${selectedOrderId}`, {
         method: 'PUT',
       })
         .then((response) => response.json())
@@ -87,7 +87,7 @@ const OrderList = () => {
     if (!window.confirm("Do you want to complete the order?") === true)
       return;
     if (selectedOrderId) {
-      fetch(process.env.REACT_APP_BASE_URL + `/admin/orders/complete/${selectedOrderId}`, {
+      fetch(`/admin/orders/complete/${selectedOrderId}`, {
         method: 'PUT',
       })
         .then((response) => response.json())

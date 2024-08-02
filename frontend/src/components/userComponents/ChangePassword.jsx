@@ -28,7 +28,7 @@ const ChangePassword = () => {
     try {
       const data = JSON.parse(localStorage.getItem('user'))
       const userId = data.user.id;
-      const response = await axios.get(process.env.REACT_APP_BASE_URL + `/users/${userId}`);
+      const response = await axios.get(`/users/${userId}`);
       const user = response.data;
 
       if (user.password === currentPassword) {
@@ -44,7 +44,7 @@ const ChangePassword = () => {
             return;
           }
 
-          const response= await axios.put(process.env.REACT_APP_BASE_URL + `/users/${userId}`, {
+          const response= await axios.put(`/users/${userId}`, {
             password: newPassword
           });
           console.log(response.data);
