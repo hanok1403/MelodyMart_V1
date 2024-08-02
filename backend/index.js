@@ -36,7 +36,6 @@ app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Serve static files from the React app
 app.use(express.static(path.resolve(__dirname, 'build')));
 
 app.use('/admin', adminRouter);
