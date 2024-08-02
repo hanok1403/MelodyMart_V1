@@ -2,13 +2,20 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
 import mongoose from 'mongoose';
+import path from 'path';
 import pkg from 'jsonwebtoken';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
 import userModel from './models/UserModel.js';
 import adminRouter from './router/adminRouter.js';
 import userRouter from './router/userRouter.js';
 
 dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 const corsOptions = {
   origin: 'https://melodymart.vercel.app',
   methods: ["GET", "POST", "PUT", "DELETE"],
@@ -25,17 +32,19 @@ const app = express();
 const JWT_SECRET = process.env.JWT_SECRET || 'my_secret_key';
 const { sign } = pkg;
 
-
 app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// Serve static files from the React app
+app.use(express.static(path.resolve(__dirname, 'build')));
+
 app.use('/admin', adminRouter);
 app.use('/', userRouter);
 
-app.get('/', (req, res)=>{
-    res.send("Welcome to Melody Mart API");
-})
+app.get('/', (req, res) => {
+  res.send("Welcome to Melody Mart API");
+});
 
 app.post('/login', async (req, res) => {
   try {
@@ -97,6 +106,11 @@ function generateToken(user) {
   };
   return sign(payload, JWT_SECRET, { expiresIn: '24h' });
 }
+
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'build', 'index.html'))
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

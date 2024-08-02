@@ -26,10 +26,10 @@ const Login = () => {
         setError(null);
 
         try {
-            const response = await fetch(process.env.REACT_APP_BASE_URL + '/login', {
+            const response = await fetch('/login', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'text/plain'
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(credentials)
             });
