@@ -38,14 +38,14 @@ app.use(express.json());
 
 app.use(express.static(path.resolve(__dirname, 'build')));
 
-app.use('/admin', adminRouter);
-app.use('/', userRouter);
+app.use('/api/admin', adminRouter);
+app.use('/api/', userRouter);
 
-app.get('/', (req, res) => {
+app.get('/api/', (req, res) => {
   res.send("Welcome to Melody Mart API");
 });
 
-app.post('/login', async (req, res) => {
+app.post('/api/login', async (req, res) => {
   try {
     const { email, password } = req.body;
     const data = await userModel.findOne({ email, password });
@@ -72,7 +72,7 @@ app.post('/login', async (req, res) => {
   }
 });
 
-app.post('/signup', async (req, res) => {
+app.post('/api/signup', async (req, res) => {
   const { email, password, username, mobileNumber } = req.body;
 
   try {

@@ -11,7 +11,7 @@ const Customers = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await fetch(`/admin/customers`);
+                const response = await fetch(`/api/admin/customers`);
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }

@@ -44,7 +44,7 @@ const ChangePassword = () => {
             return;
           }
 
-          const response= await axios.put(`/users/${userId}`, {
+          const response= await axios.put(`/api/users/${userId}`, {
             password: newPassword
           });
           console.log(response.data);

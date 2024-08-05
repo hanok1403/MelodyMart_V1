@@ -44,7 +44,7 @@ const Home = () => {
   ];
 
   useEffect(() => {
-    fetch('/home')
+    fetch('/api/home')
       .then((response) => response.json())
       .then((data) => {
         const validProducts = data.filter(prod => prod.quantity > 0);

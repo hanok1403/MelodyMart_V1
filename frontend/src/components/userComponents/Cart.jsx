@@ -13,7 +13,7 @@ const Cart = () => {
 
   useEffect(() => {
     if (data && data.user && data.user.id) {
-      fetch(`/cart/${data.user.id}`)
+      fetch(`/api/cart/${data.user.id}`)
         .then((response) => {
           if (!response.ok) {
             throw new Error('Failed to fetch cart items');
@@ -32,7 +32,7 @@ const Cart = () => {
   const checkStockAvailability = (cartItems) => {
     let allInStock = true;
     const fetchPromises = cartItems.map((item) =>
-      fetch(`/getProduct/${item.productId}`)
+      fetch(`/api/getProduct/${item.productId}`)
         .then(response => response.json())
         .then((data) => {
           if (data[0].quantity === 0) {
@@ -47,7 +47,7 @@ const Cart = () => {
   };
 
   const handleRemoveItem = (productId) => {
-    fetch(`/cart/itemDelete/${productId}`, {
+    fetch(`/api/cart/itemDelete/${productId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ const Cart = () => {
   };
 
   const handleUpdateQuantity = (productId, quantity) => {
-    fetch(`/cart/setProductQuantity/${productId}`, {
+    fetch(`/api/cart/setProductQuantity/${productId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -81,7 +81,7 @@ const Cart = () => {
         quantity: quantity,
       }),
     }).then(() => {
-      fetch(`/cart/${data.user.id}`)
+      fetch(`/api/cart/${data.user.id}`)
         .then((response) => response.json())
         .then((data) => {
           setCart(data);

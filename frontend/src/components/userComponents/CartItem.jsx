@@ -7,7 +7,7 @@ const CartItem = ({ item, onRemove, onUpdate }) => {
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
-    fetch(`/getProduct/${productId}`)
+    fetch(`/api/getProduct/${productId}`)
       .then(response => response.json())
       .then((data) => {
         setMaxQuantity(data[0].quantity);

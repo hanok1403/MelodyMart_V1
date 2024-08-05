@@ -12,7 +12,7 @@ const ProductItem = ({ product }) => {
         const token = localStorage.getItem('token');
         const user = localStorage.getItem('user');
 
-        fetch(`/home/${id}`, {
+        fetch(`/api/home/${id}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

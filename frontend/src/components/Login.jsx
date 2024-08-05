@@ -26,7 +26,7 @@ const Login = () => {
         setError(null);
 
         try {
-            const response = await fetch('/login', {
+            const response = await fetch('/api/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -43,7 +43,7 @@ const Login = () => {
             loginAction(data);
             localStorage.setItem('user', JSON.stringify(data));
 
-            alert("Login successful");
+            // alert("Login successful");
             toast.success("Login Successful!!!", {
                 onClose: () => {
                     const user = JSON.parse(localStorage.getItem('user'));
