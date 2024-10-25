@@ -18,42 +18,34 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
   
-    // Email validation regex
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   
-    // Client-side validation
     if (!/^[a-zA-Z][a-zA-Z0-9]{3,}$/.test(username)) {
-      // setError('Username must start with a letter and be at least 4 characters long (letters and numbers only)');
       toast.error('Username must start with a letter and be at least 4 characters long (letters and numbers only)');
       return;
     }
   
     if (!emailRegex.test(email)) {
-      // setError('Please enter a valid email address');
       toast.error('Please enter a valid email address');
       return;
     }
   
     if (password !== confirmPassword) {
-      // setError('Passwords do not match');
       toast.error('Passwords do not match');
       return;
     }
   
     if (password.length < 8) {
-      // setError('Password must be at least 8 characters long');
       toast.error('Password must be at least 8 characters long');
       return;
     }
   
     if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])/.test(password)) {
-      // setError('Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character');
       toast.error('Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character');
       return;
     }
   
     if (!/^\d{10}$/.test(mobileNumber)) {
-      // setError('Mobile number must be exactly 10 digits');
       toast.error('Mobile number must be exactly 10 digits');
       return;
     }
