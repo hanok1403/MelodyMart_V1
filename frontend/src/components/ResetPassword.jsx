@@ -16,7 +16,6 @@ const ResetPassword = () => {
   const queryParams = new URLSearchParams(location.search);
   const navigate = useNavigate();
 
-    // Extracting token and email from query parameters
   const resetToken = queryParams.get('token');
   const email = queryParams.get('email');
 
@@ -27,6 +26,16 @@ const ResetPassword = () => {
     hasNumber: /[0-9]/,
     hasSpecialChar: /[!@#$%^&*(),.?":{}|<>]/,
   };
+
+  const handlePasswordResetSuccess = () => {
+    toast.success("Password reset successfully");
+    setNewPassword('');
+    setConfirmPassword('');
+    
+    setTimeout(() => {
+        navigate('/login');
+    }, 3000);  
+};
 
   const handleResetPassword = async (e) => {
     e.preventDefault();
@@ -43,10 +52,8 @@ const ResetPassword = () => {
           resetToken: resetToken, 
           email: email
         });
-        toast.success("Password reset successfully");
-        setNewPassword('');
-        setConfirmPassword('');
-        navigate('/login')
+        handlePasswordResetSuccess();
+        
       } catch (error) {
         const errorMessage = error.response?.data?.message || 
                                "An error occurred. Please try again later.";
