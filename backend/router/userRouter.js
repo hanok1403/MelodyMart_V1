@@ -4,6 +4,8 @@ import orderModel from '../models/OrderModel.js';
 import productModel from '../models/ProductModel.js';
 import userModel from '../models/UserModel.js';
 import mail from './sendmail.js';
+import nodemailer from 'nodemailer';
+
 const router = express.Router()
 router.use(express.urlencoded({extended:true}))
 router.use(express.json());
@@ -21,17 +23,75 @@ router.get('/users/:id', async (req, res) => {
     }
   });
 
-  router.post('/forgotPassword/', async (req, res) => {
-    const {email}= req.body;
-    try{
-        const userDetails= await userModel.findOne({email:email});
-        if(!userDetails)
-            return res.status(404).json({message:'User not found'});
-        res.status(200).json(userDetails);
-    }catch(err){
-        res.status(500).json({message:'Error fetching user details',error: err.message});
+  const generateRandomPassword = () => {
+    const lowerCase = 'abcdefghijklmnopqrstuvwxyz';
+    const upperCase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const numbers = '0123456789';
+    const specialChars = '!@#$%^&*()_+[]{}|;:,.<>?';
+  
+    let password = '';
+    password += lowerCase.charAt(Math.floor(Math.random() * lowerCase.length));
+    password += upperCase.charAt(Math.floor(Math.random() * upperCase.length));
+    password += numbers.charAt(Math.floor(Math.random() * numbers.length));
+    password += specialChars.charAt(Math.floor(Math.random() * specialChars.length));
+  
+    const allCharacters = lowerCase + upperCase + numbers + specialChars;
+    for (let i = 4; i < 10; i++) {
+        password += allCharacters.charAt(Math.floor(Math.random() * allCharacters.length));
     }
-  });
+  
+    return password;
+};
+
+// Forgot password route
+router.post('/forgotPassword', async (req, res) => {
+    const { email } = req.body;
+
+    try {
+        // Find user by email
+        const userDetails = await userModel.findOne({ email });
+        if (!userDetails) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Generate a new random password
+        const newPassword = generateRandomPassword();
+
+        // Update user's password in the database directly
+        userDetails.password = newPassword;
+        await userDetails.save();
+
+        // Set up nodemailer transport
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: process.env.EMAIL,
+                pass: process.env.NODEMAIL_PASS,
+            },
+        });
+
+        // Send email with the new password
+        const mailOptions = {
+            from: process.env.EMAIL,
+            to: email,
+            subject: 'Password Reset',
+            text: `Your new password is: ${newPassword}. Please change it after logging in.`,
+        };
+
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                return res.status(500).json({ message: 'Error sending email', error: error.message });
+            }
+            res.status(200).json({ message: 'A new password has been sent to your email' });
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Internal server error', error: err.message });
+    }
+});
+
+
+  
 
   router.put('/users/:id', async(req,res)=>{
       const userId= req.params.id;

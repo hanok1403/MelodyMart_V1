@@ -9,7 +9,9 @@ import userRouter from './router/userRouter.js'
 import pkg from 'jsonwebtoken';
 
 dotenv.config()
-mongoose.connect(process.env.DBClient).then(response =>  console.log("Connected to DB")).catch(error =>  console.log("Cannot cannot to DB..!"))
+mongoose.connect(process.env.DBClient)
+    .then(response =>  console.log("Connected to DB"))
+    .catch(error =>  console.log("Cannot connect to DB..!"))
 
 const PORT = process.env.PORT || 5001
 const app = express()
