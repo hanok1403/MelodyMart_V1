@@ -8,27 +8,39 @@ import { useNavigate } from 'react-router-dom';
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState('');
-    const navigate= useNavigate();
-    
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
+
     const handleChange = (e) => {
         setEmail(e.target.value);
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
+
         try {
-            const response = await axios.post('http://localhost:5001/forgotPassword', { email });
+            const response = await axios.post('/api/forgotPassword', { email });
             
             if (response.status === 200) {
                 toast.success("A new password has been sent to your email. Please check your inbox.");
-                setTimeout(() => navigate('/login'), 3000);
+                setTimeout(() => {
+                    setEmail('');
+                    navigate('/login');
+                }, 3000);
             }
         } catch (err) {
-            if (err.response && err.response.status === 404) {
-                toast.error("User not found. Please enter a registered email.");
+            if (err.response) {
+                if (err.response.status === 404) {
+                    toast.error("User not found. Please enter a registered email.");
+                } else {
+                    toast.error("An error occurred while sending the reset password link. Please try again.");
+                }
             } else {
-                toast.error("An error occurred while sending the reset password link. Please try again.");
+                toast.error("Network error. Please check your connection.");
             }
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -62,8 +74,8 @@ const ForgotPassword = () => {
                     </div>
                     <div className="mt-4">
                         <div className="flex justify-center">
-                            <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded w-full mt-4">
-                                Send Reset Link
+                            <button type="submit" className={`bg-blue-500 text-white py-2 px-4 rounded w-full mt-4 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`} disabled={loading}>
+                                {loading ? 'Sending...' : 'Send Reset Link'}
                             </button>
                         </div>
                     </div>

@@ -43,7 +43,6 @@ router.get('/users/:id', async (req, res) => {
     return password;
 };
 
-// Forgot password route
 router.post('/forgotPassword', async (req, res) => {
     const { email } = req.body;
 
@@ -89,7 +88,6 @@ router.post('/forgotPassword', async (req, res) => {
         res.status(500).json({ message: 'Internal server error', error: err.message });
     }
 });
-
 
   
 
