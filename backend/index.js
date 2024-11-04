@@ -13,15 +13,8 @@ import userRouter from './router/userRouter.js';
 
 dotenv.config();
 
-<<<<<<< HEAD
-dotenv.config()
-mongoose.connect(process.env.DBClient)
-    .then(response =>  console.log("Connected to DB"))
-    .catch(error =>  console.log("Cannot connect to DB..!"))
-=======
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
->>>>>>> 5d433ab5928308d70225565032ee9c67ad743213
 
 const corsOptions = {
   origin: 'https://melodymart.vercel.app',
