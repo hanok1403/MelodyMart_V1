@@ -20,25 +20,20 @@ const ForgotPassword = () => {
         setLoading(true);
 
         try {
-            const response = await axios.post('/api/forgotPassword', { email });
+            const response = await axios.post('http://localhost:5001/api/forgotPassword', { 
+                email: email.trim() 
+            });
             
-            if (response.status === 200) {
-                toast.success("A new password has been sent to your email. Please check your inbox.");
-                setTimeout(() => {
-                    setEmail('');
-                    navigate('/login');
-                }, 3000);
-            }
+            toast.success(response.data.message);
+            setTimeout(() => {
+                setEmail('');
+                navigate('/login');
+            }, 3000);
+            
         } catch (err) {
-            if (err.response) {
-                if (err.response.status === 404) {
-                    toast.error("User not found. Please enter a registered email.");
-                } else {
-                    toast.error("An error occurred while sending the reset password link. Please try again.");
-                }
-            } else {
-                toast.error("Network error. Please check your connection.");
-            }
+            const errorMessage = err.response?.data?.message || 
+                               "An error occurred. Please try again later.";
+            toast.error(errorMessage);
         } finally {
             setLoading(false);
         }
@@ -52,32 +47,37 @@ const ForgotPassword = () => {
                 hideProgressBar={false}
                 newestOnTop={false}
                 closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
                 pauseOnHover
-                limit={3}
             />
             <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
                 <h2 className="text-center text-2xl font-bold mb-6">Reset Password</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4 relative">
-                        <label className="block text-gray-700">
+                        <label className="block text-gray-700 mb-2">
                             <FontAwesomeIcon icon={faEnvelope} className="mr-2" />
                             Email
                         </label>
                         <input
                             type="email"
-                            className="mt-1 p-2 pl-10 border border-gray-300 rounded w-full"
+                            className="mt-1 p-2 w-full border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                             name="email"
                             value={email}
                             onChange={handleChange}
+                            placeholder="Enter your registered email"
                             required
                         />
                     </div>
-                    <div className="mt-4">
-                        <div className="flex justify-center">
-                            <button type="submit" className={`bg-blue-500 text-white py-2 px-4 rounded w-full mt-4 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`} disabled={loading}>
-                                {loading ? 'Sending...' : 'Send Reset Link'}
-                            </button>
-                        </div>
+                    <div className="mt-6">
+                        <button
+                            type="submit"
+                            className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-colors disabled:bg-blue-300"
+                            disabled={loading}
+                        >
+                            {loading ? 'Sending...' : 'Send Reset Link'}
+                        </button>
                     </div>
                 </form>
             </div>

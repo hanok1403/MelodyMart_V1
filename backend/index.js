@@ -17,7 +17,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const corsOptions = {
-  origin: 'https://melodymart.vercel.app',
+  origin: ['http://localhost:3000', 'https://melodymart.vercel.app'],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true,
   optionsSuccessStatus: 200
@@ -40,6 +40,7 @@ app.use(express.static(path.resolve(__dirname, 'build')));
 
 app.use('/api/admin', adminRouter);
 app.use('/api/', userRouter);
+
 
 app.get('/api/', (req, res) => {
   res.send("Welcome to Melody Mart API");

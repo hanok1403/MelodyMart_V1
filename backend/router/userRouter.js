@@ -43,49 +43,67 @@ router.get('/users/:id', async (req, res) => {
     return password;
 };
 
+// Forgot password route
 router.post('/forgotPassword', async (req, res) => {
-    const { email } = req.body;
-
     try {
-        // Find user by email
-        const userDetails = await userModel.findOne({ email });
-        if (!userDetails) {
-            return res.status(404).json({ message: 'User not found' });
+        const { email } = req.body;
+
+        // Find user
+        const user = await userModel.findOne({ email: email.trim() });
+        if (!user) {
+            return res.status(404).json({ 
+                message: 'No account found with this email address' 
+            });
         }
 
-        // Generate a new random password
+        // Generate new password
         const newPassword = generateRandomPassword();
+        
+        // Update user's password
+        user.password = newPassword;
+        await user.save();
 
-        // Update user's password in the database directly
-        userDetails.password = newPassword;
-        await userDetails.save();
-
-        // Set up nodemailer transport
+        // Create email transporter
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
                 user: process.env.EMAIL,
-                pass: process.env.NODEMAIL_PASS,
-            },
+                pass: process.env.NODEMAIL_PASS
+            }
         });
 
-        // Send email with the new password
+        // Email content
         const mailOptions = {
             from: process.env.EMAIL,
             to: email,
-            subject: 'Password Reset',
-            text: `Your new password is: ${newPassword}. Please change it after logging in.`,
+            subject: 'Melody Mart - Your New Password',
+            html: `
+                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+                    <h2 style="color: #333;">Password Reset</h2>
+                    <p>Your account password has been reset. Here are your new login credentials:</p>
+                    <p><strong>Email:</strong> ${email}</p>
+                    <p><strong>New Password:</strong> ${newPassword}</p>
+                    <p style="color: #666;">For security reasons, please change your password after logging in.</p>
+                    <hr>
+                    <p style="font-size: 12px; color: #999;">
+                        If you didn't request this password reset, please contact support immediately.
+                    </p>
+                </div>
+            `
         };
 
-        transporter.sendMail(mailOptions, (error, info) => {
-            if (error) {
-                return res.status(500).json({ message: 'Error sending email', error: error.message });
-            }
-            res.status(200).json({ message: 'A new password has been sent to your email' });
+        // Send email
+        await transporter.sendMail(mailOptions);
+
+        res.status(200).json({ 
+            message: 'Password reset successful. Please check your email for the new password.' 
         });
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ message: 'Internal server error', error: err.message });
+
+    } catch (error) {
+        console.error('Password reset error:', error);
+        res.status(500).json({ 
+            message: 'An error occurred while processing your request.' 
+        });
     }
 });
 
