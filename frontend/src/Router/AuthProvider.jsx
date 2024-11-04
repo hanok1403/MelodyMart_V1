@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const AuthContext = createContext();
 
@@ -9,6 +9,7 @@ const AuthProvider = ({ children }) => {
     const [role, setRole] = useState('');
     const [userId, setUserId] = useState(null);
     const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
         const storedUser = localStorage.getItem('user');
@@ -16,6 +17,9 @@ const AuthProvider = ({ children }) => {
         const storedRole = localStorage.getItem('role');
         const storedUserId = localStorage.getItem('userId');
 
+        if (location.pathname.startsWith('/reset-password')) {
+            return; // Allow access to all paths starting with /reset-password
+        }
 
         if (storedUser && storedToken && storedRole && storedUserId) {
             setUser(JSON.parse(storedUser));

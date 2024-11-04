@@ -21,6 +21,7 @@ import Customers from './components/admincomponents/Customers';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ChangePassword from './components/userComponents/ChangePassword';
 import ForgotPassword from './components/ForgotPassword';
+import ResetPassword from './components/ResetPassword'
 
 function App() {
 
@@ -33,6 +34,7 @@ function App() {
                             <Route path="/signup" element={<Signup />} />
                             <Route path="/login" element={<Login />} />
                             <Route path="/forgotPassword" element={<ForgotPassword/>} />
+                            <Route path="/reset-password" element={<ResetPassword />} />
                             <Route element={<AdminPrivateRouter />}>
                                 <Route path="/admin/*" element={<Admin />}>
                                     <Route path="dashboard" element={<Admindashboard />} />
