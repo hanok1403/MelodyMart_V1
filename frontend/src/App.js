@@ -23,6 +23,7 @@ import ChangePassword from './components/userComponents/ChangePassword';
 import ForgotPassword from './components/ForgotPassword';
 
 function App() {
+
     return (
         <div className="flex flex-col min-h-screen">
             <Router>

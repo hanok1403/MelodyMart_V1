@@ -35,7 +35,7 @@ const AddProduct = (props) => {
     if (props.type === 'edit') {
       const fetchProductData = async () => {
         try {
-          const response = await axios.get(`http://localhost:5001/admin/productEdit/${props.id}`);
+          const response = await axios.get(`/api/admin/productEdit/${props.id}`);
           const data = response.data;
           setFormData({
             productName: data.productName || '',
@@ -81,8 +81,8 @@ const AddProduct = (props) => {
 
     try {
       const url = props.type === 'edit'
-        ? `http://localhost:5001/admin/productEdit/${props.id}`
-        : 'http://localhost:5001/admin/addProduct';
+        ? `/api/admin/productEdit/${props.id}`
+        : `/api/admin/addProduct`;
       const method = props.type === 'edit' ? 'put' : 'post';
 
       const response = await axios({

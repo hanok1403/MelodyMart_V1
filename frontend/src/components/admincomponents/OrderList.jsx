@@ -14,7 +14,7 @@ const OrderList = () => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    fetch(`http://localhost:5001/admin/orders`)
+    fetch(`/api/admin/orders`)
       .then((response) => response.json())
       .then((data) => {
         setOrders(data);
@@ -37,7 +37,7 @@ const OrderList = () => {
     if (!window.confirm("Do you want to cancel the order?") === true)
       return;
     if (selectedOrderId) {
-      fetch(`http://localhost:5001/admin/orders/cancel/${selectedOrderId}`, {
+      fetch(`/api/admin/orders/cancel/${selectedOrderId}`, {
         method: 'PUT',
       })
         .then((response) => response.json())
@@ -62,7 +62,7 @@ const OrderList = () => {
     if (!window.confirm("Is the product shipped?") === true)
       return;
     if (selectedOrderId) {
-      fetch(`http://localhost:5001/admin/orders/shipped/${selectedOrderId}`, {
+      fetch(`/api/admin/orders/shipped/${selectedOrderId}`, {
         method: 'PUT',
       })
         .then((response) => response.json())
@@ -87,7 +87,7 @@ const OrderList = () => {
     if (!window.confirm("Do you want to complete the order?") === true)
       return;
     if (selectedOrderId) {
-      fetch(`http://localhost:5001/admin/orders/complete/${selectedOrderId}`, {
+      fetch(`/api/admin/orders/complete/${selectedOrderId}`, {
         method: 'PUT',
       })
         .then((response) => response.json())

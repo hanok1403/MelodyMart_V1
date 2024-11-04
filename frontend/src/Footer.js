@@ -20,11 +20,11 @@ const Footer = () => {
                         <h4 className="text-xl font-semibold mb-4">Get Help</h4>
                         <ul>
                             <li className="mb-2"><a href="/" className="hover:text-gray-400">FAQ</a></li>
-                            <li className="mb-2"><a href="/cart" className="hover:text-gray-400">Shipping</a></li>
+                            <li className="mb-2"><a href="/" className="hover:text-gray-400">Shipping</a></li>
                             <li className="mb-2">
                                 <a href="mailto:contact@melodymart.com" className="hover:text-gray-400">Contact Us</a>
                             </li>
-                            <li className="mb-2"><a href="/admin/orders" className="hover:text-gray-400">Order Status</a></li>
+                            <li className="mb-2"><a href="/" className="hover:text-gray-400">Order Status</a></li>
                         </ul>
                     </div>
                     <div>

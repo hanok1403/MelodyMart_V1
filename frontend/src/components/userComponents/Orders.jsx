@@ -11,7 +11,7 @@ const Orders = () => {
   const data = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
-    fetch(`http://localhost:5001/orders/${data.user.id}`)
+    fetch(`/api/orders/${data.user.id}`)
       .then((response) => response.json())
       .then((data) => setOrders(data.reverse()))
       .catch((error) => console.log(error));
@@ -19,7 +19,7 @@ const Orders = () => {
 
   const handleCancelOrder = (orderId) => {
     if (window.confirm('Are you sure you want to cancel this order?')) {
-      fetch(`http://localhost:5001/orders/cancel/${orderId}`, {
+      fetch(`/api/orders/cancel/${orderId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

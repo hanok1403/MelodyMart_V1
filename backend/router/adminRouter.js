@@ -80,7 +80,9 @@ router.get('/orders', async (req, res) => {
 
 router.get('/customers', async (req, res) => {
     try {
-        const users = await UserModel.find({});
+        const users = await UserModel.find({role:'user'}).select('username email mobileNumber role');
+
+        
         res.json(users);
     } catch (error) {
         res.status(500).json({ message: "Error fetching customers", error });

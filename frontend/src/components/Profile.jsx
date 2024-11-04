@@ -20,7 +20,7 @@ const Profile = () => {
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const response = await axios.get(`http://localhost:5001/users/${userId}`);
+                const response = await axios.get(`/api/users/${userId}`);
                 const userData = response.data;
                 setUser({
                     username: userData.username,
@@ -53,7 +53,7 @@ const Profile = () => {
                 return;
             }
 
-            const response = await axios.put(`http://localhost:5001/users/update/${userId}`, {
+            const response = await axios.put(`/users/update/${userId}`, {
                 username: newUsername,
                 mobileNumber: newMobile
             });
