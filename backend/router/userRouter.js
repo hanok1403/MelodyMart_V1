@@ -4,6 +4,8 @@ import orderModel from '../models/OrderModel.js';
 import productModel from '../models/ProductModel.js';
 import userModel from '../models/UserModel.js';
 import mail from './sendmail.js';
+import nodemailer from 'nodemailer';
+
 const router = express.Router()
 router.use(express.urlencoded({extended:true}))
 router.use(express.json());
@@ -21,17 +23,91 @@ router.get('/users/:id', async (req, res) => {
     }
   });
 
-  router.post('/forgotPassword/', async (req, res) => {
-    const {email}= req.body;
-    try{
-        const userDetails= await userModel.findOne({email:email});
-        if(!userDetails)
-            return res.status(404).json({message:'User not found'});
-        res.status(200).json(userDetails);
-    }catch(err){
-        res.status(500).json({message:'Error fetching user details',error: err.message});
+  const generateRandomPassword = () => {
+    const lowerCase = 'abcdefghijklmnopqrstuvwxyz';
+    const upperCase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const numbers = '0123456789';
+    const specialChars = '!@#$%^&*()_+[]{}|;:,.<>?';
+  
+    let password = '';
+    password += lowerCase.charAt(Math.floor(Math.random() * lowerCase.length));
+    password += upperCase.charAt(Math.floor(Math.random() * upperCase.length));
+    password += numbers.charAt(Math.floor(Math.random() * numbers.length));
+    password += specialChars.charAt(Math.floor(Math.random() * specialChars.length));
+  
+    const allCharacters = lowerCase + upperCase + numbers + specialChars;
+    for (let i = 4; i < 10; i++) {
+        password += allCharacters.charAt(Math.floor(Math.random() * allCharacters.length));
     }
-  });
+  
+    return password;
+};
+
+// Forgot password route
+router.post('/forgotPassword', async (req, res) => {
+    try {
+        const { email } = req.body;
+
+        // Find user
+        const user = await userModel.findOne({ email: email.trim() });
+        if (!user) {
+            return res.status(404).json({ 
+                message: 'No account found with this email address' 
+            });
+        }
+
+        // Generate new password
+        const newPassword = generateRandomPassword();
+        
+        // Update user's password
+        user.password = newPassword;
+        await user.save();
+
+        // Create email transporter
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: process.env.EMAIL,
+                pass: process.env.NODEMAIL_PASS
+            }
+        });
+
+        // Email content
+        const mailOptions = {
+            from: process.env.EMAIL,
+            to: email,
+            subject: 'Melody Mart - Your New Password',
+            html: `
+                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+                    <h2 style="color: #333;">Password Reset</h2>
+                    <p>Your account password has been reset. Here are your new login credentials:</p>
+                    <p><strong>Email:</strong> ${email}</p>
+                    <p><strong>New Password:</strong> ${newPassword}</p>
+                    <p style="color: #666;">For security reasons, please change your password after logging in.</p>
+                    <hr>
+                    <p style="font-size: 12px; color: #999;">
+                        If you didn't request this password reset, please contact support immediately.
+                    </p>
+                </div>
+            `
+        };
+
+        // Send email
+        await transporter.sendMail(mailOptions);
+
+        res.status(200).json({ 
+            message: 'Password reset successful. Please check your email for the new password.' 
+        });
+
+    } catch (error) {
+        console.error('Password reset error:', error);
+        res.status(500).json({ 
+            message: 'An error occurred while processing your request.' 
+        });
+    }
+});
+
+  
 
   router.put('/users/:id', async(req,res)=>{
       const userId= req.params.id;
